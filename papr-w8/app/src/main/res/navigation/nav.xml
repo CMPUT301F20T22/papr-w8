@@ -7,22 +7,22 @@
 
     <fragment
         android:id="@+id/home2"
-        android:name="com.example.project.Home"
+        android:name="com.example.papr_w8.Home"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/profile"
-        android:name="com.example.project.Profile"
+        android:name="com.example.papr_w8.Profile"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/my_book"
-        android:name="com.example.project.my_book"
+        android:name="com.example.papr_w8.my_book"
         android:label="fragment_my_book"
         tools:layout="@layout/fragment_my_book" />
     <fragment
         android:id="@+id/search"
-        android:name="com.example.project.Search"
+        android:name="com.example.papr_w8.Search"
         android:label="fragment_search"
         tools:layout="@layout/fragment_search" />
 </navigation>

@@ -1,4 +1,4 @@
-package com.example.project;
+package com.example.papr_w8;
 
 import android.os.Bundle;
 
