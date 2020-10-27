@@ -20,6 +20,7 @@ public class EditProfile extends AppCompatActivity {
         setContentView(R.layout.edit_profile);
 
         Intent intent = getIntent();
+        user = (User) intent.getSerializableExtra("user");
 
         EditText username = (EditText) findViewById(R.id.usernameEdit);
         EditText phone = (EditText) findViewById(R.id.phoneEdit);
@@ -32,7 +33,6 @@ public class EditProfile extends AppCompatActivity {
         address.setText(user.getAddress());
 
         // checking what user entered
-
 
     }
 }

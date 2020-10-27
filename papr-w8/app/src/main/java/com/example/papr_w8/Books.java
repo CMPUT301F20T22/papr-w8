@@ -1,6 +1,8 @@
 package com.example.papr_w8;
 
-public class Books {
+import java.io.Serializable;
+
+public class Books implements Serializable {
     private String title;
     private String author;
     private String ISBN;

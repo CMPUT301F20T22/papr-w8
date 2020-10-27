@@ -1,5 +1,6 @@
 package com.example.papr_w8;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,53 +26,20 @@ public class Profile extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private static final String USER = "user";
+
 
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
     private User user;
-    private Context context;
 
-    public Profile(@NonNull Context context, User user){
-        this.user = user;
-        this.context = context;
-    }
+//    public Profile(User user){
+//        this.user = user;
+//    }
 
     public Profile() {
         // Required empty public constructor
-    }
-
-    /**
-     * Get log in information to get the correct profile information
-     */
-    @NonNull
-    public View getView(int pos, @Nullable View convertView, @NonNull ViewGroup parent) {
-        View view = convertView;
-
-        if (view == null) {
-            view = LayoutInflater.from(context).inflate(R.layout.fragment_profile, parent, false);
-        }
-        TextView name = (TextView)view.findViewById(R.id.name);
-        TextView contact = (TextView)view.findViewById(R.id.number);
-        TextView email = (TextView)view.findViewById(R.id.email);
-        TextView address = (TextView)view.findViewById(R.id.address);
-        Button edit = (Button)view.findViewById(R.id.EditProfile);
-
-        name.setText(user.getName());
-        contact.setText(user.getContact());
-        email.setText(user.getEmail());
-        address.setText(user.getAddress());
-
-        edit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                new EditProfile(user);
-                Intent intent = new Intent(view.getContext(), EditProfile.class);
-                startActivity(intent);
-            }
-        });
-
-        return view;
     }
 
 
@@ -106,7 +74,29 @@ public class Profile extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+
+        View view = inflater.inflate(R.layout.fragment_profile, container, false);
+        TextView name = (TextView)view.findViewById(R.id.name);
+        TextView contact = (TextView)view.findViewById(R.id.number);
+        TextView email = (TextView)view.findViewById(R.id.email);
+        TextView address = (TextView)view.findViewById(R.id.address);
+        Button edit = (Button)view.findViewById(R.id.EditProfile);
+
+        name.setText(user.getName());
+        contact.setText(user.getContact());
+        email.setText(user.getEmail());
+        address.setText(user.getAddress());
+
+        edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), EditProfile.class);
+                intent.putExtra("user", user);
+                startActivity(intent);
+            }
+        });
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false);
+        return view;
     }
 }
