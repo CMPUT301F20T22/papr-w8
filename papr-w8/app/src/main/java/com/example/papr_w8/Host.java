@@ -9,7 +9,7 @@ import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class host extends AppCompatActivity {
+public class Host extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
