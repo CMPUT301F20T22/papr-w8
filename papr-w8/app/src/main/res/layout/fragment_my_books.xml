@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MyBooks">
+
+    <!-- TODO: Update blank fragment layout -->
+    <!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="match_parent"-->
+    <!--        android:id="@+id/addBookFloating"-->
+    <!--        android:padding="20sp"/>-->
+
+
+    <LinearLayout
+
+        android:layout_width="180dp"
+        android:layout_height="500dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="10dp"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:id="@+id/view_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="View"
+            android:textSize="26dp" />
+
+        <Button
+            android:id="@+id/books_owned"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:text="Books Owned(Owner):"
+            android:textSize="15dp" />
+
+
+        <Button
+            android:id="@+id/books_borrowed"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:text="Books Borrowed (Borrower):" />
+
+        <Button
+            android:id="@+id/books_requested"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Books Requested (Borrower)"
+            android:textSize="15dp" />
+
+
+        <TextView
+            android:id="@+id/actions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Actions"
+            android:textSize="26dp" />
+        <Button
+            android:id="@+id/add_book"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:textSize="15dp"
+            android:text="Add a Book (Owner):" />
+
+
+        <Button
+            android:id="@+id/find_book"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:text="Find a Book"
+            android:textSize="15dp" />
+        <Button
+            android:id="@+id/accept_request"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="2"
+            android:textSize="15dp"
+            android:text="Accept Requests (Owner)"
+            />
+
+
+
+
+    </LinearLayout>
+
+
+    <!--    <Button-->
+    <!--        android:id="@+id/addBookFloating"-->
+    <!--        android:layout_width="119dp"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:clickable="true"-->
+    <!--        android:focusable="true"-->
+    <!--        android:text="Add Book"-->
+    <!--        android:layout_gravity="bottom|right" />-->
+
+    <!--    <TextView-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent"-->
+    <!--        android:text="Hello Blank Fragment" />-->
+
+</FrameLayout>
