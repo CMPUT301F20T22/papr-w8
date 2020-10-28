@@ -8,7 +8,7 @@ import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
 public class AddBook extends AppCompatActivity {
 
-    private Books book;
+    private Book book;
 //    private EditText newBookTitle;
 //    private EditText newISBNTitle;
 //    private Button cancel;
@@ -19,11 +19,11 @@ public class AddBook extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_book);
 
-        final EditText newBookTitle = (EditText) findViewById(R.id.new_title_editText);
-        final EditText newBookISBN = (EditText) findViewById(R.id.new_isbn_editText);
-        final EditText newBookAuthor = (EditText) findViewById(R.id.new_author_editText);
-        Button cancel = (Button) findViewById(R.id.cancel_addbook_button);
-        Button confirm = (Button) findViewById(R.id.confirm_addbook_button);
+        final EditText newBookTitle = findViewById(R.id.new_title_editText);
+        final EditText newBookISBN = findViewById(R.id.new_isbn_editText);
+        final EditText newBookAuthor = findViewById(R.id.new_author_editText);
+        Button cancel = findViewById(R.id.cancel_addbook_button);
+        Button confirm = findViewById(R.id.confirm_addbook_button);
 
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
