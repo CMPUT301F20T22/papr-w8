@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
                                     Log.d(TAG, "signInWithEmail:success");
-                                    startActivity(new Intent(MainActivity.this, host.class));
+                                    startActivity(new Intent(MainActivity.this, Host.class));
                                 } else {
                                     Log.w(TAG,"signInWithEmail:failure", task.getException());
                                     Toast.makeText(MainActivity.this, "Authentication failed.",
