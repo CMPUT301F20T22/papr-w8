@@ -5,14 +5,14 @@ import java.util.ArrayList;
 
 public class User implements Serializable {
     private String name;
-    private String contact;
+    private String password;
     private String email;
     private String address;
     private ArrayList<Books> books;
 
-    public User(String name, String contact, String email, String address){
+    public User(String name, String password, String email, String address){
         this.name = name;
-        this.contact = contact;
+        this.password = password;
         this.email = email;
         this.address = address;
         this.books = new ArrayList<Books>();
@@ -26,12 +26,12 @@ public class User implements Serializable {
         this.name = name;
     }
 
-    public String getContact() {
-        return contact;
+    public String getPassword() {
+        return password;
     }
 
-    public void setContact(String contact) {
-        this.contact = contact;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getEmail() {

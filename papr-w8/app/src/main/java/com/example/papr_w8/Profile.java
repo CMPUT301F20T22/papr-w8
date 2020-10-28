@@ -84,7 +84,7 @@ public class Profile extends Fragment {
         Button edit = (Button)view.findViewById(R.id.EditProfile);
 
         name.setText(user.getName());
-        contact.setText(user.getContact());
+        contact.setText(user.getPassword());
         email.setText(user.getEmail());
         address.setText(user.getAddress());
 
