@@ -20,9 +20,6 @@ import com.google.firebase.auth.FirebaseAuth;
 
 
 public class MainActivity extends AppCompatActivity {
-
-
-
     private Button login_button, sign_up_button;
     private EditText emailEditText;
     private EditText passwordEditText;
