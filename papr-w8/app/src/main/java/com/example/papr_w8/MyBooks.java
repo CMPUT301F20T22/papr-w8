@@ -13,10 +13,10 @@ import androidx.fragment.app.Fragment;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link my_book#newInstance} factory method to
+ * Use the {@link MyBooks#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class my_book extends Fragment {
+public class MyBooks extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -28,7 +28,7 @@ public class my_book extends Fragment {
     private String mParam2;
     private Context context;
 
-    public my_book() {
+    public MyBooks() {
         // Required empty public constructor
     }
 
@@ -62,11 +62,11 @@ public class my_book extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment my_book.
+     * @return A new instance of fragment MyBooks.
      */
     // TODO: Rename and change types and number of parameters
-    public static my_book newInstance(String param1, String param2) {
-        my_book fragment = new my_book();
+    public static MyBooks newInstance(String param1, String param2) {
+        MyBooks fragment = new MyBooks();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);

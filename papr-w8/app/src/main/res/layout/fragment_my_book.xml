@@ -3,24 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".my_book">
+    tools:context=".MyBooks">
 
     <!-- TODO: Update blank fragment layout -->
-<!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:id="@+id/addBookFloating"-->
-<!--        android:padding="20sp"/>-->
-
-    <Button
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Add Book"
-        android:id="@+id/addBookFloating"/>
-
-<!--    <TextView-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:text="Hello Blank Fragment" />-->
+        android:layout_height="match_parent"
+        android:text="@string/hello_blank_fragment" />
 
 </FrameLayout>

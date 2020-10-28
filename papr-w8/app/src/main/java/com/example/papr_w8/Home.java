@@ -1,12 +1,15 @@
 package com.example.papr_w8;
 
+import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,9 +26,16 @@ public class Home extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private User user;
+    private Context context;
 
     public Home() {
         // Required empty public constructor
+    }
+
+    public Home(@NonNull Context context, User user){
+        this.user = user;
+        this.context = context;
     }
 
     /**

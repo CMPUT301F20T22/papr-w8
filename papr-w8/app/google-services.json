@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "435304566790",
+    "firebase_url": "https://papr-w8.firebaseio.com",
+    "project_id": "papr-w8",
+    "storage_bucket": "papr-w8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:435304566790:android:e5bed31b74ce61b4727387",
+        "android_client_info": {
+          "package_name": "com.example.papr_w8"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "435304566790-bjtk879fl5il30q8e34k9ark20a6h9ts.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB6uN7NSXwCbZCyj95-qLbeMU8AudC0abo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "435304566790-bjtk879fl5il30q8e34k9ark20a6h9ts.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

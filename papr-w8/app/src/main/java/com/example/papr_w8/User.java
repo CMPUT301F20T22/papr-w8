@@ -1,16 +1,21 @@
 package com.example.papr_w8;
 
-public class User {
+import java.io.Serializable;
+import java.util.ArrayList;
+
+public class User implements Serializable {
     private String name;
-    private String contact;
+    private String password;
     private String email;
     private String address;
+    private ArrayList<Book> books;
 
-    public User(String name, String contact, String email, String address){
+    public User(String name, String password, String email, String address){
         this.name = name;
-        this.contact = contact;
+        this.password = password;
         this.email = email;
         this.address = address;
+        this.books = new ArrayList<Book>();
     }
 
     public String getName() {
@@ -21,12 +26,12 @@ public class User {
         this.name = name;
     }
 
-    public String getContact() {
-        return contact;
+    public String getPassword() {
+        return password;
     }
 
-    public void setContact(String contact) {
-        this.contact = contact;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getEmail() {
@@ -43,5 +48,13 @@ public class User {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public ArrayList<Book> getBooks() {
+        return books;
+    }
+
+    public void addBooks(Book book) {
+        books.add(book);
     }
 }
