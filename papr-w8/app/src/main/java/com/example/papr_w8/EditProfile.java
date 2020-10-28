@@ -28,7 +28,7 @@ public class EditProfile extends AppCompatActivity {
         EditText address = (EditText) findViewById(R.id.addressEdit);
 
         username.setText(user.getName());
-        phone.setText(user.getContact());
+        phone.setText(user.getPassword());
         email.setText(user.getEmail());
         address.setText(user.getAddress());
 
