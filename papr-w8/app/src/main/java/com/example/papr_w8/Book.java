@@ -2,13 +2,13 @@ package com.example.papr_w8;
 
 import java.io.Serializable;
 
-public class Books implements Serializable {
+public class Book implements Serializable {
     private String title;
     private String author;
     private String ISBN;
     private String status;
 
-    public Books(String title, String author, String ISBN, String status) {
+    public Book(String title, String author, String ISBN, String status) {
         this.title = title;
         this.author = author;
         this.ISBN = ISBN;

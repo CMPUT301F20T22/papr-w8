@@ -8,14 +8,14 @@ public class User implements Serializable {
     private String password;
     private String email;
     private String address;
-    private ArrayList<Books> books;
+    private ArrayList<Book> books;
 
     public User(String name, String password, String email, String address){
         this.name = name;
         this.password = password;
         this.email = email;
         this.address = address;
-        this.books = new ArrayList<Books>();
+        this.books = new ArrayList<Book>();
     }
 
     public String getName() {
@@ -50,11 +50,11 @@ public class User implements Serializable {
         this.address = address;
     }
 
-    public ArrayList<Books> getBooks() {
+    public ArrayList<Book> getBooks() {
         return books;
     }
 
-    public void addBooks(Books book) {
+    public void addBooks(Book book) {
         books.add(book);
     }
 }

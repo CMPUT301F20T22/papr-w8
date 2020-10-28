@@ -17,7 +17,7 @@
         tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/my_book"
-        android:name="com.example.papr_w8.MyBook"
+        android:name="com.example.papr_w8.MyBooks"
         android:label="fragment_my_book"
         tools:layout="@layout/fragment_my_book" />
     <fragment
