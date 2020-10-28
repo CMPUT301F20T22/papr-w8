@@ -1,12 +1,15 @@
 package com.example.papr_w8;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,9 +26,34 @@ public class my_book extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private Context context;
 
     public my_book() {
         // Required empty public constructor
+    }
+
+    public my_book(Context context) {
+        this.context = context;
+    }
+
+    @Nullable
+//    @Override
+    public View getView(View convertView, ViewGroup parent) {
+        View view = convertView;
+
+        if (view == null) {
+            view = LayoutInflater.from(context).inflate(R.layout.fragment_my_book, parent, false);
+        }
+        Button addBookButton = (Button) view.findViewById(R.id.addBookFloating);
+        addBookButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), AddBook.class);
+                startActivity(intent);
+            }
+        });
+
+        return view;
     }
 
     /**

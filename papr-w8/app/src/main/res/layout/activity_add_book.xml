@@ -23,6 +23,7 @@
         android:textSize="24sp" />
 
     <EditText
+        android:id="@+id/new_title_editText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="New Title"/>
@@ -35,6 +36,7 @@
         android:textSize="24sp" />
 
     <EditText
+        android:id="@+id/new_author_editText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="New Author"/>
@@ -47,6 +49,7 @@
         android:textSize="24sp" />
 
     <EditText
+        android:id="@+id/new_isbn_editText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="New ISBN"/>
@@ -70,7 +73,7 @@
         android:orientation="horizontal" >
 
         <Button
-            android:id="@+id/cancel_button"
+            android:id="@+id/cancel_addbook_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -79,7 +82,7 @@
             android:textColor="#FFFFFF" />
 
         <Button
-            android:id="@+id/confirm_button"
+            android:id="@+id/confirm_addbook_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
