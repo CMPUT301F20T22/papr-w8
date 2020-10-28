@@ -1,12 +1,18 @@
 package com.example.papr_w8;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,9 +29,44 @@ public class MyBooks extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private String bookList; //PLACEHOLDER
+    private Context context;
+
+    public MyBooks(@NonNull Context context, String bookList) {
+        this.bookList = bookList;
+        this.context = context;
+
+    }
 
     public MyBooks() {
-        // Required empty public constructor
+    }
+
+    @NonNull
+//    @Override
+    public View getView(int pos, @Nullable View convertView, @NonNull ViewGroup parent) {
+        View view = convertView;
+
+        if (view == null) {
+            view = LayoutInflater.from(context).inflate(R.layout.fragment_my_books, parent, false);
+        }
+        TextView viewBar = (TextView)view.findViewById(R.id.view_bar);
+        Button owned =  (Button) view.findViewById(R.id.books_owned);
+        Button borrowed =  (Button) view.findViewById(R.id.books_borrowed);
+        Button requested =  (Button) view.findViewById(R.id.books_requested);
+
+        TextView actionBar = (TextView)view.findViewById(R.id.actions);
+        Button add_book =  (Button) view.findViewById(R.id.add_book);
+        Button find = (Button) view.findViewById(R.id.find_book);
+        Button accepted = (Button) view.findViewById(R.id.accept_request);
+        add_book.setOnClickListener(new View.OnClickListener() {
+            //@Override
+            public void onClick(View view) {
+//                Intent intent = new Intent(view.getContext(), AddBook.class);
+//                startActivity(intent);
+            }
+        });
+
+        return view;
     }
 
     /**
@@ -59,6 +100,6 @@ public class MyBooks extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_my_book, container, false);
+        return inflater.inflate(R.layout.fragment_my_books, container, false);
     }
 }
