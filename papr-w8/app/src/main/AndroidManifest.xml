@@ -17,7 +17,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".host">
+        <activity android:name=".Host">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,6 +26,13 @@
         </activity>
 
         <activity android:name=".SignUpActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".EditProfile">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

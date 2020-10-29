@@ -101,11 +101,12 @@ public class SignUpActivity extends AppCompatActivity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
                                     HashMap<String, String> user_info = new HashMap<>();
+                                    user_info.put("name", username);
                                     user_info.put("email", email);
                                     user_info.put("password", password);
                                     user_info.put("address", address);
                                     firebaseFirestore.collection("Users")
-                                            .document(username)
+                                            .document(email)
                                             .set(user_info)
                                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                 @Override
