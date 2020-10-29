@@ -19,7 +19,7 @@
         android:id="@+id/my_book"
         android:name="com.example.papr_w8.MyBooks"
         android:label="fragment_my_book"
-        tools:layout="@layout/fragment_mybooks" />
+        tools:layout="@layout/fragment_my_books" />
     <fragment
         android:id="@+id/search"
         android:name="com.example.papr_w8.Search"

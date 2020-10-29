@@ -1,8 +1,5 @@
 package com.example.papr_w8;
 
-import java.io.Serializable;
-
-
 public class Book {
     private String title;
     private String author;
@@ -78,5 +75,4 @@ public class Book {
     public void setLocation(String location) {
         this.location = location;
     }
-
 }

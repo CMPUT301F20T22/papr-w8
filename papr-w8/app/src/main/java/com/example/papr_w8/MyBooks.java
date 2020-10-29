@@ -1,6 +1,7 @@
 package com.example.papr_w8;
 
 import android.content.Context;
+
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -60,8 +61,8 @@ public class MyBooks extends Fragment {
         add_book.setOnClickListener(new View.OnClickListener() {
             //@Override
             public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), AddBook.class);
-                startActivity(intent);
+//                Intent intent = new Intent(view.getContext(), AddBook.class);
+//                startActivity(intent);
             }
         });
 
