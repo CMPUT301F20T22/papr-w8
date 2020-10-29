@@ -8,14 +8,14 @@
     android:paddingLeft="20sp"
     android:paddingTop="20sp"
     android:paddingRight="20sp"
-    tools:context=".BooksOwned"
+    tools:context=".BooksRequested"
     >
 
     <TextView
         android:id="@+id/addBookTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Books Owned"
+        android:text="Books Requested"
         android:textSize="36sp" />
 
 </LinearLayout>
