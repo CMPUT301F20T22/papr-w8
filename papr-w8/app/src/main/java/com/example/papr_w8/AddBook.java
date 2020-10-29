@@ -1,5 +1,6 @@
 package com.example.papr_w8;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -9,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class AddBook extends AppCompatActivity {
 
     private Book book;
+    private Bitmap newCover;
 //    private EditText newBookTitle;
 //    private EditText newISBNTitle;
 //    private Button cancel;
@@ -29,19 +31,25 @@ public class AddBook extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String title = newBookTitle.getText().toString();
-                String ISBN = newBookISBN.getText().toString();
                 String author = newBookAuthor.getText().toString();
+                String ISBN = newBookISBN.getText().toString();
 
-                if (title.isEmpty()) {
+                if (title.isEmpty()) { //checks for valid title entry
                     newBookTitle.setError("Please enter title");
+                    newBookTitle.requestFocus();
+                    return;
                 }
-
-                if (ISBN.isEmpty()) {
-                    newBookISBN.setError("Please enter valid ISBN");
-                }
-
-                if (author.isEmpty()) {
+                else if (author.isEmpty()) { //checks for valid author entry
                     newBookAuthor.setError("Please enter author's name");
+                    newBookAuthor.requestFocus();
+                    return;
+
+                } else if (ISBN.isEmpty()) { //checks for valid ISBN entry
+                    newBookISBN.setError("Please enter valid ISBN");
+                    newBookISBN.requestFocus();
+                    return;
+                } else {
+//                    new Book(title, author, ISBN);
                 }
             }
         });

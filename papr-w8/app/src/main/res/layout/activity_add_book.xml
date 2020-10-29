@@ -90,5 +90,4 @@
             android:text="Add Book"
             android:textColor="#FFFFFF" />
     </LinearLayout>
-
 </LinearLayout>
