@@ -17,5 +17,13 @@
         android:layout_height="wrap_content"
         android:text="Books Owned"
         android:textSize="36sp" />
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/add_book_float"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_gravity="bottom|right"/>
+
 
 </LinearLayout>
