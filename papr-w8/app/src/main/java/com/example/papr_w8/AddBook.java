@@ -21,11 +21,14 @@ public class AddBook extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_book);
 
+
+
         final EditText newBookTitle = findViewById(R.id.new_title_editText);
         final EditText newBookISBN = findViewById(R.id.new_isbn_editText);
         final EditText newBookAuthor = findViewById(R.id.new_author_editText);
         Button cancel = findViewById(R.id.cancel_addbook_button);
         Button confirm = findViewById(R.id.confirm_addbook_button);
+
 
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
