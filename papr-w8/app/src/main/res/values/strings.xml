@@ -8,4 +8,10 @@
     <string name="enter_username">Enter username</string>
     <string name="enter_email">Enter email</string>
     <string name="hello_blank_fragment">Hello Blank Fragment</string>
+    
+    <string-array name="search_options">
+        <item>Available Books</item>
+        <item>Borrowers</item>
+        <item>Owners</item>
+    </string-array>
 </resources>

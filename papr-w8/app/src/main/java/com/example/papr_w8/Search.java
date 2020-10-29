@@ -1,19 +1,27 @@
 package com.example.papr_w8;
 
+import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link Search#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Search extends Fragment {
+public class Search extends Fragment implements AdapterView.OnItemSelectedListener {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -58,7 +66,35 @@ public class Search extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_search, container, false);
+
+        /* Citation:
+         * Title: spinner in a fragment (StackOverflow)
+         * Author: beastlyCoder
+         * Date published: Jan 2, 2018
+         * Date retrieved: Oct 28, 2020
+         * Licence: CC BY-SA 4.0
+         * URL: https://stackoverflow.com/questions/48055423/spinner-in-a-fragment/48055437
+         */
+        String[] values = getResources().getStringArray(R.array.search_options);
+        Spinner spinner = (Spinner) view.findViewById(R.id.searchoptions_spinner);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, values);
+        adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+        spinner.setAdapter(adapter);
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_search, container, false);
+        return view;
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long l) {
+        System.out.println("item is selected");
+        String text = adapterView.getItemAtPosition(pos).toString();
+        Toast.makeText(adapterView.getContext(),text,Toast.LENGTH_SHORT);
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
     }
 }
