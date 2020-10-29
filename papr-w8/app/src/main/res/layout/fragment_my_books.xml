@@ -1,16 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MyBooks">
+    android:clickable="true"
+    tools:context=".MyBooks"
+    android:focusable="true"
+    >
 
-    <!-- TODO: Update blank fragment layout -->
-    <!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="match_parent"-->
-    <!--        android:id="@+id/addBookFloating"-->
-    <!--        android:padding="20sp"/>-->
 
 
     <LinearLayout
@@ -60,11 +57,12 @@
             android:text="Actions"
             android:textSize="26dp" />
         <Button
-            android:id="@+id/add_book"
+            android:id="@+id/add_new_book"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="7dp"
             android:textSize="15dp"
+            android:clickable="true"
             android:text="Add a Book (Owner):" />
 
 
@@ -84,24 +82,6 @@
             android:text="Accept Requests (Owner)"
             />
 
-
-
-
     </LinearLayout>
 
-
-    <!--    <Button-->
-    <!--        android:id="@+id/addBookFloating"-->
-    <!--        android:layout_width="119dp"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:clickable="true"-->
-    <!--        android:focusable="true"-->
-    <!--        android:text="Add Book"-->
-    <!--        android:layout_gravity="bottom|right" />-->
-
-    <!--    <TextView-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="match_parent"-->
-    <!--        android:text="Hello Blank Fragment" />-->
-
-</FrameLayout>
+</RelativeLayout>
