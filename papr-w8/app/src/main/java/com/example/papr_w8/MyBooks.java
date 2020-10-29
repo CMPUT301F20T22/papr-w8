@@ -13,12 +13,12 @@ import android.widget.Button;
 public class MyBooks extends Fragment {
     public MyBooks() {
     }
-    public Button owned ;
-    public Button borrowed;
-    public Button requested;
-    public Button add_book;
-    public Button find ;
-    public Button accepted;
+    private Button owned ;
+    private Button borrowed;
+    private Button requested;
+    private Button add_book;
+    private Button find ;
+    private Button accepted;
 
 
     @Override
@@ -30,10 +30,32 @@ public class MyBooks extends Fragment {
         owned =  (Button) view.findViewById(R.id.books_owned);
         borrowed =  (Button) view.findViewById(R.id.books_borrowed);
         requested =  (Button) view.findViewById(R.id.books_requested);
+        add_book =  (Button) view.findViewById(R.id.add_new_book);
         find = (Button) view.findViewById(R.id.find_book);
         accepted = (Button) view.findViewById(R.id.accept_request);
-        add_book =  (Button) view.findViewById(R.id.add_new_book);
-        //addbook button
+
+
+        owned.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), BooksOwned.class);
+                startActivity(intent);
+            }
+        });
+        borrowed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), BooksBorrowed.class);
+                startActivity(intent);
+            }
+        });
+        requested.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), BooksRequested.class);
+                startActivity(intent);
+            }
+        });
         add_book.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -41,6 +63,21 @@ public class MyBooks extends Fragment {
                 startActivity(intent);
             }
         });
+        find.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), FindBook.class);
+                startActivity(intent);
+            }
+        });
+        accepted.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), AcceptRequest.class);
+                startActivity(intent);
+            }
+        });
+
 
         return view;
     }

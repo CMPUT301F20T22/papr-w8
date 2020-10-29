@@ -4,11 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class BooksBorrowed extends AppCompatActivity {
+public class AcceptRequest extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_books_borrowed);
+        setContentView(R.layout.activity_accept_request);
     }
 }
