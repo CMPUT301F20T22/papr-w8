@@ -21,17 +21,10 @@ public class AddBook extends AppCompatActivity {
     private Bitmap newCover;
     public static final String TAG = "TAG";
 
-//    private EditText newBookTitle;
-//    private EditText newISBNTitle;
-//    private Button cancel;
-//    private Button confirm_add;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_book);
-
-
 
         final EditText newBookTitle = findViewById(R.id.new_title_editText);
         final EditText newBookISBN = findViewById(R.id.new_isbn_editText);
@@ -73,7 +66,7 @@ public class AddBook extends AppCompatActivity {
                     book.put("Author", author);
                     book.put("ISBN", ISBN);
 
-                    // Firebase implementation does not work properly:
+                    // Firebase implementation, might need to change later:
                     db.set(book);
                     finish();
                 }
