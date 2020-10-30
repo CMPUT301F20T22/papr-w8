@@ -3,6 +3,7 @@ package com.example.papr_w8;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -25,6 +26,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,7 +36,9 @@ public class SignUpActivity extends AppCompatActivity {
     private EditText emailET;
     private EditText addressET;
     private FirebaseAuth firebaseAuth;
+    private FirebaseFirestore firebaseFirestore;
     private Button sign_up_button;
+    private final static String TAG = "my_message";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +46,7 @@ public class SignUpActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_up);
 
         firebaseAuth = FirebaseAuth.getInstance();
+        firebaseFirestore = FirebaseFirestore.getInstance();
 
         usernameET = findViewById(R.id.editTextUserName);
         passwordET = findViewById(R.id.editTextPassword);
@@ -69,7 +74,7 @@ public class SignUpActivity extends AppCompatActivity {
                     passwordET.requestFocus();
                     return;
                 }
-                if (password.length() < 6){
+                if (password.length() < 6) {
                     passwordET.setError("Password must be at least 6 characters.");
                     passwordET.requestFocus();
                     return;
@@ -79,7 +84,7 @@ public class SignUpActivity extends AppCompatActivity {
                     emailET.requestFocus();
                     return;
                 }
-                if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+                if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
                     emailET.setError("Please provide valid email.");
                     emailET.requestFocus();
                     return;
@@ -90,39 +95,45 @@ public class SignUpActivity extends AppCompatActivity {
                     return;
                 }
                 // check username doesn't already exist
-
                 firebaseAuth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener(SignUpActivity.this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            User user = new User(username, password, email, address);
-                            FirebaseDatabase.getInstance().getReference("Users")
-                                    .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                                    .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if (task.isSuccessful()) {
-                                        //redirect to success page
-                                    } else {
-                                        Toast.makeText(SignUpActivity.this, "Unable to sign up.", Toast.LENGTH_LONG).show();
-                                    }
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()) {
+                                    HashMap<String, String> user_info = new HashMap<>();
+                                    user_info.put("name", username);
+                                    user_info.put("email", email);
+                                    user_info.put("password", password);
+                                    user_info.put("address", address);
+                                    firebaseFirestore.collection("Users")
+                                            .document(email)
+                                            .set(user_info)
+                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+                                                    Log.d(TAG, "Data has been added successfully");
+                                                    Toast.makeText(SignUpActivity.this, "Sign up successful!",
+                                                            Toast.LENGTH_SHORT).show();
+                                                }
+                                            })
+                                            .addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    Log.d(TAG, "Data storing failed");
+                                                }
+                                            });
+                                    startActivity(new Intent(SignUpActivity.this, Host.class));
                                 }
-                            });
-
-                        }
-                        else{
-                            Toast.makeText(SignUpActivity.this, "Failed to sign up.", Toast.LENGTH_LONG).show();
-                        }
-                    }
+                            }
 
 
-                });
-
+                        });
 
             }
 
-            ;
+
         });
+
+
     }
 }
