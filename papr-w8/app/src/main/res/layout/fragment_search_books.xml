@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".search_books">
+    android:orientation="vertical"
+    tools:context=".MainActivity">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ListView
+        android:id="@+id/book_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="fragment_search_books"
-        android:gravity="center"/>
+        android:layout_height="match_parent">
 
-</FrameLayout>
+    </ListView>
+
+</RelativeLayout>

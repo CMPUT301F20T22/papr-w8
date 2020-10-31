@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:orientation="vertical">
+
+    <!--    Citation:-->
+    <!--    Title: Android Tips 4 - Two TextViews in one Line-->
+    <!--    Author: Αντώνιος Βυζεντίνης-->
+    <!--    Date published: Feb 12, 2014-->
+    <!--    Date retrieved: Sept 27, 2020-->
+    <!--    Licence: Creative Commons/Unknown-->
+    <!--    URL: https://www.youtube.com/watch?v=eDLQ6wgm31w&ab_channel=%CE%91%CE%BD%CF%84%CF%8E%CE%BD%CE%B9%CE%BF%CF%82%CE%92%CF%85%CE%B6%CE%B5%CE%BD%CF%84%CE%AF%CE%BD%CE%B7%CF%82-->
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="100"
+        android:layout_gravity="bottom">
+
+        <TextView
+            android:id="@+id/user_name_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="Name:"
+            android:textSize="20sp">
+        </TextView>
+        <TextView
+            android:id="@+id/user_name_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="DefaultName"
+            android:textSize="20sp">
+
+        </TextView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="100"
+        android:layout_gravity="bottom">
+        <TextView
+            android:id="@+id/user_email_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="Email:"
+            android:textSize="20sp">
+
+        </TextView>
+        <TextView
+            android:id="@+id/user_email_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:text="DefaultEmail"
+            android:textSize="20sp">
+
+        </TextView>
+    </LinearLayout>
+
+</LinearLayout>
