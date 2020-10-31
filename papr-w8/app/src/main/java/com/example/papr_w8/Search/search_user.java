@@ -1,4 +1,4 @@
-package com.example.papr_w8;
+package com.example.papr_w8.Search;
 
 import android.os.Bundle;
 
@@ -9,6 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+import com.example.papr_w8.R;
+import com.example.papr_w8.User;
 
 import java.util.ArrayList;
 

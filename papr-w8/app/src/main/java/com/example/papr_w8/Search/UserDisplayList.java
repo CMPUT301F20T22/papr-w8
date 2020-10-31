@@ -1,4 +1,4 @@
-package com.example.papr_w8;
+package com.example.papr_w8.Search;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,6 +9,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import com.example.papr_w8.R;
+import com.example.papr_w8.User;
 
 import java.util.ArrayList;
 

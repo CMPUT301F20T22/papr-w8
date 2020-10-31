@@ -22,7 +22,7 @@
         tools:layout="@layout/fragment_my_books" />
     <fragment
         android:id="@+id/search"
-        android:name="com.example.papr_w8.Search"
+        android:name="com.example.papr_w8.Search.Search"
         android:label="fragment_search"
         tools:layout="@layout/fragment_search" />
 </navigation>
