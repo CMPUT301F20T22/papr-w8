@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/my_books"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clickable="true"
     tools:context=".MyBooks"
     android:focusable="true"
     >
-
-
-
     <LinearLayout
 
         android:layout_width="180dp"
@@ -17,7 +15,6 @@
         android:layout_marginTop="5dp"
         android:layout_marginLeft="10dp"
         android:orientation="vertical">
-
 
         <TextView
             android:id="@+id/view_bar"
@@ -33,7 +30,6 @@
 
             android:text="Books Owned(Owner):"
             android:textSize="15dp" />
-
 
         <Button
             android:id="@+id/books_borrowed"
@@ -65,7 +61,6 @@
             android:clickable="true"
             android:text="Add a Book (Owner):" />
 
-
         <Button
             android:id="@+id/find_book"
             android:layout_width="match_parent"
@@ -81,7 +76,7 @@
             android:textSize="15dp"
             android:text="Accept Requests (Owner)"
             />
-
     </LinearLayout>
 
-</RelativeLayout>
+
+  </FrameLayout>

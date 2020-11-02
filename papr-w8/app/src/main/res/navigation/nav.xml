@@ -16,13 +16,19 @@
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
     <fragment
-        android:id="@+id/my_book"
+        android:id="@+id/my_books"
         android:name="com.example.papr_w8.MyBooks"
-        android:label="fragment_my_book"
+        android:label="fragment_my_books"
         tools:layout="@layout/fragment_my_books" />
     <fragment
         android:id="@+id/search"
-        android:name="com.example.papr_w8.Search"
+        android:name="com.example.papr_w8.Search.Search"
         android:label="fragment_search"
         tools:layout="@layout/fragment_search" />
+    <fragment
+        android:id="@+id/books_borrowed"
+        android:name="com.example.papr_w8.BooksBorrowed"
+        android:label="fragment_books_borrowed"
+        tools:layout="@layout/fragment_books_borrowed" />
+        />
 </navigation>

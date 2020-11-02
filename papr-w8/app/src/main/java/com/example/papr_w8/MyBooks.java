@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +29,7 @@ public class MyBooks extends Fragment {
 
 
         View view =  inflater.inflate(R.layout.fragment_my_books, container, false);
+
         owned =  (Button) view.findViewById(R.id.books_owned);
         borrowed =  (Button) view.findViewById(R.id.books_borrowed);
         requested =  (Button) view.findViewById(R.id.books_requested);
@@ -34,26 +37,38 @@ public class MyBooks extends Fragment {
         find = (Button) view.findViewById(R.id.find_book);
         accepted = (Button) view.findViewById(R.id.accept_request);
 
-
         owned.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), BooksOwned.class);
-                startActivity(intent);
+                BooksOwned booksOwned = new BooksOwned();
+                FragmentTransaction ft = getChildFragmentManager().beginTransaction();
+                ft.replace(R.id.my_books,booksOwned,booksOwned.getTag());
+                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                ft.addToBackStack(null);
+                ft.commit();
             }
         });
+
         borrowed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), BooksBorrowed.class);
-                startActivity(intent);
+                BooksBorrowed booksBorrowed = new BooksBorrowed();
+                FragmentTransaction ft = getChildFragmentManager().beginTransaction();
+                ft.replace(R.id.my_books,booksBorrowed,booksBorrowed.getTag());
+                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                ft.addToBackStack(null);
+                ft.commit();
             }
         });
         requested.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), BooksRequested.class);
-                startActivity(intent);
+                BooksRequested booksRequested = new BooksRequested();
+                FragmentTransaction ft = getChildFragmentManager().beginTransaction();
+                ft.replace(R.id.my_books,booksRequested,booksRequested.getTag());
+                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                ft.addToBackStack(null);
+                ft.commit();
             }
         });
         add_book.setOnClickListener(new View.OnClickListener() {
@@ -66,15 +81,23 @@ public class MyBooks extends Fragment {
         find.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), FindBook.class);
-                startActivity(intent);
+                FindBook findBook = new FindBook();
+                FragmentTransaction ft = getChildFragmentManager().beginTransaction();
+                ft.replace(R.id.my_books,findBook,findBook.getTag());
+                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                ft.addToBackStack(null);
+                ft.commit();
             }
         });
         accepted.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), AcceptRequest.class);
-                startActivity(intent);
+                AcceptRequest acceptRequest = new AcceptRequest();
+                FragmentTransaction ft = getChildFragmentManager().beginTransaction();
+                ft.replace(R.id.my_books,acceptRequest,acceptRequest.getTag());
+                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                ft.addToBackStack(null);
+                ft.commit();
             }
         });
 

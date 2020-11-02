@@ -8,11 +8,22 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserInfo;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,49 +40,11 @@ public class Profile extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private User user;
+    private User currentUser;
     private Context context;
-
-    public Profile(@NonNull Context context, User user){
-        this.user = user;
-        this.context = context;
-    }
 
     public Profile() {
         // Required empty public constructor
-    }
-
-    /**
-     * Get log in information to get the correct profile information
-     */
-    @NonNull
-    public View getView(int pos, @Nullable View convertView, @NonNull ViewGroup parent) {
-        View view = convertView;
-
-        if (view == null) {
-            view = LayoutInflater.from(context).inflate(R.layout.fragment_profile, parent, false);
-        }
-        TextView name = (TextView)view.findViewById(R.id.name);
-        TextView contact = (TextView)view.findViewById(R.id.number);
-        TextView email = (TextView)view.findViewById(R.id.email);
-        TextView address = (TextView)view.findViewById(R.id.address);
-        Button edit = (Button)view.findViewById(R.id.EditProfile);
-
-        name.setText(user.getName());
-        contact.setText(user.getPassword());
-        email.setText(user.getEmail());
-        address.setText(user.getAddress());
-
-        edit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                new EditProfile(user);
-                Intent intent = new Intent(view.getContext(), EditProfile.class);
-                startActivity(intent);
-            }
-        });
-
-        return view;
     }
 
 
@@ -106,7 +79,44 @@ public class Profile extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        final DocumentReference userDoc = FirebaseFirestore.getInstance().collection("Users").document(user.getEmail());
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false);
+        View view = inflater.inflate(R.layout.fragment_profile, container, false);
+        final TextView name = (TextView)view.findViewById(R.id.name);
+//        TextView contact = (TextView)view.findViewById(R.id.number);
+        final TextView email = (TextView)view.findViewById(R.id.email);
+        final TextView address = (TextView)view.findViewById(R.id.address);
+        Button edit = (Button)view.findViewById(R.id.EditProfile);
+
+        userDoc.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()){
+                    DocumentSnapshot doc = task.getResult();
+                    if (doc.exists()) {
+                        name.setText(doc.getString("name"));
+                        address.setText(doc.getString("address"));
+                        email.setText(user.getEmail());
+                        Log.d("Sample", "DocumentSnapshot data: " + doc.getData());
+                    } else {
+                        Log.d("Sample", "No such document");
+                    }
+                } else {
+                    Log.d("Sample", "get failed with ", task.getException());
+                }
+            }
+        });
+
+        edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), EditProfile.class);
+                startActivity(intent);
+            }
+        });
+        // Inflate the layout for this fragment
+        return view;
     }
 }
