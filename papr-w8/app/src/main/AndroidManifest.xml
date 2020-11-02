@@ -9,11 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AcceptRequest"></activity>
         <activity android:name=".FindBook" />
-        <activity android:name=".BooksRequested" />
-        <activity android:name=".BooksBorrowed" />
-        <activity android:name=".BooksOwned" />
+
+
+
         <activity android:name=".AddBook" />
         <activity android:name=".MainActivity">
             <intent-filter>
