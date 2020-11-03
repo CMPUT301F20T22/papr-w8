@@ -43,24 +43,37 @@ public class SignUpActivityTest {
         Activity activity = rule.getActivity();
     }
     /**
-     * Checks if switches to Host acitivity on a successful sign up
+     * Checks if switches to Host activity on a successful sign up
      */
     @Test
     public void checkActivitySwitch(){
         // Asserts that the current activity is the SignUpActivity. Otherwise, show "Wrong Activity"
         solo.assertCurrentActivity("Wrong Activity", SignUpActivity.class);
-        solo.enterText((EditText) solo.getView(R.id.editTextUserName), "test3");
-        solo.enterText((EditText) solo.getView(R.id.editTextEmailAddress), "test3@mail.com");
-        solo.enterText((EditText) solo.getView(R.id.editTextPassword), "password2");
+        solo.enterText((EditText) solo.getView(R.id.editTextUserName), "test4");
+        solo.enterText((EditText) solo.getView(R.id.editTextEmailAddress), "test4@mail.com");
+        solo.enterText((EditText) solo.getView(R.id.editTextPassword), "password4");
         solo.enterText((EditText) solo.getView(R.id.editTextTextPostalAddress), "somewhere");
         solo.clickOnButton("SIGN UP");
 
         // checks if new activity is Host activity
         solo.waitForActivity(Host.class);
         solo.assertCurrentActivity("Wrong Activity", Host.class);
-
     }
+    /**
+     * existing username entry should not allow sign up
+     */
+    @Test
+    public void checkNoSwitch(){
+        solo.assertCurrentActivity("Wrong Activity", SignUpActivity.class);
+        solo.enterText((EditText) solo.getView(R.id.editTextUserName), "test3");
+        solo.enterText((EditText) solo.getView(R.id.editTextEmailAddress), "test3@mail.com");
+        solo.enterText((EditText) solo.getView(R.id.editTextPassword), "password4");
+        solo.enterText((EditText) solo.getView(R.id.editTextTextPostalAddress), "somewhere");
+        solo.clickOnButton("SIGN UP");
 
+        // checks if new activity is Host activity
+        solo.assertCurrentActivity("Wrong Activity", SignUpActivity.class);
+    }
 
     /**
      * Close activity after each test
