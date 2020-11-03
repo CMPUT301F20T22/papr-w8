@@ -8,8 +8,7 @@
     android:paddingLeft="20sp"
     android:paddingTop="20sp"
     android:paddingRight="20sp"
-    tools:context=".AddBook"
-    >
+    tools:context=".AddBook">
 
     <TextView
         android:id="@+id/addBookTitle"
@@ -29,7 +28,7 @@
         android:id="@+id/new_title_editText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="New Title"/>
+        android:hint="New Title" />
 
     <TextView
         android:id="@+id/author"
@@ -42,7 +41,7 @@
         android:id="@+id/new_author_editText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="New Author"/>
+        android:hint="New Author" />
 
     <TextView
         android:id="@+id/isbn"
@@ -55,7 +54,7 @@
         android:id="@+id/new_isbn_editText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="New ISBN"/>
+        android:hint="New ISBN" />
 
     <TextView
         android:id="@+id/attach_photo"
@@ -66,14 +65,16 @@
 
     <ImageButton
         android:id="@+id/imageButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
+        android:layout_width="98dp"
+        android:layout_height="120dp"
+        android:src="@android:drawable/ic_menu_add"
+        android:padding="20dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+        android:orientation="horizontal"
+        android:padding="10dp">
 
         <Button
             android:id="@+id/cancel_addbook_button"

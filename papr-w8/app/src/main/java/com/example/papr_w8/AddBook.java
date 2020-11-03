@@ -1,10 +1,12 @@
 package com.example.papr_w8;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -31,12 +33,20 @@ public class AddBook extends AppCompatActivity {
         final EditText newBookAuthor = findViewById(R.id.new_author_editText);
         Button cancel = findViewById(R.id.cancel_addbook_button);
         Button confirm = findViewById(R.id.confirm_addbook_button);
+        ImageButton addBookCover = findViewById(R.id.imageButton);
 
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         FirebaseFirestore fbDB = FirebaseFirestore.getInstance();
         String uid = firebaseAuth.getCurrentUser().getUid();
         final DocumentReference db = fbDB.collection("Books").document(uid);
 
+        addBookCover.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(AddBook.this, AddBookCoverActivity.class);
+                startActivity(intent);
+            }
+        });
 
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -10,9 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".FindBook" />
-
-
-
+        <activity android:name=".AddBookCoverActivity" />
         <activity android:name=".AddBook" />
         <activity android:name=".MainActivity">
             <intent-filter>
