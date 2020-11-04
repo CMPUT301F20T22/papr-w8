@@ -24,11 +24,17 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+/**
+ * This is an activity that allows new users to create an account
+ */
 
 public class SignUpActivity extends AppCompatActivity {
     private EditText usernameET;
@@ -95,6 +101,44 @@ public class SignUpActivity extends AppCompatActivity {
                     return;
                 }
                 // check username doesn't already exist
+                Query usernames = firebaseFirestore.collection("Users")
+                        .whereEqualTo("name",username);
+                usernames.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()){
+                            boolean b = task.getResult().isEmpty();
+                            if (b == false){
+                                usernameET.setError("Username already exists.");
+                                usernameET.requestFocus();
+                            }
+                        }
+                        else{
+                            Log.d(TAG,"Error getting documents: ",task.getException());
+                        }
+
+                    }
+                });
+                // check if email exists before creating new user
+                Query emails = firebaseFirestore.collection("Users")
+                        .whereEqualTo("email",email);
+                emails.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()){
+                            boolean b = task.getResult().isEmpty();
+                            if (b == false){
+                                emailET.setError("There is already an account under that email.");
+                                emailET.requestFocus();
+                            }
+                        }
+                        else{
+                            Log.d(TAG,"Error getting documents: ",task.getException());
+                        }
+
+                    }
+                });
+                // Create new user with email and password
                 firebaseAuth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener(SignUpActivity.this, new OnCompleteListener<AuthResult>() {
                             @Override
