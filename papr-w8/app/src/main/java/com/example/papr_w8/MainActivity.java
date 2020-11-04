@@ -18,6 +18,9 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+/**
+ * Login Activity, the first page a user sees
+ */
 
 public class MainActivity extends AppCompatActivity {
     private Button login_button, sign_up_button;

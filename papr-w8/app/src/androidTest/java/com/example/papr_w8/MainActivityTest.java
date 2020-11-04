@@ -19,6 +19,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+/**
+ * Tests the MainActivity activity
+ */
+
 public class MainActivityTest {
     private Solo solo;
 
@@ -58,7 +62,7 @@ public class MainActivityTest {
         solo.assertCurrentActivity("Wrong Activity", Host.class);
     }
     /**
-     * If incorrect email or password is entered, unsuccessful login
+     * If incorrect email or password is entered, should stay Login Activity
      */
     @Test
     public void checkNoSwitch(){

@@ -32,6 +32,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * This is an activity that allows new users to create an account
+ */
+
 public class SignUpActivity extends AppCompatActivity {
     private EditText usernameET;
     private EditText passwordET;
@@ -97,7 +101,8 @@ public class SignUpActivity extends AppCompatActivity {
                     return;
                 }
                 // check username doesn't already exist
-                Query usernames = firebaseFirestore.collection("Users").whereEqualTo("name",username);
+                Query usernames = firebaseFirestore.collection("Users")
+                        .whereEqualTo("name",username);
                 usernames.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -115,7 +120,8 @@ public class SignUpActivity extends AppCompatActivity {
                     }
                 });
                 // check if email exists before creating new user
-                Query emails = firebaseFirestore.collection("Users").whereEqualTo("email",email);
+                Query emails = firebaseFirestore.collection("Users")
+                        .whereEqualTo("email",email);
                 emails.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -132,7 +138,7 @@ public class SignUpActivity extends AppCompatActivity {
 
                     }
                 });
-
+                // Create new user with email and password
                 firebaseAuth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener(SignUpActivity.this, new OnCompleteListener<AuthResult>() {
                             @Override
