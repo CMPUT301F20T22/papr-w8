@@ -2,17 +2,21 @@ package com.example.papr_w8;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -22,6 +26,8 @@ public class AddBook extends AppCompatActivity {
     private Book book;
     private Bitmap newCover;
     public static final String TAG = "TAG";
+    private Uri imageUri;
+    private ImageButton addBookCover;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +39,7 @@ public class AddBook extends AppCompatActivity {
         final EditText newBookAuthor = findViewById(R.id.new_author_editText);
         Button cancel = findViewById(R.id.cancel_addbook_button);
         Button confirm = findViewById(R.id.confirm_addbook_button);
-        ImageButton addBookCover = findViewById(R.id.imageButton);
+        addBookCover = findViewById(R.id.imageButton);
 
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         FirebaseFirestore fbDB = FirebaseFirestore.getInstance();
@@ -44,7 +50,8 @@ public class AddBook extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(AddBook.this, AddBookCoverActivity.class);
-                startActivity(intent);
+//                startActivity(intent);
+                startActivityForResult(intent, 1);
             }
         });
 
@@ -89,5 +96,17 @@ public class AddBook extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1) {
+            if (resultCode == RESULT_OK) {
+                String imageUriString = data.getStringExtra("coverUri");
+                imageUri = Uri.parse(imageUriString);
+                Picasso.get().load(imageUri).into(addBookCover);
+            }
+        }
     }
 }

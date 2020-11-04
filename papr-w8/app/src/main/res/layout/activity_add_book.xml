@@ -60,7 +60,7 @@
         android:id="@+id/attach_photo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Attach Photos:"
+        android:text="Attach Book Cover:"
         android:textSize="24sp" />
 
     <ImageButton

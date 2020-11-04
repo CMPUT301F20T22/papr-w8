@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -17,7 +16,6 @@ public class AddBookCoverActivity extends AppCompatActivity {
     private static final int PICK_IMAGE_REQUEST = 1;
 
     private Button confirmImage;
-    private ProgressBar progressBar;
     private ImageView imageView;
     private Uri imageUri;
 
@@ -27,7 +25,7 @@ public class AddBookCoverActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_bookcover);
 
         Button chooseFile = findViewById(R.id.choosefile_button);
-//        Button confirmImage = findViewById(R.id.confirm_coverbutton);
+        Button confirmImage = findViewById(R.id.confirm_coverbutton);
         imageView = findViewById(R.id.cover_imageview);
 
 
@@ -35,6 +33,16 @@ public class AddBookCoverActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 fileChooser();
+            }
+        });
+
+        confirmImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.putExtra("coverUri", imageUri.toString());
+                setResult(RESULT_OK, intent);
+                finish();
             }
         });
     }
