@@ -16,11 +16,6 @@ import android.widget.Toast;
 import com.example.papr_w8.R;
 
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link Search#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class Search extends Fragment implements AdapterView.OnItemSelectedListener {
 
     @Override
@@ -65,29 +60,6 @@ public class Search extends Fragment implements AdapterView.OnItemSelectedListen
 
             }
         });
-
-//        // get emails from firebase
-//        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-//        final DocumentReference userDoc = FirebaseFirestore.getInstance().collection("Users").document(user.getEmail());
-//
-//        userDoc.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-//            @Override
-//            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-//            if (task.isSuccessful()){
-//                DocumentSnapshot doc = task.getResult();
-//                if (doc.exists()) {
-//                    // display user profiles
-//
-//                    Log.d("Sample", "DocumentSnapshot data: " + doc.getData());
-//                } else { // if user profile does not exist
-//                    // display empty listview
-//                    Log.d("Sample", "No such user");
-//                }
-//            } else { // if unable to retrive from firebase
-//                Log.d("Sample", "get failed with ", task.getException());
-//            }
-//            }
-//        });
 
         // Inflate the layout for this fragment
         return view;
