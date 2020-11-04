@@ -137,16 +137,7 @@ public class EditProfile extends AppCompatActivity {
                                 Log.d("change profile", "Data storing failed");
                             }
                         });
-
-//                setContentView(R.layout.host);
-//                Fragment frag = getSupportFragmentManager().findFragmentById(R.id.fragment);
-//                final FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-//                ft.detach(frag);
-//                ft.attach(frag);
-//                ft.commit();
-//                setContentView(R.layout.edit_profile);
-//                finish();
-//                listener.refreshFrag();
+                
                 Intent intent = new Intent(EditProfile.this, Host.class);
                 intent.putExtra(EXTRA_TEXT, "Profile");
                 startActivity(intent);
