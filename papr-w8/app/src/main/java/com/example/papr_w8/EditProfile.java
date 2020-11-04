@@ -8,6 +8,8 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -15,9 +17,15 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.NavGraph;
+import androidx.navigation.NavOptions;
 import androidx.navigation.Navigation;
+import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -37,13 +45,14 @@ import java.util.HashMap;
 public class EditProfile extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private FirebaseFirestore firebaseFirestore;
+    public static final String EXTRA_TEXT = "com.example.papr_w8.EXTRA_TEXT";
 
     public EditProfile(){
 
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_profile);
 
@@ -107,46 +116,6 @@ public class EditProfile extends AppCompatActivity {
                 }
 
 
-//                UserProfileChangeRequest updates = new UserProfileChangeRequest.Builder()
-////                        .setPhotoUri(Uri.parse(""))
-//                        .build();
-//                // the above part is for user to update profile picture, unsure of how exactly we're going to do it so I'm commenting it for now
-////                firebaseAuth.createUserWithEmailAndPassword(email, password)
-////                        .addOnCompleteListener(SignUpActivity.this, new OnCompleteListener<AuthResult>() {
-////                            @Override
-////                            public void onComplete(@NonNull Task<AuthResult> task) {
-//                firebaseAuth.updateCurrentUser(user)
-////                user.updateProfile(updates)
-//                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-//                            @Override
-//                            public void onComplete(@NonNull Task<Void> task) {
-//                                if (task.isSuccessful()) {
-//                                    HashMap<String, Object> user_info = new HashMap<>();
-//                                    user_info.put("name", usernameET);
-//                                    user_info.put("email", emailET);
-//                                    user_info.put("address", addressET);
-//                                    firebaseFirestore.collection("Users")
-//                                            .document(user.getEmail())
-//                                            .update(user_info)
-//                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-//                                                @Override
-//                                                public void onSuccess(Void aVoid) {
-//                                                    Log.d("change profile", "User profile updated.");
-//                                                    Toast.makeText(EditProfile.this, "Update successful!",
-//                                                            Toast.LENGTH_SHORT).show();
-//                                                }
-//                                            })
-//                                            .addOnFailureListener(new OnFailureListener() {
-//                                                @Override
-//                                                public void onFailure(@NonNull Exception e) {
-//                                                    Log.d("change profile", "Data storing failed");
-//                                                }
-//                                            });
-//                                    finish();
-//
-//                                }
-//                            }
-//                        });
                 HashMap<String, Object> user_info = new HashMap<>();
                 user_info.put("name", usernameET);
                 user_info.put("email", emailET);
@@ -168,7 +137,19 @@ public class EditProfile extends AppCompatActivity {
                                 Log.d("change profile", "Data storing failed");
                             }
                         });
-                finish();
+
+//                setContentView(R.layout.host);
+//                Fragment frag = getSupportFragmentManager().findFragmentById(R.id.fragment);
+//                final FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+//                ft.detach(frag);
+//                ft.attach(frag);
+//                ft.commit();
+//                setContentView(R.layout.edit_profile);
+//                finish();
+//                listener.refreshFrag();
+                Intent intent = new Intent(EditProfile.this, Host.class);
+                intent.putExtra(EXTRA_TEXT, "Profile");
+                startActivity(intent);
 
             }
         });
