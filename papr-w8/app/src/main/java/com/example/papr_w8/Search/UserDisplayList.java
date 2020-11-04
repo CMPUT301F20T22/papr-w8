@@ -12,6 +12,8 @@ import androidx.annotation.Nullable;
 
 import com.example.papr_w8.R;
 import com.example.papr_w8.User;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
