@@ -18,12 +18,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
@@ -38,6 +41,7 @@ public class AddBook extends AppCompatActivity {
     private ImageButton addBookCover;
     private StorageReference storageReference;
     private DatabaseReference databaseReference;
+//    EditText newBookTitle = findViewById(R.id.new_title_editText);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,18 +49,21 @@ public class AddBook extends AppCompatActivity {
         setContentView(R.layout.activity_add_book);
 
         final EditText newBookTitle = findViewById(R.id.new_title_editText);
+//        final EditText newBookTitle = findViewById(R.id.new_title_editText);
         final EditText newBookISBN = findViewById(R.id.new_isbn_editText);
         final EditText newBookAuthor = findViewById(R.id.new_author_editText);
         Button cancel = findViewById(R.id.cancel_addbook_button);
         Button confirm = findViewById(R.id.confirm_addbook_button);
         addBookCover = findViewById(R.id.imageButton);
 
-//        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+//        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
         final FirebaseFirestore fbDB = FirebaseFirestore.getInstance();
-//        String uid = firebaseAuth.getCurrentUser().getUid();
+        final String uid = firebaseAuth.getCurrentUser().getUid();
         storageReference = FirebaseStorage.getInstance().getReference("images");
         databaseReference = FirebaseDatabase.getInstance().getReference("images");
+        FirebaseUser user = firebaseAuth.getInstance().getCurrentUser();
+        final String email = user.getEmail();
 
         addBookCover.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,7 +102,8 @@ public class AddBook extends AppCompatActivity {
                     book.put("ISBN", ISBN);
                     book.put("Status", "Available");
                     // Firebase implementation, might need to change later:
-                    fbDB.collection("Books")
+
+                    fbDB.collection("Users").document(email).collection("Books Owned")
                             .add(book)
                             .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                 @Override
@@ -130,6 +138,7 @@ public class AddBook extends AppCompatActivity {
                 String imageUriString = data.getStringExtra("coverUri");
                 imageUri = Uri.parse(imageUriString);
                 Picasso.get().load(imageUri).into(addBookCover);
+                uploadCover();
             }
         }
     }
@@ -142,10 +151,22 @@ public class AddBook extends AppCompatActivity {
 
     private void uploadCover() {
         if (imageUri != null) {
-
+            StorageReference fileRef = storageReference.child(System.currentTimeMillis() + "." + getFileExt(imageUri));
+            fileRef.putFile(imageUri)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            Toast.makeText(AddBook.this, "Cover Uploaded", Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(AddBook.this, "Cover Upload Failed", Toast.LENGTH_SHORT).show();
+                        }
+                    });
         } else {
             Toast.makeText(this, "No book cover selected", Toast.LENGTH_SHORT).show();
         }
     }
-
 }
