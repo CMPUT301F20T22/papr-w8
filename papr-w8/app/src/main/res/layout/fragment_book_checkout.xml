@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".BookView.BookCheckoutView">
+
+    <TextView
+        android:id="@+id/descriptionText"
+        android:layout_width="170dp"
+        android:layout_height="43dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="200dp"
+        android:textSize="26dp"
+        android:text="Description" />
+
+    <TextView
+        android:id="@+id/actionsText"
+        android:layout_width="170dp"
+        android:layout_height="43dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="400dp"
+        android:textSize="26dp"
+        android:text="Actions" />
+
+    <ImageView
+        android:id="@+id/frontImageView"
+        android:layout_width="125dp"
+        android:layout_height="175dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="20dp"
+        tools:src="@tools:sample/avatars" />
+
+    <ImageView
+        android:id="@+id/backImageView"
+        android:layout_width="125dp"
+        android:layout_height="175dp"
+        android:layout_marginLeft="225dp"
+        android:layout_marginTop="20dp"
+        tools:src="@tools:sample/avatars" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="235dp"
+        android:background="@android:color/darker_gray"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="435dp"
+        android:background="@android:color/darker_gray"/>
+
+    <TextView
+        android:id="@+id/titleText"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="240dp"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        android:text="Title" />
+
+    <TextView
+        android:id="@+id/titleEditText"
+        android:layout_width="270dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="110dp"
+        android:layout_marginTop="240dp"
+        android:textSize="20dp"
+        android:text="Title" />
+
+    <TextView
+        android:id="@+id/authorText"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="275dp"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        android:text="Author" />
+
+    <TextView
+        android:id="@+id/authorEditText"
+        android:layout_width="270dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="110dp"
+        android:layout_marginTop="275dp"
+        android:textSize="20dp"
+        android:text="Author" />
+
+    <TextView
+        android:id="@+id/isbnText"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="310dp"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        android:text="ISBN" />
+
+    <TextView
+        android:id="@+id/isbnEditText"
+        android:layout_width="270dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="110dp"
+        android:layout_marginTop="310dp"
+        android:textSize="20dp"
+        android:text="ISBN" />
+
+    <TextView
+        android:id="@+id/statusText"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="345dp"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        android:text="Status" />
+
+    <TextView
+        android:id="@+id/statusEditText"
+        android:layout_width="270dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="110dp"
+        android:layout_marginTop="345dp"
+        android:textSize="20dp"
+        android:text="Status" />
+
+    <Button
+        android:id="@+id/confirmButton"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:layout_gravity="bottom|center"
+        android:layout_marginBottom="120dp"
+        android:text="Confirm Borrow" />
+
+    <Button
+        android:id="@+id/cancelborrowButton"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:layout_gravity="bottom|center"
+        android:layout_marginBottom="75dp"
+        android:text="Cancel Borrow" />
+
+    <Button
+        android:id="@+id/deleteButton"
+        android:layout_width="294dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="30dp"
+        android:layout_gravity="bottom|center"
+        android:background="#C62E49"
+        android:text="Delete Book" />
+
+
+</FrameLayout>

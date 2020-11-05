@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".BookActivity">
+    tools:context=".BookView.BookReturningView">
 
     <TextView
         android:id="@+id/descriptionText"
@@ -20,7 +20,7 @@
         android:layout_width="170dp"
         android:layout_height="43dp"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="400dp"
+        android:layout_marginTop="410dp"
         android:textSize="26dp"
         android:text="Actions" />
 
@@ -48,7 +48,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginTop="435dp"
+        android:layout_marginTop="445dp"
         android:background="@android:color/darker_gray"/>
 
     <TextView
@@ -65,7 +65,7 @@
         android:id="@+id/titleEditText"
         android:layout_width="270dp"
         android:layout_height="40dp"
-        android:layout_marginLeft="100dp"
+        android:layout_marginLeft="110dp"
         android:layout_marginTop="240dp"
         android:textSize="20dp"
         android:text="Title" />
@@ -84,7 +84,7 @@
         android:id="@+id/authorEditText"
         android:layout_width="270dp"
         android:layout_height="40dp"
-        android:layout_marginLeft="100dp"
+        android:layout_marginLeft="110dp"
         android:layout_marginTop="275dp"
         android:textSize="20dp"
         android:text="Author" />
@@ -103,7 +103,7 @@
         android:id="@+id/isbnEditText"
         android:layout_width="270dp"
         android:layout_height="40dp"
-        android:layout_marginLeft="100dp"
+        android:layout_marginLeft="110dp"
         android:layout_marginTop="310dp"
         android:textSize="20dp"
         android:text="ISBN" />
@@ -122,35 +122,45 @@
         android:id="@+id/statusEditText"
         android:layout_width="270dp"
         android:layout_height="40dp"
-        android:layout_marginLeft="100dp"
+        android:layout_marginLeft="110dp"
         android:layout_marginTop="345dp"
         android:textSize="20dp"
         android:text="Status" />
 
-    <Button
-        android:id="@+id/viewapproveButton"
-        android:layout_width="300dp"
+    <TextView
+        android:id="@+id/borrowerText"
+        android:layout_width="90dp"
         android:layout_height="40dp"
-        android:layout_marginBottom="120dp"
-        android:layout_gravity="bottom|center"
-        android:text="View/Approve Requests (Owner)" />
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="380dp"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        android:text="Borrower" />
+
+    <TextView
+        android:id="@+id/borrowerEditText"
+        android:layout_width="270dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="110dp"
+        android:layout_marginTop="380dp"
+        android:textSize="20dp"
+        android:text="Borrower" />
 
     <Button
-        android:id="@+id/editdescriptionButton"
+        android:id="@+id/returnButton"
         android:layout_width="300dp"
         android:layout_height="40dp"
-        android:layout_marginBottom="75dp"
         android:layout_gravity="bottom|center"
-        android:text="Edit Description (Owner)" />
+        android:layout_marginBottom="110dp"
+        android:text="Return Book" />
 
     <Button
-        android:id="@+id/deletebookButton"
-        android:layout_width="294dp"
+        android:id="@+id/cancelButton"
+        android:layout_width="300dp"
         android:layout_height="40dp"
-        android:layout_marginBottom="30dp"
         android:layout_gravity="bottom|center"
-        android:background="#C62E49"
-        android:text="Delete Book" />
+        android:layout_marginBottom="65dp"
+        android:text="Cancel" />
 
 
 </FrameLayout>
