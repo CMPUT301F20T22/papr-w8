@@ -1,21 +1,29 @@
 package com.example.papr_w8;
 
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.firebase.auth.FirebaseAuth;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
@@ -28,6 +36,8 @@ public class AddBook extends AppCompatActivity {
     public static final String TAG = "TAG";
     private Uri imageUri;
     private ImageButton addBookCover;
+    private StorageReference storageReference;
+    private DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,10 +51,12 @@ public class AddBook extends AppCompatActivity {
         Button confirm = findViewById(R.id.confirm_addbook_button);
         addBookCover = findViewById(R.id.imageButton);
 
-        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-        FirebaseFirestore fbDB = FirebaseFirestore.getInstance();
-        String uid = firebaseAuth.getCurrentUser().getUid();
-        final DocumentReference db = fbDB.collection("Books").document(uid);
+//        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+        final FirebaseFirestore fbDB = FirebaseFirestore.getInstance();
+//        String uid = firebaseAuth.getCurrentUser().getUid();
+        storageReference = FirebaseStorage.getInstance().getReference("images");
+        databaseReference = FirebaseDatabase.getInstance().getReference("images");
 
         addBookCover.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,8 +78,7 @@ public class AddBook extends AppCompatActivity {
                     newBookTitle.setError("Please enter title");
                     newBookTitle.requestFocus();
                     return;
-                }
-                else if (author.isEmpty()) { //checks for valid author entry
+                } else if (author.isEmpty()) { //checks for valid author entry
                     newBookAuthor.setError("Please enter author's name");
                     newBookAuthor.requestFocus();
                     return;
@@ -82,9 +93,22 @@ public class AddBook extends AppCompatActivity {
                     book.put("Title", title);
                     book.put("Author", author);
                     book.put("ISBN", ISBN);
-
+                    book.put("Status", "Available");
                     // Firebase implementation, might need to change later:
-                    db.set(book);
+                    fbDB.collection("Books")
+                            .add(book)
+                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                @Override
+                                public void onSuccess(DocumentReference documentReference) {
+                                    Toast.makeText(AddBook.this, "Book Added", Toast.LENGTH_SHORT).show();
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(AddBook.this, "Book Add Failed", Toast.LENGTH_SHORT).show();
+                                }
+                            });
                     finish();
                 }
             }
@@ -109,4 +133,19 @@ public class AddBook extends AppCompatActivity {
             }
         }
     }
+
+    private String getFileExt(Uri uri) {  // gets file extension of image
+        ContentResolver cr = getContentResolver();
+        MimeTypeMap mtp = MimeTypeMap.getSingleton();
+        return mtp.getExtensionFromMimeType(cr.getType(uri));
+    }
+
+    private void uploadCover() {
+        if (imageUri != null) {
+
+        } else {
+            Toast.makeText(this, "No book cover selected", Toast.LENGTH_SHORT).show();
+        }
+    }
+
 }
