@@ -1,5 +1,8 @@
 package com.example.papr_w8;
 
+//Displays all books owned by a user. Pulls book document from data base
+//Clicking on a book takes you to the description/ actions page
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -27,7 +30,6 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-
 public class BooksOwned extends Fragment {
 
     public static final String EXTRA_MESSAGE = "com.example.myapp.MESSAGE";
@@ -35,7 +37,6 @@ public class BooksOwned extends Fragment {
     public BooksOwned(){
     }
     private FloatingActionButton floating_add_book;
-
     private ArrayList<Book> ownedBookDataList;
     private ArrayAdapter<Book> ownedBookAdapter;
     private ListView ownedBookList;
@@ -44,18 +45,20 @@ public class BooksOwned extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        //set up firebase to pull data
         firebaseAuth = FirebaseAuth.getInstance();
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String email = user.getEmail();
 
         View view =  inflater.inflate(R.layout.fragment_books_owned, container, false);
 
+
+        //Implementation to be added later to match storyboard, issues with layout
 //        floating_add_book = view.findViewById(R.id.add_book_float);
 
 //        floating_add_book.setOnClickListener(new View.OnClickListener() {
@@ -65,6 +68,7 @@ public class BooksOwned extends Fragment {
 //                startActivity(intent);
 //            }
 //        });
+        //hold book objects
         ownedBookList =  view.findViewById(R.id.books_owned_list);
         ownedBookDataList = new ArrayList<>();
 
@@ -73,27 +77,29 @@ public class BooksOwned extends Fragment {
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        //add book items from database
                         if (task.isSuccessful()){
                             for (QueryDocumentSnapshot document : task.getResult()){
                                 ownedBookDataList.add(new Book(
                                         document.getString("Title"), document.getString("Author"),
                                         document.getString("ISBN"), document.getString("Status"),
                                         document.getString("Book Cover")));
+                                //setup an array adapter for the books
                                 ownedBookAdapter = new BookDisplayList(getContext(), ownedBookDataList);
                                 ownedBookList.setAdapter(ownedBookAdapter);
-
                             }
-
                         }
                     }
                 });
 
         ownedBookList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
+
+            //go to book description when a book is clicked on
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                Fragment fragment = new Fragment();
                 BookOwnedView bookOwnedView = new BookOwnedView();
 
+                //bundle data to transfer
                 Bundle bundle = new Bundle();
                 Book bookSelected = ownedBookAdapter.getItem(i);
                 bundle.putSerializable("bookSelected", (Serializable) bookSelected);
@@ -101,12 +107,11 @@ public class BooksOwned extends Fragment {
 
                 Intent intent = new Intent(getActivity(), BookOwnedView.class);
 
+                //transfer data
                 FragmentTransaction ft = getChildFragmentManager().beginTransaction();
                 ft.replace(R.id.books_owned, bookOwnedView);
                 ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-//                ft.addToBackStack(null);
                 ft.commit();
-
             }
         });
 
