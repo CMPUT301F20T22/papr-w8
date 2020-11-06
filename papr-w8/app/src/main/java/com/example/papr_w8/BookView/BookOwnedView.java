@@ -13,6 +13,10 @@ import androidx.fragment.app.Fragment;
 import com.example.papr_w8.Book;
 import com.example.papr_w8.R;
 
+/**
+ * This is a Fragment that displays the view of a Book Description that is Owned providing
+ * options for the Owner to Edit, View Requests, or Delete Book.
+ */
 public class BookOwnedView extends Fragment {
 
     public BookOwnedView() {
@@ -32,7 +36,6 @@ public class BookOwnedView extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
 
         View view = inflater.inflate(R.layout.fragment_book_owned, container, false);
 
@@ -45,6 +48,7 @@ public class BookOwnedView extends Fragment {
         textViewISBN = view.findViewById(R.id.isbnEditText);
         textViewStatus = view.findViewById(R.id.statusEditText);
 
+        // Get the bundle containing the Book object passed to the View
         Bundle bundle = this.getArguments();
         Book book = (Book) bundle.getSerializable("bookSelected");
 
@@ -53,24 +57,25 @@ public class BookOwnedView extends Fragment {
         textViewISBN.setText(book.getISBN());
         textViewStatus.setText(book.getStatus());
 
+        // This onClickListener performs the action of taking the Owner to view requests activity
         buttonViewApprove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                // TODO implement the action of clicking the ViewApprove button
             }
         });
 
         buttonEditDescription.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                // TODO implement the action of clicking the EditDescription button
             }
         });
 
         buttonDeleteBook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                // TODO implement the action of clicking the DeleteBook button
             }
         });
 

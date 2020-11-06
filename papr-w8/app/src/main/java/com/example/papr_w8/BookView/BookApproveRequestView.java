@@ -12,6 +12,10 @@ import androidx.fragment.app.Fragment;
 
 import com.example.papr_w8.R;
 
+/**
+ * This is a Fragment that displays the view of a Book Description that has been Requested and needs
+ * to be Approved or Declined by a Book Owner.
+ */
 public class BookApproveRequestView extends Fragment {
 
     public BookApproveRequestView() {
@@ -30,7 +34,6 @@ public class BookApproveRequestView extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
 
         View view = inflater.inflate(R.layout.fragment_book_owned, container, false);
 
@@ -42,17 +45,25 @@ public class BookApproveRequestView extends Fragment {
         textViewISBN = view.findViewById(R.id.isbnEditText);
         textViewStatus = view.findViewById(R.id.statusEditText);
 
+        // This onClickListener performs the action of updating the status of a Book to Approved
+        // sending the user to a pop-up screen notifying them that the Borrower has been
+        // notified.
+
         buttonApproveRequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                // TODO implement the action of clicking the Approve button
             }
         });
+
+        // This onClickListener performs the action of updating the status of a Book to Declined
+        // sending the user to a pop-up screen notifying them that the Borrower has been
+        // notified.
 
         buttonDeclineRequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                // TODO implement the action of clicking the Decline button
             }
         });
 
