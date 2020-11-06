@@ -1,18 +1,27 @@
 package com.example.papr_w8;
 
-import java.io.Serializable;
 
-public class Book implements Serializable {
+public class Book {
     private String title;
     private String author;
     private String ISBN;
     private String status;
+    private String cover;
+
+    public Book(String title, String author, String ISBN, String status, String cover) {
+        this.title = title;
+        this.author = author;
+        this.ISBN = ISBN;
+        this.status = status;
+        this.cover = cover;
+    }
 
     public Book(String title, String author, String ISBN, String status) {
         this.title = title;
         this.author = author;
         this.ISBN = ISBN;
         this.status = status;
+        this.cover = null;
     }
 
     public String getTitle() {
@@ -45,5 +54,13 @@ public class Book implements Serializable {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getCover() {
+        return cover;
+    }
+
+    public void setCover(String cover) {
+        this.cover = cover;
     }
 }
