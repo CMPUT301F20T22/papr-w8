@@ -41,6 +41,7 @@ public class AddBook extends AppCompatActivity {
     private ImageButton addBookCover;
     private StorageReference storageReference;
     private DatabaseReference databaseReference;
+    private String fileName;
 //    EditText newBookTitle = findViewById(R.id.new_title_editText);
 
     @Override
@@ -101,6 +102,7 @@ public class AddBook extends AppCompatActivity {
                     book.put("Author", author);
                     book.put("ISBN", ISBN);
                     book.put("Status", "Available");
+                    book.put("Book Cover", fileName);
                     // Firebase implementation, might need to change later:
 
                     fbDB.collection("Users").document(email).collection("Books Owned")
@@ -151,7 +153,8 @@ public class AddBook extends AppCompatActivity {
 
     private void uploadCover() {
         if (imageUri != null) {
-            StorageReference fileRef = storageReference.child(System.currentTimeMillis() + "." + getFileExt(imageUri));
+            fileName = System.currentTimeMillis() + "." + getFileExt(imageUri);
+            StorageReference fileRef = storageReference.child(fileName);
             fileRef.putFile(imageUri)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
