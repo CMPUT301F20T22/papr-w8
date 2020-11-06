@@ -6,7 +6,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-//Placeholder: May not make it to final version due to redundancy
+/**
+ * Placeholder: May not make it to final version due to redundancy
+*/
 public class FindBook extends Fragment {
     public FindBook(){
     }

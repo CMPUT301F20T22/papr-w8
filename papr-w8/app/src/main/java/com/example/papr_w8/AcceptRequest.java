@@ -6,9 +6,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-//Placeholder, implementation to be added next sprint
-//will show books  user has recieved requests for
-
+/**
+ * Placeholder, implementation to be added next sprint
+ * will show books  user has recieved requests for
+*/
 public class AcceptRequest extends Fragment {
     public AcceptRequest(){
     }
