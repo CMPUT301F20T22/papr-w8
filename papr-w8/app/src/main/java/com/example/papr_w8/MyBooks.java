@@ -1,9 +1,10 @@
 package com.example.papr_w8;
 
-// may merge this fragment with shelves next sprint
-//page that displays user options
-// clicking on a button takes user to other fragment/activities
-
+/**
+ * may merge this fragment with shelves next sprint
+ * page that displays user options
+ * clicking on a button takes user to other fragment/activities
+*/
 import android.content.Intent;
 import android.os.Bundle;
 

@@ -1,7 +1,10 @@
 package com.example.papr_w8;
 
-//Displays all books owned by a user. Pulls book document from data base
-//Clicking on a book takes you to the description/ actions page
+/**
+ * Displays all books owned by a user. Pulls book document from data base
+ * Clicking on a book takes you to the description/ actions page
+ */
+
 
 import android.content.Intent;
 import android.os.Bundle;

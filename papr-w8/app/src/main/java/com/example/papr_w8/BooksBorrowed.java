@@ -6,9 +6,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-//Placeholder, implementation to be added next sprint
-// WIll show book user has  borrowed
-
+/**
+ * Placeholder, implementation to be added next sprint
+ * WIll show book user has  borrowed
+*/
 public class BooksBorrowed extends Fragment {
     public BooksBorrowed(){
     }
