@@ -2,7 +2,6 @@ package com.example.papr_w8;
 
 import android.content.ContentResolver;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -32,25 +31,27 @@ import com.squareup.picasso.Picasso;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * AddBook class handles adding a book from the addbook activity
+ */
 public class AddBook extends AppCompatActivity {
 
-    private Book book;
-    private Bitmap newCover;
     public static final String TAG = "TAG";
     private Uri imageUri;
     private ImageButton addBookCover;
     private StorageReference storageReference;
-    private DatabaseReference databaseReference;
     private String fileName;
-//    EditText newBookTitle = findViewById(R.id.new_title_editText);
 
+    /**
+     * onCreate starts the code for adding a book functionality
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_book);
 
         final EditText newBookTitle = findViewById(R.id.new_title_editText);
-//        final EditText newBookTitle = findViewById(R.id.new_title_editText);
         final EditText newBookISBN = findViewById(R.id.new_isbn_editText);
         final EditText newBookAuthor = findViewById(R.id.new_author_editText);
         Button cancel = findViewById(R.id.cancel_addbook_button);
@@ -58,24 +59,23 @@ public class AddBook extends AppCompatActivity {
         addBookCover = findViewById(R.id.imageButton);
 
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-//        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+
         final FirebaseFirestore fbDB = FirebaseFirestore.getInstance();
-        final String uid = firebaseAuth.getCurrentUser().getUid();
         storageReference = FirebaseStorage.getInstance().getReference("images");
-        databaseReference = FirebaseDatabase.getInstance().getReference("images");
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("images");
+
         FirebaseUser user = firebaseAuth.getInstance().getCurrentUser();
         final String email = user.getEmail();
 
-        addBookCover.setOnClickListener(new View.OnClickListener() {
+        addBookCover.setOnClickListener(new View.OnClickListener() {  // onClickListener for when the user clicks on the add book cover image buttor
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(AddBook.this, AddBookCoverActivity.class);
-//                startActivity(intent);
                 startActivityForResult(intent, 1);
             }
         });
 
-        confirm.setOnClickListener(new View.OnClickListener() {
+        confirm.setOnClickListener(new View.OnClickListener() {  // onClickListener for when the user clicks on the confirm button to add a book
             @Override
             public void onClick(View view) {
                 String title = newBookTitle.getText().toString();
@@ -96,15 +96,14 @@ public class AddBook extends AppCompatActivity {
                     newBookISBN.requestFocus();
                     return;
                 } else {
-//                    new Book(title, author, ISBN);
                     Map<String, Object> book = new HashMap<>();
                     book.put("Title", title);
                     book.put("Author", author);
                     book.put("ISBN", ISBN);
                     book.put("Status", "Available");
                     book.put("Book Cover", fileName);
-                    // Firebase implementation, might need to change later:
 
+                    // Implementation for adding book details to the firestore collection
                     fbDB.collection("Users").document(email).collection("Books Owned")
                             .add(book)
                             .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
@@ -119,12 +118,13 @@ public class AddBook extends AppCompatActivity {
                                     Toast.makeText(AddBook.this, "Book Add Failed", Toast.LENGTH_SHORT).show();
                                 }
                             });
+
                     finish();
                 }
             }
         });
 
-        cancel.setOnClickListener(new View.OnClickListener() {
+        cancel.setOnClickListener(new View.OnClickListener() {  // onClickListener for cancel button if the user wants to cancel adding a book
             @Override
             public void onClick(View view) {
                 finish();
@@ -132,6 +132,12 @@ public class AddBook extends AppCompatActivity {
         });
     }
 
+    /**
+     *
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -145,17 +151,25 @@ public class AddBook extends AppCompatActivity {
         }
     }
 
+    /**
+     * Gets file extension from the image uri
+     * @param uri
+     * @return
+     */
     private String getFileExt(Uri uri) {  // gets file extension of image
         ContentResolver cr = getContentResolver();
         MimeTypeMap mtp = MimeTypeMap.getSingleton();
         return mtp.getExtensionFromMimeType(cr.getType(uri));
     }
 
+    /**
+     * this gets the filename and uploads the image to firebase
+     */
     private void uploadCover() {
         if (imageUri != null) {
             fileName = System.currentTimeMillis() + "." + getFileExt(imageUri);
-            StorageReference fileRef = storageReference.child(fileName);
-            fileRef.putFile(imageUri)
+            StorageReference fileRef = storageReference.child(fileName); //sets the filename of the image
+            fileRef.putFile(imageUri)  //uploads the image to firebase using imageUri
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
