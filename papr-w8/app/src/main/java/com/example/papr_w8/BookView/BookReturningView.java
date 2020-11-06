@@ -12,6 +12,11 @@ import androidx.fragment.app.Fragment;
 
 import com.example.papr_w8.R;
 
+
+/**
+ * This is a Fragment that displays the view of a Book Description that is being returned allowing
+ * the user to Return the Book or to Cancel this transaction.
+ */
 public class BookReturningView extends Fragment {
 
     public BookReturningView() {
@@ -31,7 +36,6 @@ public class BookReturningView extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
 
         View view = inflater.inflate(R.layout.fragment_book_owned, container, false);
 
@@ -43,17 +47,20 @@ public class BookReturningView extends Fragment {
         textViewISBN = view.findViewById(R.id.isbnEditText);
         textViewStatus = view.findViewById(R.id.statusEditText);
 
+        // This onClickListener performs the action of updating the status of a Book to Returned
+        // by taking the user to a barcode scanner where they will scan the book ISBN
         buttonReturn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                // TODO implement the Return button
             }
         });
 
+        // This onClickListener performs the action of taking the user back to the MainActivity
         buttonCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                // TODO implement the Cancel button
             }
         });
 
