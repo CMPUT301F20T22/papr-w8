@@ -1,9 +1,6 @@
 package com.example.papr_w8.BookView;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +8,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.fragment.app.Fragment;
+
+import com.example.papr_w8.Book;
 import com.example.papr_w8.R;
 
 public class BookOwnedView extends Fragment {
@@ -44,6 +44,14 @@ public class BookOwnedView extends Fragment {
         textViewAuthor = view.findViewById(R.id.authorEditText);
         textViewISBN = view.findViewById(R.id.isbnEditText);
         textViewStatus = view.findViewById(R.id.statusEditText);
+
+        Bundle bundle = this.getArguments();
+        Book book = (Book) bundle.getSerializable("bookSelected");
+
+        textViewTitle.setText(book.getTitle());
+        textViewAuthor.setText(book.getAuthor());
+        textViewISBN.setText(book.getISBN());
+        textViewStatus.setText(book.getStatus());
 
         buttonViewApprove.setOnClickListener(new View.OnClickListener() {
             @Override
