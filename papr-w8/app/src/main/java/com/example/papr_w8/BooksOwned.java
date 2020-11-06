@@ -2,18 +2,19 @@ package com.example.papr_w8;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.papr_w8.Adapters.BookDisplayList;
+import com.example.papr_w8.BookView.BookOwnedView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -22,10 +23,14 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
 public class BooksOwned extends Fragment {
+
+    public static final String EXTRA_MESSAGE = "com.example.myapp.MESSAGE";
 
     public BooksOwned(){
     }
@@ -82,6 +87,28 @@ public class BooksOwned extends Fragment {
                         }
                     }
                 });
+
+        ownedBookList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                Fragment fragment = new Fragment();
+                BookOwnedView bookOwnedView = new BookOwnedView();
+
+                Bundle bundle = new Bundle();
+                Book bookSelected = ownedBookAdapter.getItem(i);
+                bundle.putSerializable("bookSelected", (Serializable) bookSelected);
+                bookOwnedView.setArguments(bundle);
+
+                Intent intent = new Intent(getActivity(), BookOwnedView.class);
+
+                FragmentTransaction ft = getChildFragmentManager().beginTransaction();
+                ft.replace(R.id.books_owned, bookOwnedView);
+                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+//                ft.addToBackStack(null);
+                ft.commit();
+
+            }
+        });
 
         return view;
     }
