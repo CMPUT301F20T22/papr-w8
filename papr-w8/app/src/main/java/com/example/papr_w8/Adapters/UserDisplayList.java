@@ -1,4 +1,4 @@
-package com.example.papr_w8.Search;
+package com.example.papr_w8.Adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
