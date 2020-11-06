@@ -1,5 +1,9 @@
 package com.example.papr_w8;
 
+// may merge this fragment with shelves next sprint
+//page that displays user options
+// clicking on a button takes user to other fragment/activities
+
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -22,14 +26,13 @@ public class MyBooks extends Fragment {
     private Button find ;
     private Button accepted;
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-
         View view =  inflater.inflate(R.layout.fragment_my_books, container, false);
 
+        //Buttons to take user to other pages
         owned =  (Button) view.findViewById(R.id.books_owned);
         borrowed =  (Button) view.findViewById(R.id.books_borrowed);
         requested =  (Button) view.findViewById(R.id.books_requested);
@@ -37,6 +40,7 @@ public class MyBooks extends Fragment {
         find = (Button) view.findViewById(R.id.find_book);
         accepted = (Button) view.findViewById(R.id.accept_request);
 
+        //go to BooksOwned fragment
         owned.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -49,6 +53,7 @@ public class MyBooks extends Fragment {
             }
         });
 
+        //Go to BooksBorrowed fragment
         borrowed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -60,6 +65,8 @@ public class MyBooks extends Fragment {
                 ft.commit();
             }
         });
+
+        //Go to BooksRequested fragment
         requested.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -71,6 +78,8 @@ public class MyBooks extends Fragment {
                 ft.commit();
             }
         });
+
+        //GO to AddBook activity
         add_book.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -78,6 +87,8 @@ public class MyBooks extends Fragment {
                 startActivity(intent);
             }
         });
+
+        //got to FindBook fragment
         find.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -89,6 +100,8 @@ public class MyBooks extends Fragment {
                 ft.commit();
             }
         });
+
+        //go to books AcceptRequest Fragment
         accepted.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -100,7 +113,6 @@ public class MyBooks extends Fragment {
                 ft.commit();
             }
         });
-
 
         return view;
     }
