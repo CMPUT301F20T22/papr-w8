@@ -36,21 +36,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Name"
-            android:textSize="26dp" />
+            android:textSize="26dp"/>
 
-        <TextView
-            android:id="@+id/contactText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="7dp"
-            android:text="contact:" />
-
-        <TextView
-            android:id="@+id/number"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Phone #"
-            android:textSize="26dp" />
 
         <TextView
             android:id="@+id/emailText"

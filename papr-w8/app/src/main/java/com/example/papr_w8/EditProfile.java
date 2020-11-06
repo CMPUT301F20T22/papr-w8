@@ -42,6 +42,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
 
+/**
+ * This activity allows users to change their account
+ */
 public class EditProfile extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private FirebaseFirestore firebaseFirestore;
@@ -137,7 +140,6 @@ public class EditProfile extends AppCompatActivity {
                                 Log.d("change profile", "Data storing failed");
                             }
                         });
-
                 Intent intent = new Intent(EditProfile.this, Host.class);
                 intent.putExtra(EXTRA_TEXT, "Profile");
                 startActivity(intent);

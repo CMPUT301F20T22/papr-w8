@@ -13,6 +13,9 @@ import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+/**
+ * This activity set up the bottom navigation view, the navigation controller with the navigation bar
+ */
 public class Host extends AppCompatActivity{
     private String startActivity;
 
