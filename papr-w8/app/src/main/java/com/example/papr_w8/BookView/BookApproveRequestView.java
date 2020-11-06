@@ -32,7 +32,7 @@ public class BookApproveRequestView extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        View view = inflater.inflate(R.layout.fragment_book_requested, container, false);
+        View view = inflater.inflate(R.layout.fragment_book_owned, container, false);
 
         buttonApproveRequest = (Button) view.findViewById(R.id.approverequestButton);
         buttonDeclineRequest = (Button) view.findViewById(R.id.declinerequestButton);

@@ -33,7 +33,7 @@ public class BookCheckoutView extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        View view = inflater.inflate(R.layout.fragment_book_requested, container, false);
+        View view = inflater.inflate(R.layout.fragment_book_owned, container, false);
 
         buttonConfirmBorrow = (Button) view.findViewById(R.id.confirmButton);
         buttonCancelBorrow = (Button) view.findViewById(R.id.cancelborrowButton);

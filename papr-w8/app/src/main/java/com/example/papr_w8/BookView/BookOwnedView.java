@@ -13,9 +13,9 @@ import android.widget.TextView;
 
 import com.example.papr_w8.R;
 
-public class BookRequestedView extends Fragment {
+public class BookOwnedView extends Fragment {
 
-    public BookRequestedView() {
+    public BookOwnedView() {
     }
 
     private Button buttonViewApprove;
@@ -34,7 +34,7 @@ public class BookRequestedView extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        View view = inflater.inflate(R.layout.fragment_book_requested, container, false);
+        View view = inflater.inflate(R.layout.fragment_book_owned, container, false);
 
         buttonViewApprove = (Button) view.findViewById(R.id.viewapproveButton);
         buttonEditDescription = (Button) view.findViewById(R.id.editdescriptionButton);

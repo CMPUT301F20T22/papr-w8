@@ -1,10 +1,11 @@
-package com.example.papr_w8.Search;
+package com.example.papr_w8.Adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -39,6 +40,7 @@ public class BookDisplayList extends ArrayAdapter<Book> {
         TextView bookAuthor = (TextView) view.findViewById(R.id.book_author_text);
         TextView bookISBN = (TextView) view.findViewById(R.id.book_isbn_text);
         TextView bookStatus = (TextView) view.findViewById(R.id.book_status_text);
+//        ImageView bookCover = (ImageView) view.findViewById(R.id.book_cover_image);
 
         bookTitle.setText(book.getTitle());
         bookAuthor.setText(book.getAuthor());
