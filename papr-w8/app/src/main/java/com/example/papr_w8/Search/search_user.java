@@ -23,15 +23,18 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
+/**
+ * Displays a list of books fetched from firebase in Listview format
+ *
+ * @param userList Listview of Books
+ * @param userAdapter ArrayAdapter of Book items
+ * @param userDataList ArrayList of Book
+ * @return void
+ */
 public class search_user extends Fragment {
 
     ListView userList;
     ArrayAdapter<User> userAdapter;
-
-    ArrayList<String> userNames = new ArrayList<String>();
-    ArrayList<String> userEmails = new ArrayList<String>();
-    ArrayList<String> userPasswords = new ArrayList<String>();
-    ArrayList<String> userAddresses = new ArrayList<String>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -45,7 +48,8 @@ public class search_user extends Fragment {
         View view = inflater.inflate(R.layout.fragment_search_user, container, false);
 
         userList = view.findViewById(R.id.user_list);
-//        userDataList = new ArrayList<>();
+
+        // get User data from Firebase
         final Task<QuerySnapshot> userDoc = FirebaseFirestore.getInstance().collection("Users")
             .get()
             .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {

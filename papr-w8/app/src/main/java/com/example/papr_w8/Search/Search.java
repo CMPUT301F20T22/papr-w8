@@ -18,6 +18,23 @@ import com.example.papr_w8.R;
 
 public class Search extends Fragment implements AdapterView.OnItemSelectedListener {
 
+    /**
+     * Displays "Seach" page when user clicks on "Search" from the bottom navigation bar
+     * Displays spinner in the top left-hand corner so the user can choose between searching for Users or Available books
+     * When either "User" or "Available Books" is selected from spinner, a new fragment displaying the search results will be returned
+     * Search bar will return results of search query when completed
+     *
+     * Progress:
+     * clicking on different spinner items will take you to different fragments
+     * User data is fetched from firebase. Available books is currently dummy data, and will be replaced with a firebase fetch when the Books class is complete.
+     * Search functionality not yet implemented
+     *
+     * @param spinner spinner in which user can choose to search "Users" or "Available books"
+     * @param search_user fragment which handles searching for users
+     * @param search_books fragment which handles searching through available books
+     * @param adapter ArrayAdapter handling the String options for the spinner options
+     * @return Search view
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -41,6 +58,7 @@ public class Search extends Fragment implements AdapterView.OnItemSelectedListen
         adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         spinner.setAdapter(adapter);
 
+        // handle clicking on different options in spinner
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override
@@ -65,12 +83,20 @@ public class Search extends Fragment implements AdapterView.OnItemSelectedListen
         return view;
     }
 
+    /**
+     * sets the fragment to new fragment on selection of a spinner item
+     * @return void
+     */
     public void selectFragment(Fragment fragment){
         FragmentTransaction fragmentTransaction=this.getActivity().getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.fragment_search, fragment); // if it doesn't work, find out where the fragment_search is
         fragmentTransaction.commit();
     }
 
+    /**
+     * handles spinner item click
+     * @return void
+     */
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long l) {
         System.out.println("item is selected");

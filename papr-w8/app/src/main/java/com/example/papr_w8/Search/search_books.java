@@ -17,9 +17,12 @@ import com.example.papr_w8.R;
 import java.util.ArrayList;
 
 /**
- * A simple {@link Fragment} subclass.
- * Use the {@link search_books#newInstance} factory method to
- * create an instance of this fragment.
+ * Displays a list of books fetched from firebase in Listview format
+ *
+ * @param bookList Listview of Books
+ * @param bookAdapter ArrayAdapter of Book items
+ * @param bookDataList ArrayList of Book
+ * @return void
  */
 public class search_books extends Fragment {
 
@@ -52,6 +55,7 @@ public class search_books extends Fragment {
             bookDataList.add(new Book(sampleTitles[i], sampleAuthors[i], sampleISBNs[i], sampleStatus[i]));
         }
 
+        // set Book adapter and refresh it to display
         bookAdapter = new BookDisplayList(this.getContext(), bookDataList); // itemDataList is an array of existing items
         bookList.setAdapter(bookAdapter);
 
