@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav"
-    app:startDestination="@id/home2">
+    app:startDestination="@id/my_books">
 
-    <fragment
-        android:id="@+id/home2"
-        android:name="com.example.papr_w8.Home"
-        android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+<!--    <fragment-->
+<!--        android:id="@+id/home2"-->
+<!--        android:name="com.example.papr_w8.Home"-->
+<!--        android:label="fragment_home"-->
+<!--        tools:layout="@layout/fragment_home" />-->
     <fragment
         android:id="@+id/profile"
         android:name="com.example.papr_w8.Profile"
@@ -17,9 +17,9 @@
         tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/my_books"
-        android:name="com.example.papr_w8.MyBooks"
+        android:name="com.example.papr_w8.PageOne"
         android:label="fragment_my_books"
-        tools:layout="@layout/fragment_my_books" />
+        tools:layout="@layout/fragment_page_one" />
     <fragment
         android:id="@+id/search"
         android:name="com.example.papr_w8.Search.Search"

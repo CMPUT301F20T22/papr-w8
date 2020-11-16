@@ -17,8 +17,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-public class MyBooks extends Fragment {
-    public MyBooks() {
+public class PageOne extends Fragment {
+    public PageOne() {
     }
     private Button owned ;
     private Button borrowed;
@@ -31,14 +31,15 @@ public class MyBooks extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view =  inflater.inflate(R.layout.fragment_my_books, container, false);
+        View view =  inflater.inflate(R.layout.fragment_page_one, container, false);
 
         //Buttons to take user to other pages
         owned =  (Button) view.findViewById(R.id.books_owned);
         borrowed =  (Button) view.findViewById(R.id.books_borrowed);
         requested =  (Button) view.findViewById(R.id.books_requested);
         add_book =  (Button) view.findViewById(R.id.add_new_book);
-        find = (Button) view.findViewById(R.id.find_book);
+        //REMOVE FIND BOOK ???
+        // find = (Button) view.findViewById(R.id.find_book);
         accepted = (Button) view.findViewById(R.id.accept_request);
 
         //go to BooksOwned fragment
@@ -89,18 +90,18 @@ public class MyBooks extends Fragment {
             }
         });
 
-        //got to FindBook fragment
-        find.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FindBook findBook = new FindBook();
-                FragmentTransaction ft = getChildFragmentManager().beginTransaction();
-                ft.replace(R.id.my_books,findBook,findBook.getTag());
-                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                ft.addToBackStack(null);
-                ft.commit();
-            }
-        });
+        //got to FindBook fragment REMOVE ??????
+//        find.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                FindBook findBook = new FindBook();
+//                FragmentTransaction ft = getChildFragmentManager().beginTransaction();
+//                ft.replace(R.id.my_books,findBook,findBook.getTag());
+//                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+//                ft.addToBackStack(null);
+//                ft.commit();
+//            }
+//        });
 
         //go to books AcceptRequest Fragment
         accepted.setOnClickListener(new View.OnClickListener() {
