@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-<!--    <item-->
-<!--        android:id="@+id/home2"-->
-<!--        android:title="Home"-->
-<!--        android:icon="@drawable/ic_home"/>-->
+
 
     <item
-        android:id="@+id/my_books"
-        android:title="My Books"
+        android:id="@+id/page_one"
+        android:title="PAGE ONE (TEMP NAME)"
         android:icon="@drawable/ic_book"/>
+    <item
+        android:id="@+id/scan"
+        android:title="SCAN (CHANGE ICON)"
+        android:icon="@drawable/ic_home"/>
 
     <item
         android:id="@+id/search"

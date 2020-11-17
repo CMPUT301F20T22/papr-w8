@@ -48,7 +48,7 @@ public class PageOne extends Fragment {
             public void onClick(View view) {
                 BooksOwned booksOwned = new BooksOwned();
                 FragmentTransaction ft = getChildFragmentManager().beginTransaction();
-                ft.replace(R.id.my_books,booksOwned,booksOwned.getTag());
+                ft.replace(R.id.page_one,booksOwned,booksOwned.getTag());
                 ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                 ft.addToBackStack(null);
                 ft.commit();
@@ -61,7 +61,7 @@ public class PageOne extends Fragment {
             public void onClick(View view) {
                 BooksBorrowed booksBorrowed = new BooksBorrowed();
                 FragmentTransaction ft = getChildFragmentManager().beginTransaction();
-                ft.replace(R.id.my_books,booksBorrowed,booksBorrowed.getTag());
+                ft.replace(R.id.page_one,booksBorrowed,booksBorrowed.getTag());
                 ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                 ft.addToBackStack(null);
                 ft.commit();
@@ -74,7 +74,7 @@ public class PageOne extends Fragment {
             public void onClick(View view) {
                 BooksRequested booksRequested = new BooksRequested();
                 FragmentTransaction ft = getChildFragmentManager().beginTransaction();
-                ft.replace(R.id.my_books,booksRequested,booksRequested.getTag());
+                ft.replace(R.id.page_one,booksRequested,booksRequested.getTag());
                 ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                 ft.addToBackStack(null);
                 ft.commit();
@@ -109,7 +109,7 @@ public class PageOne extends Fragment {
             public void onClick(View view) {
                 AcceptRequest acceptRequest = new AcceptRequest();
                 FragmentTransaction ft = getChildFragmentManager().beginTransaction();
-                ft.replace(R.id.my_books,acceptRequest,acceptRequest.getTag());
+                ft.replace(R.id.page_one,acceptRequest,acceptRequest.getTag());
                 ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                 ft.addToBackStack(null);
                 ft.commit();
