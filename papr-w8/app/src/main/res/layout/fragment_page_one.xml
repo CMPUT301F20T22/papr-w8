@@ -15,8 +15,9 @@
         android:layout_marginStart="30dp"
         android:layout_marginLeft="30dp"
         android:layout_marginTop="10dp"
-        android:text="Shelves"
+        android:text="Books"
         android:textSize="30dp" />
+
 
     <ImageButton
         android:id="@+id/imageButton"
@@ -34,16 +35,22 @@
         tools:layout_editor_absoluteX="-2dp"
         tools:layout_editor_absoluteY="65dp">
 
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
             <TextView
-                android:id="@+id/Requested"
-                android:layout_width="match_parent"
+                android:id="@+id/textView9"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Requests" />
+                android:layout_marginStart="30dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="10dp"
+                android:text="Borrower"
+                android:textSize="30dp" />
+
+
 
             <View
 
@@ -55,8 +62,9 @@
                 android:id="@+id/books_requested"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Books Requested (Borrower)"
+                android:text="Books Requested"
                 android:textSize="15dp" />
+
 
             <HorizontalScrollView
                 android:layout_width="match_parent"
@@ -69,35 +77,6 @@
                     android:orientation="horizontal" />
             </HorizontalScrollView>
 
-            <TextView
-                android:id="@+id/Accepted"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Accepted Requests" />
-
-            <View
-                android:id="@+id/divider2"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="?android:attr/listDivider" />
-
-            <HorizontalScrollView
-                android:layout_width="match_parent"
-                android:layout_height="126dp">
-
-                <LinearLayout
-                    android:id="@+id/arBookList"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal" />
-            </HorizontalScrollView>
-
-            <TextView
-                android:id="@+id/Borrowed"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Borrowed" />
-
             <View
                 android:id="@+id/divider3"
                 android:layout_width="match_parent"
@@ -108,7 +87,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="7dp"
-                android:text="Books Borrowed (Borrower):" />
+                android:text="Books Borrowed:" />
 
             <HorizontalScrollView
                 android:layout_width="match_parent"
@@ -122,10 +101,38 @@
             </HorizontalScrollView>
 
             <TextView
-                android:id="@+id/Owned"
+                android:id="@+id/textView8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="10dp"
+                android:text="Owner"
+                android:textSize="30dp"/>
+
+            <TextView
+                android:id="@+id/Accepted"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Owned Books" />
+                android:text="Books Loaned" />
+
+            <View
+                android:id="@+id/divider2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider" />
+
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="126dp">
+
+                <LinearLayout
+                    android:id="@+id/arBookList"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal" />
+            </HorizontalScrollView>
 
             <View
                 android:id="@+id/divider4"
@@ -137,7 +144,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
 
-                android:text="Books Owned(Owner):"
+                android:text="Books Owned:"
                 android:textSize="15dp" />
 
             <HorizontalScrollView
@@ -151,11 +158,7 @@
                     android:orientation="vertical" />
             </HorizontalScrollView>
 
-            <TextView
-                android:id="@+id/Add"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Add Book" />
+
 
             <View
                 android:id="@+id/divider5"
@@ -169,7 +172,7 @@
                 android:layout_marginTop="7dp"
                 android:textSize="15dp"
                 android:clickable="true"
-                android:text="Add a Book (Owner):" />
+                android:text="Add a Book:" />
 
             <HorizontalScrollView
                 android:layout_width="match_parent"
@@ -183,13 +186,6 @@
             </HorizontalScrollView>
 
 
-
-            <TextView
-                android:id="@+id/accept_open"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Accept Open Requests" />
-
             <View
                 android:id="@+id/divider6"
                 android:layout_width="match_parent"
@@ -201,18 +197,18 @@
                 android:layout_height="wrap_content"
                 android:maxLines="2"
                 android:textSize="15dp"
-                android:text="Accept Requests (Owner)"
+                android:text="Accept Open Requests"
                 />
 
             <HorizontalScrollView
                 android:layout_width="match_parent"
                 android:layout_height="133dp">
 
-                <LinearLayout
-                    android:id="@+id/accept_open_request"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical" />
+<!--                <LinearLayout-->
+<!--                    android:id="@+id/accept_open_request"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:orientation="vertical" />-->
             </HorizontalScrollView>
 
         </LinearLayout>

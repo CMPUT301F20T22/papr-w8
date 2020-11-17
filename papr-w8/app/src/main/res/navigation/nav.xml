@@ -25,10 +25,10 @@
         android:name="com.example.papr_w8.Search.Search"
         android:label="fragment_search"
         tools:layout="@layout/fragment_search" />
-    <fragment
-        android:id="@+id/books_borrowed"
-        android:name="com.example.papr_w8.BooksBorrowed"
-        android:label="fragment_books_borrowed"
-        tools:layout="@layout/fragment_books_borrowed" />
-        />
+<!--    <fragment-->
+<!--        android:id="@+id/books_borrowed"-->
+<!--        android:name="com.example.papr_w8.BooksBorrowed"-->
+<!--        android:label="fragment_books_borrowed"-->
+<!--        tools:layout="@layout/fragment_books_borrowed" />-->
+<!--        />-->
 </navigation>

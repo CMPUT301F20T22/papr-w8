@@ -5,7 +5,7 @@
 
     <item
         android:id="@+id/page_one"
-        android:title="PAGE ONE (TEMP NAME)"
+        android:title="Books"
         android:icon="@drawable/ic_book"/>
     <item
         android:id="@+id/scan"
