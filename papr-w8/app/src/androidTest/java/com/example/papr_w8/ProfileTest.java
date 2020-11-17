@@ -1,13 +1,11 @@
 package com.example.papr_w8;
 
-import android.app.Fragment;
 import android.widget.EditText;
 
-import androidx.fragment.app.testing.FragmentScenario;
-import androidx.navigation.Navigation;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 
+import com.example.papr_w8.ProfilePack.EditProfile;
 import com.robotium.solo.Solo;
 
 import org.junit.After;
@@ -32,7 +30,7 @@ public class ProfileTest{
         solo.enterText((EditText) solo.getView(R.id.password), "something");
         solo.clickOnButton("Login");
         solo.waitForFragmentById(R.id.fragment);
-        solo.clickOnImage(3);
+        solo.clickOnImage(1);
     }
 
 

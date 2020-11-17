@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity"
     android:id="@+id/fragment_book_owned"
-    android:background="#ffffff">
+    android:background="#ffffff"
+    android:contextClickable="true">
 
     <TextView
         android:id="@+id/descriptionText"
@@ -15,7 +16,8 @@
         android:layout_marginLeft="10dp"
         android:layout_marginTop="200dp"
         android:textSize="26dp"
-        android:text="Description" />
+        android:text="Description"
+        android:contextClickable="true"/>
 
     <TextView
         android:id="@+id/actionsText"
@@ -24,7 +26,8 @@
         android:layout_marginLeft="10dp"
         android:layout_marginTop="400dp"
         android:textSize="26dp"
-        android:text="Actions" />
+        android:text="Actions"
+        android:contextClickable="true"/>
 
     <ImageView
         android:id="@+id/frontImageView"
@@ -61,7 +64,8 @@
         android:layout_marginTop="240dp"
         android:textStyle="bold"
         android:textSize="20dp"
-        android:text="Title" />
+        android:text="Title"
+        android:contextClickable="true"/>
 
     <TextView
         android:id="@+id/titleEditText"
@@ -70,7 +74,8 @@
         android:layout_marginLeft="110dp"
         android:layout_marginTop="240dp"
         android:textSize="20dp"
-        android:text="Title" />
+        android:text="Title"
+        android:contextClickable="true"/>
 
     <TextView
         android:id="@+id/authorText"
@@ -80,7 +85,8 @@
         android:layout_marginTop="275dp"
         android:textStyle="bold"
         android:textSize="20dp"
-        android:text="Author" />
+        android:text="Author"
+        android:contextClickable="true"/>
 
     <TextView
         android:id="@+id/authorEditText"
@@ -89,7 +95,8 @@
         android:layout_marginLeft="110dp"
         android:layout_marginTop="275dp"
         android:textSize="20dp"
-        android:text="Author" />
+        android:text="Author"
+        android:contextClickable="true"/>
 
     <TextView
         android:id="@+id/isbnText"
@@ -99,7 +106,8 @@
         android:layout_marginTop="310dp"
         android:textStyle="bold"
         android:textSize="20dp"
-        android:text="ISBN" />
+        android:text="ISBN"
+        android:contextClickable="true"/>
 
     <TextView
         android:id="@+id/isbnEditText"
@@ -108,7 +116,8 @@
         android:layout_marginLeft="110dp"
         android:layout_marginTop="310dp"
         android:textSize="20dp"
-        android:text="ISBN" />
+        android:text="ISBN"
+        android:contextClickable="true"/>
 
     <TextView
         android:id="@+id/statusText"
@@ -118,7 +127,8 @@
         android:layout_marginTop="345dp"
         android:textStyle="bold"
         android:textSize="20dp"
-        android:text="Status" />
+        android:text="Status"
+        android:contextClickable="true"/>
 
     <TextView
         android:id="@+id/statusEditText"
@@ -127,7 +137,8 @@
         android:layout_marginLeft="110dp"
         android:layout_marginTop="345dp"
         android:textSize="20dp"
-        android:text="Status" />
+        android:text="Status"
+        android:contextClickable="true"/>
 
     <Button
         android:id="@+id/viewapproveButton"

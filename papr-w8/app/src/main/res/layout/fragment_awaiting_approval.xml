@@ -2,18 +2,18 @@
 
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/fragment_books_borrowed"
+    android:id="@+id/fragment_awaiting_approval"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FindBook"
+    tools:context=".ShelfPack.AwaitingApproval"
     android:background="#ffffff">
 
 
         <TextView
-            android:id="@+id/find_book_title"
+            android:id="@+id/awaiting_approval_title"
             android:layout_width="match_parent"
             android:layout_height="600dp"
-            android:text="Find Book:" />
+            android:text="Awaiting Approval:" />
 
 
 
