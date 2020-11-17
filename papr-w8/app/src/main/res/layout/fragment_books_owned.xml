@@ -7,6 +7,19 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity"
     android:background="#ffffff">
+        <LinearLayout
+            android:layout_width="400dp"
+            android:layout_height="100dp"
+            android:orientation="vertical">
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/add_book_float"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:layout_gravity="end"/>
+        </LinearLayout>
 
 
         <ListView
@@ -26,10 +39,4 @@
             android:text="Books Owned:" />
 
 </RelativeLayout>
-<!--<com.google.android.material.floatingactionbutton.FloatingActionButton-->
-<!--android:id="@+id/add_book_float"-->
-<!--android:layout_width="match_parent"-->
-<!--android:layout_height="wrap_content"-->
-<!--android:clickable="true"-->
-<!--android:focusable="true"-->
-<!--android:layout_gravity="end"/>-->
+

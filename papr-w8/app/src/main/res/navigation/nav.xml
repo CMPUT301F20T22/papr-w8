@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav"
-    app:startDestination="@id/page_one">
+    app:startDestination="@id/shelves">
 
     <fragment
         android:id="@+id/scan"
@@ -12,14 +12,14 @@
         tools:layout="@layout/fragment_scan" />
     <fragment
         android:id="@+id/profile"
-        android:name="com.example.papr_w8.Profile"
+        android:name="com.example.papr_w8.ProfilePack.Profile"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
     <fragment
-        android:id="@+id/page_one"
-        android:name="com.example.papr_w8.PageOne"
-        android:label="fragment_page_one"
-        tools:layout="@layout/fragment_page_one" />
+        android:id="@+id/shelves"
+        android:name="com.example.papr_w8.ShelfPack.Shelves"
+        android:label="fragment_shelves"
+        tools:layout="@layout/fragment_shelves" />
     <fragment
         android:id="@+id/search"
         android:name="com.example.papr_w8.Search.Search"
@@ -27,7 +27,7 @@
         tools:layout="@layout/fragment_search" />
 <!--    <fragment-->
 <!--        android:id="@+id/books_borrowed"-->
-<!--        android:name="com.example.papr_w8.BooksBorrowed"-->
+<!--        android:name="com.example.papr_w8.ShelfPack.BooksBorrowed"-->
 <!--        android:label="fragment_books_borrowed"-->
 <!--        tools:layout="@layout/fragment_books_borrowed" />-->
 <!--        />-->

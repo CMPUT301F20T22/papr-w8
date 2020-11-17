@@ -1,4 +1,4 @@
-package com.example.papr_w8;
+package com.example.papr_w8.ShelfPack;
 
 /**
  * Displays all books owned by a user. Pulls book document from data base
@@ -20,7 +20,10 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.papr_w8.Adapters.BookDisplayList;
+import com.example.papr_w8.AddPack.AddBook;
+import com.example.papr_w8.Book;
 import com.example.papr_w8.BookView.BookOwnedView;
+import com.example.papr_w8.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -62,15 +65,15 @@ public class BooksOwned extends Fragment {
 
 
         //Implementation to be added later to match storyboard, issues with layout
-//        floating_add_book = view.findViewById(R.id.add_book_float);
+        floating_add_book = view.findViewById(R.id.add_book_float);
 
-//        floating_add_book.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(getActivity(), AddBook.class);
-//                startActivity(intent);
-//            }
-//        });
+        floating_add_book.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), AddBook.class);
+                startActivity(intent);
+            }
+        });
         //hold book objects
         ownedBookList =  view.findViewById(R.id.books_owned_list);
         ownedBookDataList = new ArrayList<>();

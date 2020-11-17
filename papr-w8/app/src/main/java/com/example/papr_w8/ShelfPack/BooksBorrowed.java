@@ -1,10 +1,12 @@
-package com.example.papr_w8;
+package com.example.papr_w8.ShelfPack;
 
 import androidx.fragment.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.papr_w8.R;
 
 /**
  * Placeholder, implementation to be added next sprint
