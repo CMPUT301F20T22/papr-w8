@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.example.papr_w8.Adapters.UserDisplayList;
+import com.example.papr_w8.Book;
 import com.example.papr_w8.R;
 import com.example.papr_w8.User;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -54,7 +55,8 @@ public class search_user extends Fragment {
                     ArrayList<User> userDataList = new ArrayList<>();
                     if (task.isSuccessful()) {
                         for (QueryDocumentSnapshot document : task.getResult()) {
-                            userDataList.add(new User(document.getString("name"), document.getString("password"), document.getString("email"), document.getString("address")));
+                            userDataList.add(new User(document.getString("name"), document.getString("password"),
+                                    document.getString("email"), document.getString("address")));
                             userAdapter = new UserDisplayList(getContext(), userDataList); // userDataList is an array of users
                             userList.setAdapter(userAdapter);
                             Log.d("TAG", document.getId() + " => " + document.getData());

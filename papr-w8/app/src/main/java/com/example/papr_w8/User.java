@@ -10,12 +10,19 @@ public class User implements Serializable {
     private String address;
     private ArrayList<Book> books;
 
+    public User(String name, String password, String email, String address, ArrayList<Book> books){
+        this.name = name;
+        this.password = password;
+        this.email = email;
+        this.address = address;
+        this.books = books;
+    }
+
     public User(String name, String password, String email, String address){
         this.name = name;
         this.password = password;
         this.email = email;
         this.address = address;
-        this.books = new ArrayList<Book>();
     }
 
     public String getName() {
