@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.example.papr_w8.Adapters.BookDisplayList;
+import com.example.papr_w8.Adapters.BookDisplayWithOwnerList;
 import com.example.papr_w8.Book;
 import com.example.papr_w8.BookView.BookBasicView;
 import com.example.papr_w8.R;
@@ -62,7 +64,7 @@ public class AwaitingApproval extends Fragment {
         awaitingBookDataList = new ArrayList<>();
 
         final Task<QuerySnapshot> bookDoc = FirebaseFirestore.getInstance().collection("Users")
-                .document(email).collection("Books Owned").get()
+                .document(email).collection("Awaiting_Borrower").get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -73,17 +75,17 @@ public class AwaitingApproval extends Fragment {
                                 Book temp = new Book(
                                         document.getString("Title"), document.getString("Author"),
                                         document.getString("ISBN"), document.getString("Status"),
-                                        document.getString("Book Cover"));
+                                        document.getString("Book Cover"), document.getString("Owner"));
 
-                                if (temp.getStatus().equals("Awaiting Approval")){
+                                Log.d("myTag", temp.getOwner());
 
-                                    // add the book to the data list
-                                    awaitingBookDataList.add(temp);
+                                // add the book to the data list
+                                awaitingBookDataList.add(temp);
 
-                                    //setup an array adapter for the books
-                                    awaitingBookAdapter = new BookDisplayList(getContext(), awaitingBookDataList);
-                                    awaitingBookList.setAdapter(awaitingBookAdapter);
-                                }
+                                //setup an array adapter for the books
+                                awaitingBookAdapter = new BookDisplayWithOwnerList(getContext(), awaitingBookDataList);
+                                awaitingBookList.setAdapter(awaitingBookAdapter);
+
                             }
                         }
                     }
