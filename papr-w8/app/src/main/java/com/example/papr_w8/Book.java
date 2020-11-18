@@ -13,6 +13,7 @@ public class Book implements Serializable {
     private String status;
     private String cover;
     private String owner;
+    private String location;
 
 
     /**
@@ -81,6 +82,10 @@ public class Book implements Serializable {
         this.status = status;
         this.cover = "default_book.png";
     }
+
+    public void setLocation( String location ){ this.location = location; }
+
+    public String getLocation(){ return this.location; }
 
     public void setOwner( String owner ){ this.owner = owner; }
 
