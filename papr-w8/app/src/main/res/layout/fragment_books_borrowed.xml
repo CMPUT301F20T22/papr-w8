@@ -1,21 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/fragment_books_borrowed"
+    android:id="@+id/fragment_borrowed"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ShelfPack.BooksBorrowed"
+    tools:context=".MainActivity"
     android:background="#ffffff">
 
-
         <TextView
-            android:id="@+id/books_borrowed_title"
+            android:id="@+id/borrowed_title"
             android:layout_width="match_parent"
-            android:layout_height="600dp"
-            android:text="Books Borrowed:" />
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:textSize="26dp"
+            android:paddingLeft="10dp"
+            android:paddingTop="10dp"
+            android:text="Borrowed" />
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="55dp"
+            android:background="@android:color/darker_gray"/>
 
+        <ListView
+            android:id="@+id/books_borrowed_list"
+            android:layout_width="354dp"
+            android:layout_height="544dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="1dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="55dp"
+            android:layout_marginEnd="1dp"
+            android:layout_marginRight="0dp"
+            android:layout_marginBottom="5dp">
+        </ListView>
 
-</FrameLayout>
+</RelativeLayout>
 
