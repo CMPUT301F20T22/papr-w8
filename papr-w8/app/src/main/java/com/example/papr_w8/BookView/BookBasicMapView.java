@@ -34,7 +34,7 @@ public class BookBasicMapView extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_book_basic, container, false);
+        View view = inflater.inflate(R.layout.fragment_book_basic_map, container, false);
 
         textViewTitle = view.findViewById(R.id.titleEditText);
         textViewAuthor = view.findViewById(R.id.authorEditText);
