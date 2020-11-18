@@ -26,6 +26,7 @@ public class BookBasicView extends Fragment {
     private TextView textViewAuthor;
     private TextView textViewISBN;
     private TextView textViewStatus;
+    private TextView textViewOwner;
 
     private ImageView imageViewDefault;
     private Uri ImageUri;
@@ -40,6 +41,7 @@ public class BookBasicView extends Fragment {
         textViewAuthor = view.findViewById(R.id.authorEditText);
         textViewISBN = view.findViewById(R.id.isbnEditText);
         textViewStatus = view.findViewById(R.id.statusEditText);
+        textViewOwner = view.findViewById(R.id.ownerEditText);
 
         // Get the bundle containing the Book object passed to the View
         Bundle bundle = this.getArguments();
@@ -49,6 +51,7 @@ public class BookBasicView extends Fragment {
         textViewAuthor.setText(book.getAuthor());
         textViewISBN.setText(book.getISBN());
         textViewStatus.setText(book.getStatus());
+        textViewOwner.setText(book.getOwner());
 
         return view;
     }

@@ -13,7 +13,7 @@
         <TextView
             android:id="@+id/awaiting_approval_title"
             android:layout_width="match_parent"
-            android:layout_height="600dp"
+            android:layout_height="50dp"
             android:layout_marginTop="10dp"
             android:textSize="26dp"
             android:paddingLeft="10dp"
@@ -30,9 +30,16 @@
             android:id="@+id/books_awaiting_list"
             android:layout_width="354dp"
             android:layout_height="544dp"
+            android:layout_alignParentTop="true"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="4dp">
+            android:layout_marginStart="1dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="55dp"
+            android:layout_marginEnd="1dp"
+            android:layout_marginRight="0dp"
+            android:layout_marginBottom="5dp">
+
         </ListView>
 
 </RelativeLayout>
