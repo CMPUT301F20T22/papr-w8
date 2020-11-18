@@ -36,7 +36,7 @@ public class BookScannedView extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_book_owned, container, false);
+        View view = inflater.inflate(R.layout.fragment_book_scanned, container, false);
 
         buttonLend = (Button) view.findViewById(R.id.lendButton);
         buttonRequest = (Button) view.findViewById(R.id.requestButton);
