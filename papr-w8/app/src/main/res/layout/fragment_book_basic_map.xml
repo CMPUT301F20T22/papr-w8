@@ -9,9 +9,11 @@
     android:contextClickable="true">
 
     <com.google.android.gms.maps.MapView
-        android:id="@+id/mapView"
-        android:layout_width="match_parent"
-        android:padding="10dp"
-        android:layout_height="300dp"/>
+        android:id="@+id/mapView2"
+        android:layout_width="354dp"
+        android:layout_height="167dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="400dp"/>
+
 
 </FrameLayout>
