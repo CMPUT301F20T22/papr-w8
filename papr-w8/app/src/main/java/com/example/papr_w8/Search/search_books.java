@@ -2,8 +2,10 @@ package com.example.papr_w8.Search;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +15,11 @@ import android.widget.ListView;
 import com.example.papr_w8.Adapters.BookDisplayList;
 import com.example.papr_w8.Book;
 import com.example.papr_w8.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
@@ -29,6 +36,7 @@ public class search_books extends Fragment {
     ListView bookList;
     ArrayAdapter<Book> bookAdapter;
     ArrayList<Book> bookDataList;
+    ArrayList<String> userDataList = new ArrayList<>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -45,19 +53,27 @@ public class search_books extends Fragment {
         bookList = view.findViewById(R.id.book_list);
         bookDataList = new ArrayList<>();
 
-        // Default sample data - replace with User data fetched from firebase
-        String[] sampleTitles = {"The Great Gatsby","Sistering","Harry Potter"};
-        String[] sampleAuthors = {"F. Scott Fitzgerald","Jennifer Quist","J. K. Rowling"};
-        String[] sampleISBNs = {"9780333791035", "9781927535707", "9788867156016"};
-        String[] sampleStatus = {"Available", "On Request", "Ready to checkout"};
-
-        for (int i = 0; i < sampleTitles.length; i++) {
-            bookDataList.add(new Book(sampleTitles[i], sampleAuthors[i], sampleISBNs[i], sampleStatus[i]));
-        }
-
-        // set Book adapter and refresh it to display
-        bookAdapter = new BookDisplayList(this.getContext(), bookDataList); // itemDataList is an array of existing items
-        bookList.setAdapter(bookAdapter);
+        // get User data from Firebase
+        final Task<QuerySnapshot> userDoc = FirebaseFirestore.getInstance().collection("Books")
+            .get()
+            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                ArrayList<Book> bookDataList = new ArrayList<>();
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        if(document.getString("Status").equals("Available")){
+                            bookDataList.add(new Book(document.getString("Title"), document.getString("Author"), document.getString("ISBN"), document.getString("Status")));
+                            bookAdapter = new BookDisplayList(getContext(), bookDataList); // userDataList is an array of users
+                            bookList.setAdapter(bookAdapter);
+                            Log.d("TAGBook", document.getId() + " => " + document.getData());
+                        }
+                    }
+                } else {
+                    Log.d("TAG", "Error getting documents: ", task.getException());
+                }
+                }
+            });
 
         // Inflate the layout for this fragment
         return view;
