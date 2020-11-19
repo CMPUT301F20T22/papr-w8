@@ -6,12 +6,15 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -37,6 +40,8 @@ public class Search extends Fragment implements AdapterView.OnItemSelectedListen
     ArrayList<Book> bookDataList;
     ArrayAdapter<User> userAdapter;
     ArrayList<User> userDataList;
+    private EditText searchText;
+    private Integer selection  = 0; // 0 or Available books, 1 for Users
 
     /**
      * Displays "Seach" page when user clicks on "Search" from the bottom navigation bar
@@ -59,10 +64,12 @@ public class Search extends Fragment implements AdapterView.OnItemSelectedListen
         View view = inflater.inflate(R.layout.fragment_search, container, false);
 
         Spinner spinner = (Spinner) view.findViewById(R.id.searchoptions_spinner);
+        searchText = view.findViewById(R.id.search_edit_text);
 
         resultList = view.findViewById(R.id.result_list);
         bookDataList = new ArrayList<>();
         userDataList = new ArrayList<>();
+        searchText.addTextChangedListener(searchFilter);
 
         /* Citation:
          * Title: How to Create Spinner with Fragments | Android Studio - Quick and Easy Tutorial
@@ -85,7 +92,7 @@ public class Search extends Fragment implements AdapterView.OnItemSelectedListen
             public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long l) {
                 switch(pos){
                     case 0: // "Available books"
-
+                        selection = 0;
                         // get Book data from Firebase
                         final Task<QuerySnapshot> bookDoc = FirebaseFirestore.getInstance().collection("Books")
                             .get()
@@ -99,7 +106,7 @@ public class Search extends Fragment implements AdapterView.OnItemSelectedListen
                                                 bookDataList.add(new Book(document.getString("Title"), document.getString("Author"), document.getString("ISBN"), document.getString("Status")));
                                                 bookAdapter = new BookDisplayList(getContext(), bookDataList); // userDataList is an array of users
                                                 resultList.setAdapter(bookAdapter);
-                                                Log.d("TAGBook", document.getId() + " => " + document.getData());
+                                                Log.d("TAG-B", document.getId() + " => " + document.getData());
                                             }
                                         }
                                     } else {
@@ -107,10 +114,10 @@ public class Search extends Fragment implements AdapterView.OnItemSelectedListen
                                     }
                                 }
                             });
-
                         break;
 
                     case 1: // "Users"
+                        selection = 1;
                         // get User data from Firebase
                         final Task<QuerySnapshot> userDoc = FirebaseFirestore.getInstance().collection("Users")
                             .get()
@@ -144,8 +151,84 @@ public class Search extends Fragment implements AdapterView.OnItemSelectedListen
         return view;
     }
 
+    private TextWatcher searchFilter = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            final String searchContent = searchText.getText().toString().trim();
+
+            if(selection==0){ // "Available books"
+                final Task<QuerySnapshot> bookDoc = FirebaseFirestore.getInstance().collection("Books")
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            ArrayList<Book> bookDataList = new ArrayList<>();
+                            if (task.isSuccessful()) {
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    if(!searchContent.equals("") && document.getString("Status").equals("Available")
+                                            && !document.getString("Title").toLowerCase().contains(searchContent.toLowerCase())
+                                            && !document.getString("Author").toLowerCase().contains(searchContent.toLowerCase())
+                                            && !document.getString("ISBN").toLowerCase().contains(searchContent.toLowerCase())){
+                                        // clear listview
+                                        bookAdapter = new BookDisplayList(getContext(), bookDataList);
+                                        resultList.setAdapter(bookAdapter);
+                                    } else if(document.getString("Status").equals("Available")
+                                            || document.getString("Title").toLowerCase().contains(searchContent.toLowerCase())
+                                            || document.getString("Author").toLowerCase().contains(searchContent.toLowerCase())
+                                            || document.getString("ISBN").toLowerCase().contains(searchContent.toLowerCase())){
+                                        // display applicable search results
+                                        bookDataList.add(new Book(document.getString("Title"), document.getString("Author"), document.getString("ISBN"), document.getString("Status")));
+                                        bookAdapter = new BookDisplayList(getContext(), bookDataList); // userDataList is an array of users
+                                        resultList.setAdapter(bookAdapter);
+                                        Log.d("TAG-CB", document.getId() + " => " + document.getData());
+                                    }
+                                }
+                            } else {
+                                Log.d("TAG", "Error getting documents: ", task.getException());
+                            }
+                        }
+                    });
+
+            } else if (selection==1){ // "Users"
+                final Task<QuerySnapshot> userDoc = FirebaseFirestore.getInstance().collection("Users")
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        ArrayList<User> userDataList = new ArrayList<>();
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                if(!document.getString("name").toLowerCase().contains(searchContent.toLowerCase()) && !searchContent.equals("")){
+                                    userAdapter = new UserDisplayList(getContext(), userDataList); // userDataList is an empty array of users
+                                    resultList.setAdapter(userAdapter);
+                                } else if(document.getString("name").toLowerCase().contains(searchContent.toLowerCase())){
+                                    userDataList.add(new User(document.getString("name"), document.getString("password"), document.getString("email"), document.getString("address")));
+                                    userAdapter = new UserDisplayList(getContext(), userDataList); // userDataList is an array of users
+                                    resultList.setAdapter(userAdapter);
+                                    Log.d("TAG", document.getId() + " => " + document.getData());
+                                }
+                            }
+                        } else {
+                            Log.d("TAG", "Error getting documents: ", task.getException());
+                        }
+                        }
+                    });
+            }
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+
+        }
+    };
+
     /**
-     * handles spinner item click
+     * handles spinner item selection
      * @return void
      */
     @Override
