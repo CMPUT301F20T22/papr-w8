@@ -120,6 +120,21 @@ public class AddBook extends AppCompatActivity {
                                 }
                             });
 
+                    fbDB.collection("Books")
+                            .add(book)
+                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                @Override
+                                public void onSuccess(DocumentReference documentReference) {
+                                    Toast.makeText(AddBook.this, "Book Added", Toast.LENGTH_SHORT).show();
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(AddBook.this, "Book Add Failed", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+
                     finish();
                 }
             }
