@@ -2,21 +2,41 @@ package com.example.papr_w8.Search;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.papr_w8.Adapters.BookDisplayList;
+import com.example.papr_w8.Adapters.UserDisplayList;
+import com.example.papr_w8.Book;
 import com.example.papr_w8.R;
+import com.example.papr_w8.User;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
 
 
 public class Search extends Fragment implements AdapterView.OnItemSelectedListener {
+
+    ListView resultList;
+    ArrayAdapter<Book> bookAdapter;
+    ArrayList<Book> bookDataList;
+    ArrayAdapter<User> userAdapter;
+    ArrayList<User> userDataList;
 
     /**
      * Displays "Seach" page when user clicks on "Search" from the bottom navigation bar
@@ -30,8 +50,6 @@ public class Search extends Fragment implements AdapterView.OnItemSelectedListen
      * Search functionality not yet implemented
      *
      * @param spinner spinner in which user can choose to search "Users" or "Available books"
-     * @param search_user fragment which handles searching for users
-     * @param search_books fragment which handles searching through available books
      * @param adapter ArrayAdapter handling the String options for the spinner options
      * @return Search view
      */
@@ -41,8 +59,10 @@ public class Search extends Fragment implements AdapterView.OnItemSelectedListen
         View view = inflater.inflate(R.layout.fragment_search, container, false);
 
         Spinner spinner = (Spinner) view.findViewById(R.id.searchoptions_spinner);
-        final search_user frag_search_user = new search_user();
-        final search_books frag_search_books = new search_books();
+
+        resultList = view.findViewById(R.id.result_list);
+        bookDataList = new ArrayList<>();
+        userDataList = new ArrayList<>();
 
         /* Citation:
          * Title: How to Create Spinner with Fragments | Android Studio - Quick and Easy Tutorial
@@ -65,10 +85,51 @@ public class Search extends Fragment implements AdapterView.OnItemSelectedListen
             public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long l) {
                 switch(pos){
                     case 0: // "Available books"
-                        selectFragment(frag_search_books);
+
+                        // get Book data from Firebase
+                        final Task<QuerySnapshot> bookDoc = FirebaseFirestore.getInstance().collection("Books")
+                            .get()
+                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                    ArrayList<Book> bookDataList = new ArrayList<>();
+                                    if (task.isSuccessful()) {
+                                        for (QueryDocumentSnapshot document : task.getResult()) {
+                                            if(document.getString("Status").equals("Available")){
+                                                bookDataList.add(new Book(document.getString("Title"), document.getString("Author"), document.getString("ISBN"), document.getString("Status")));
+                                                bookAdapter = new BookDisplayList(getContext(), bookDataList); // userDataList is an array of users
+                                                resultList.setAdapter(bookAdapter);
+                                                Log.d("TAGBook", document.getId() + " => " + document.getData());
+                                            }
+                                        }
+                                    } else {
+                                        Log.d("TAG", "Error getting documents: ", task.getException());
+                                    }
+                                }
+                            });
+
                         break;
+
                     case 1: // "Users"
-                        selectFragment(frag_search_user);
+                        // get User data from Firebase
+                        final Task<QuerySnapshot> userDoc = FirebaseFirestore.getInstance().collection("Users")
+                            .get()
+                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                ArrayList<User> userDataList = new ArrayList<>();
+                                if (task.isSuccessful()) {
+                                    for (QueryDocumentSnapshot document : task.getResult()) {
+                                        userDataList.add(new User(document.getString("name"), document.getString("password"), document.getString("email"), document.getString("address")));
+                                        userAdapter = new UserDisplayList(getContext(), userDataList); // userDataList is an array of users
+                                        resultList.setAdapter(userAdapter);
+                                        Log.d("TAG", document.getId() + " => " + document.getData());
+                                    }
+                                } else {
+                                    Log.d("TAG", "Error getting documents: ", task.getException());
+                                }
+                                }
+                            });
                         break;
                 }
             }
@@ -84,24 +145,11 @@ public class Search extends Fragment implements AdapterView.OnItemSelectedListen
     }
 
     /**
-     * sets the fragment to new fragment on selection of a spinner item
-     * @return void
-     */
-    public void selectFragment(Fragment fragment){
-        FragmentTransaction fragmentTransaction=this.getActivity().getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_search, fragment); // if it doesn't work, find out where the fragment_search is
-        fragmentTransaction.commit();
-    }
-
-    /**
      * handles spinner item click
      * @return void
      */
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long l) {
-        System.out.println("item is selected");
-        String text = adapterView.getItemAtPosition(pos).toString();
-        Toast.makeText(adapterView.getContext(),text,Toast.LENGTH_SHORT);
     }
 
     @Override
