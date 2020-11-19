@@ -1,66 +1,49 @@
-package com.example.papr_w8;
+package com.example.papr_w8.ShelfPack;
 
 /**
  * may merge this fragment with shelves next sprint
  * page that displays user options
  * clicking on a button takes user to other fragment/activities
 */
-import android.content.Intent;
 import android.os.Bundle;
-
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import com.example.papr_w8.R;
 
-public class MyBooks extends Fragment {
-    public MyBooks() {
+public class Shelves extends Fragment {
+    public Shelves() {
     }
-    private Button owned ;
-    private Button borrowed;
-    private Button requested;
-    private Button add_book;
-    private Button find ;
-    private Button accepted;
+    private Button owned_button ;
+
+    private Button requested_button;
+    private Button accepted_requests_button;
+    private Button awaiting_approval_button;
+    private Button borrowed_button;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view =  inflater.inflate(R.layout.fragment_my_books, container, false);
+        View view =  inflater.inflate(R.layout.fragment_shelves, container, false);
 
         //Buttons to take user to other pages
-        owned =  (Button) view.findViewById(R.id.books_owned);
-        borrowed =  (Button) view.findViewById(R.id.books_borrowed);
-        requested =  (Button) view.findViewById(R.id.books_requested);
-        add_book =  (Button) view.findViewById(R.id.add_new_book);
-        find = (Button) view.findViewById(R.id.find_book);
-        accepted = (Button) view.findViewById(R.id.accept_request);
+        owned_button =  (Button) view.findViewById(R.id.books_owned);
+        requested_button =  (Button) view.findViewById(R.id.books_requested);
+        accepted_requests_button =  (Button) view.findViewById(R.id.accepted_requests);
+        awaiting_approval_button = (Button) view.findViewById(R.id.awaiting_approval);
+        borrowed_button =  (Button) view.findViewById(R.id.books_borrowed);
 
         //go to BooksOwned fragment
-        owned.setOnClickListener(new View.OnClickListener() {
+        owned_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 BooksOwned booksOwned = new BooksOwned();
                 FragmentTransaction ft = getChildFragmentManager().beginTransaction();
-                ft.replace(R.id.my_books,booksOwned,booksOwned.getTag());
-                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                ft.addToBackStack(null);
-                ft.commit();
-            }
-        });
-
-        //Go to BooksBorrowed fragment
-        borrowed.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                BooksBorrowed booksBorrowed = new BooksBorrowed();
-                FragmentTransaction ft = getChildFragmentManager().beginTransaction();
-                ft.replace(R.id.my_books,booksBorrowed,booksBorrowed.getTag());
+                ft.replace(R.id.shelves,booksOwned,booksOwned.getTag());
                 ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                 ft.addToBackStack(null);
                 ft.commit();
@@ -68,12 +51,12 @@ public class MyBooks extends Fragment {
         });
 
         //Go to BooksRequested fragment
-        requested.setOnClickListener(new View.OnClickListener() {
+        requested_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 BooksRequested booksRequested = new BooksRequested();
                 FragmentTransaction ft = getChildFragmentManager().beginTransaction();
-                ft.replace(R.id.my_books,booksRequested,booksRequested.getTag());
+                ft.replace(R.id.shelves,booksRequested,booksRequested.getTag());
                 ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                 ft.addToBackStack(null);
                 ft.commit();
@@ -81,34 +64,38 @@ public class MyBooks extends Fragment {
         });
 
         //GO to AddBook activity
-        add_book.setOnClickListener(new View.OnClickListener() {
+        accepted_requests_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), AddBook.class);
-                startActivity(intent);
-            }
-        });
-
-        //got to FindBook fragment
-        find.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FindBook findBook = new FindBook();
+                AcceptedRequests acceptedRequests = new AcceptedRequests();
                 FragmentTransaction ft = getChildFragmentManager().beginTransaction();
-                ft.replace(R.id.my_books,findBook,findBook.getTag());
+                ft.replace(R.id.shelves, acceptedRequests, acceptedRequests.getTag());
                 ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                 ft.addToBackStack(null);
                 ft.commit();
             }
         });
 
-        //go to books AcceptRequest Fragment
-        accepted.setOnClickListener(new View.OnClickListener() {
+        //go to books AwaitingApproval Fragment
+        awaiting_approval_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AcceptRequest acceptRequest = new AcceptRequest();
+                AwaitingApproval awaitingApproval = new AwaitingApproval();
                 FragmentTransaction ft = getChildFragmentManager().beginTransaction();
-                ft.replace(R.id.my_books,acceptRequest,acceptRequest.getTag());
+                ft.replace(R.id.shelves, awaitingApproval, awaitingApproval.getTag());
+                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                ft.addToBackStack(null);
+                ft.commit();
+            }
+        });
+
+        //Go to BooksBorrowed fragment
+        borrowed_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                BooksBorrowed booksBorrowed = new BooksBorrowed();
+                FragmentTransaction ft = getChildFragmentManager().beginTransaction();
+                ft.replace(R.id.shelves,booksBorrowed,booksBorrowed.getTag());
                 ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                 ft.addToBackStack(null);
                 ft.commit();

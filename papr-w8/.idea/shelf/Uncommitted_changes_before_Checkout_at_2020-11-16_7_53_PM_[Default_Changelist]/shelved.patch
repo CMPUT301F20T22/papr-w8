@@ -1,0 +1,27 @@
+Index: app/src/main/res/navigation/nav.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<navigation xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    android:id=\"@+id/nav\"\r\n    app:startDestination=\"@id/home2\">\r\n\r\n    <fragment\r\n        android:id=\"@+id/home2\"\r\n        android:name=\"com.example.papr_w8.Home\"\r\n        android:label=\"fragment_home\"\r\n        tools:layout=\"@layout/fragment_home\" />\r\n    <fragment\r\n        android:id=\"@+id/profile\"\r\n        android:name=\"com.example.papr_w8.Profile\"\r\n        android:label=\"fragment_profile\"\r\n        tools:layout=\"@layout/fragment_profile\" />\r\n    <fragment\r\n        android:id=\"@+id/my_books\"\r\n        android:name=\"com.example.papr_w8.MyBooks\"\r\n        android:label=\"fragment_my_books\"\r\n        tools:layout=\"@layout/fragment_my_books\" />\r\n    <fragment\r\n        android:id=\"@+id/search\"\r\n        android:name=\"com.example.papr_w8.Search.Search\"\r\n        android:label=\"fragment_search\"\r\n        tools:layout=\"@layout/fragment_search\" />\r\n    <fragment\r\n        android:id=\"@+id/books_borrowed\"\r\n        android:name=\"com.example.papr_w8.BooksBorrowed\"\r\n        android:label=\"fragment_books_borrowed\"\r\n        tools:layout=\"@layout/fragment_books_borrowed\" />\r\n        />\r\n</navigation>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/navigation/nav.xml	(revision f6f0a63be36ad1f992deaacf762d9aef5ec20a65)
++++ app/src/main/res/navigation/nav.xml	(date 1605581539116)
+@@ -25,10 +25,10 @@
+         android:name="com.example.papr_w8.Search.Search"
+         android:label="fragment_search"
+         tools:layout="@layout/fragment_search" />
+-    <fragment
+-        android:id="@+id/books_borrowed"
+-        android:name="com.example.papr_w8.BooksBorrowed"
+-        android:label="fragment_books_borrowed"
+-        tools:layout="@layout/fragment_books_borrowed" />
+-        />
++<!--    <fragment-->
++<!--        android:id="@+id/books_borrowed"-->
++<!--        android:name="com.example.papr_w8.BooksBorrowed"-->
++<!--        android:label="fragment_books_borrowed"-->
++<!--        tools:layout="@layout/fragment_books_borrowed" />-->
++<!--        />-->
+ </navigation>
+\ No newline at end of file

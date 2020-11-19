@@ -12,7 +12,33 @@ public class Book implements Serializable {
     private String ISBN;
     private String status;
     private String cover;
+    private String owner;
+    private String location;
 
+
+    /**
+     * Constructor to initialize a Book with a cover provided
+     * @param title
+     *      This is a title string  to be set
+     * @param author
+     *      This is an author string to be set
+     * @param ISBN
+     *      This is a 13-character book ISBN string to be set
+     * @param status
+     *      This is the current status of a book to be set
+     * @param cover
+     *      This is a filename string to be set for retrieving an image from Firestore
+     *
+     */
+    public Book(String title, String author, String ISBN, String status, String cover, String owner) {
+
+        this.title = title;
+        this.author = author;
+        this.ISBN = ISBN;
+        this.status = status;
+        this.cover = cover;
+        this.owner = owner;
+    }
 
     /**
      * Constructor to initialize a Book with a cover provided
@@ -57,13 +83,21 @@ public class Book implements Serializable {
         this.cover = "default_book.png";
     }
 
+    public void setLocation( String location ){ this.location = location; }
+
+    public String getLocation(){ return this.location; }
+
+    public void setOwner( String owner ){ this.owner = owner; }
+
+    public String getOwner(){ return this.owner; }
+
     /**
      * This returns the title of a Book
      * @return
      *      Return the title of a Book
      */
     public String getTitle() {
-        return title;
+        return this.title;
     }
 
     /**
@@ -81,7 +115,7 @@ public class Book implements Serializable {
      *      Return the author of a Book
      */
     public String getAuthor() {
-        return author;
+        return this.author;
     }
 
     /**
@@ -99,7 +133,7 @@ public class Book implements Serializable {
      *      Return the ISBN of a Book
      */
     public String getISBN() {
-        return ISBN;
+        return this.ISBN;
     }
 
     /**
@@ -117,7 +151,7 @@ public class Book implements Serializable {
      *      Return the status of a Book
      */
     public String getStatus() {
-        return status;
+        return this.status;
     }
 
     /**
@@ -135,7 +169,7 @@ public class Book implements Serializable {
      *      Return the cover of a Book
      */
     public String getCover() {
-        return cover;
+        return this.cover;
     }
 
     /**

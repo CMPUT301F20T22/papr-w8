@@ -6,6 +6,8 @@ import android.widget.ImageButton;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 
+import com.example.papr_w8.AddPack.AddBook;
+import com.example.papr_w8.AddPack.AddBookCoverActivity;
 import com.robotium.solo.Solo;
 
 import org.junit.After;

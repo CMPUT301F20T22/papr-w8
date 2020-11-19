@@ -13,7 +13,7 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
-public class ProfileTest{
+public class BasicBookViewTest {
     private Solo solo;
 
     @Rule
@@ -26,11 +26,11 @@ public class ProfileTest{
     @Before
     public void setUp() throws Exception{
         solo = new Solo(InstrumentationRegistry.getInstrumentation(),rule.getActivity());
-        solo.enterText((EditText) solo.getView((R.id.email)), "test@mail.com");
-        solo.enterText((EditText) solo.getView(R.id.password), "something");
+        solo.enterText((EditText) solo.getView((R.id.email)), "mazi@mazi.com");
+        solo.enterText((EditText) solo.getView(R.id.password), "test123");
         solo.clickOnButton("Login");
         solo.waitForFragmentById(R.id.fragment);
-        solo.clickOnImage(1);
+        solo.clickOnImage(0);
     }
 
 
@@ -39,12 +39,13 @@ public class ProfileTest{
      */
     @Test
     public void checkInfo(){
-        solo.waitForFragmentById(R.id.profile);
-        solo.waitForText("test");
-        solo.waitForText("test@mail.com");
-        solo.waitForText("1234");
-        solo.clickOnButton("Edit Profile");
-        solo.assertCurrentActivity("Wrong Activity", EditProfile.class);
+        solo.waitForFragmentById(R.id.shelves);
+        solo.clickOnButton("Awaiting Approval");
+        solo.waitForFragmentById(R.id.awaiting_approval);
+        solo.waitForText("The Catcher in the Rye");
+        solo.clickInList(0);
+        solo.waitForFragmentById(R.id.fragment_book_basic);
+        solo.waitForText("scottk");
     }
 
     /**
