@@ -16,6 +16,13 @@ import com.example.papr_w8.R;
 
 import java.util.ArrayList;
 
+/**
+ * Adapter which sets the array of Book items
+ *
+ * @param context context
+ * @param books ArrayList of Books
+ * @return void
+ */
 public class BookDisplayList extends ArrayAdapter<Book> {
     private Context context;
     private ArrayList<Book> books;
@@ -26,6 +33,10 @@ public class BookDisplayList extends ArrayAdapter<Book> {
         this.books = books; // UserDataList, or ArrayList of User objects
     }
 
+    /**
+     * sets the fragment to new fragment on selection of a spinner item
+     * @return void
+     */
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         View view = convertView;
