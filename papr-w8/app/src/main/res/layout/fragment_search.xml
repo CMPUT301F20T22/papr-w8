@@ -4,7 +4,7 @@
     android:id="@+id/fragment_search"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Profile"
+    tools:context=".ProfilePack.Profile"
     android:tag="fragment_search_tag">
 
     <LinearLayout

@@ -1,22 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/fragment_borrowed"
+    android:id="@+id/awaiting_approval"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:background="#ffffff">
+    android:background="#ffffff"
+    android:contextClickable="true">
 
         <TextView
-            android:id="@+id/borrowed_title"
+            android:id="@+id/awaiting_approval_title"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="10dp"
             android:textSize="26dp"
             android:paddingLeft="10dp"
             android:paddingTop="10dp"
-            android:text="Borrowed" />
+            android:text="Awaiting Approval" />
 
         <View
             android:layout_width="match_parent"
@@ -25,7 +27,7 @@
             android:background="@android:color/darker_gray"/>
 
         <ListView
-            android:id="@+id/books_borrowed_list"
+            android:id="@+id/books_awaiting_list"
             android:layout_width="354dp"
             android:layout_height="544dp"
             android:layout_alignParentTop="true"
@@ -37,7 +39,7 @@
             android:layout_marginEnd="1dp"
             android:layout_marginRight="0dp"
             android:layout_marginBottom="5dp">
+
         </ListView>
 
 </RelativeLayout>
-

@@ -3,32 +3,32 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav"
-    app:startDestination="@id/home2">
+    app:startDestination="@id/shelves">
 
     <fragment
-        android:id="@+id/home2"
+        android:id="@+id/scan"
         android:name="com.example.papr_w8.Home"
-        android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        android:label="fragment_scan"
+        tools:layout="@layout/fragment_scan" />
     <fragment
         android:id="@+id/profile"
-        android:name="com.example.papr_w8.Profile"
+        android:name="com.example.papr_w8.ProfilePack.Profile"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
     <fragment
-        android:id="@+id/my_books"
-        android:name="com.example.papr_w8.MyBooks"
-        android:label="fragment_my_books"
-        tools:layout="@layout/fragment_my_books" />
+        android:id="@+id/shelves"
+        android:name="com.example.papr_w8.ShelfPack.Shelves"
+        android:label="fragment_shelves"
+        tools:layout="@layout/fragment_shelves" />
     <fragment
         android:id="@+id/search"
         android:name="com.example.papr_w8.Search.Search"
         android:label="fragment_search"
         tools:layout="@layout/fragment_search" />
-    <fragment
-        android:id="@+id/books_borrowed"
-        android:name="com.example.papr_w8.BooksBorrowed"
-        android:label="fragment_books_borrowed"
-        tools:layout="@layout/fragment_books_borrowed" />
-        />
+<!--    <fragment-->
+<!--        android:id="@+id/books_borrowed"-->
+<!--        android:name="com.example.papr_w8.ShelfPack.BooksBorrowed"-->
+<!--        android:label="fragment_books_borrowed"-->
+<!--        tools:layout="@layout/fragment_books_borrowed" />-->
+<!--        />-->
 </navigation>

@@ -8,7 +8,7 @@
     android:paddingLeft="20sp"
     android:paddingTop="20sp"
     android:paddingRight="20sp"
-    tools:context=".AddBook">
+    tools:context=".AddPack.AddBook">
 
     <TextView
         android:id="@+id/addBookTitle"
