@@ -64,7 +64,7 @@ public class BookRequestedView extends BookBase {
 
         final Task<QuerySnapshot> bookDoc = FirebaseFirestore.getInstance().collection("Users")
                 .document(email).collection("Books Owned").document(id)
-                .collection("Awaiting Approval").get()
+                .collection("Requested").get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -75,6 +75,7 @@ public class BookRequestedView extends BookBase {
                                 User temp = new User(
                                         document.getString("name"), document.getString("email"));
 
+                                Log.d("MyDebug", temp.getName());
                                 // add the book to the data list
                                 requestsDataList.add(temp);
 
