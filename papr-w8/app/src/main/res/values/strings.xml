@@ -10,7 +10,7 @@
     <string name="hello_blank_fragment">Hello Blank Fragment</string>
 
     <string-array name="search_options">
-        <item>Available Books</item>
+        <item>Ava. Books</item>
         <item>Users</item>
     </string-array>
 </resources>

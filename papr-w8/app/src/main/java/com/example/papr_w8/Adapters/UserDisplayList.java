@@ -17,6 +17,13 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
+/**
+ * Adapter which sets the array of Book items
+ *
+ * @param context context
+ * @param users ArrayList of Users
+ * @return void
+ */
 public class UserDisplayList extends ArrayAdapter<User> {
     private Context context;
     private ArrayList<User> users;
