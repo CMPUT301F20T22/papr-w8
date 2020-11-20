@@ -94,4 +94,11 @@
             android:text="Add Book"
             android:textColor="#FFFFFF" />
     </LinearLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="testButton"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="0dp"/>
 </LinearLayout>
