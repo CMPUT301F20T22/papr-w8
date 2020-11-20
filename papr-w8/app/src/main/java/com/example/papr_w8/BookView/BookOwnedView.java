@@ -53,6 +53,5 @@ public class BookOwnedView extends BookBase {
                 // TODO implement the action of clicking the DeleteBook button
             }
         });
-
     };
 }
