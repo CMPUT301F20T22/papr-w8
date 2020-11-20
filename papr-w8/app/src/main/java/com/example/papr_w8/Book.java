@@ -14,6 +14,9 @@ public class Book implements Serializable {
     private String cover;
     private String owner;
     private String location;
+    private String id;
+
+
 
 
     /**
@@ -38,6 +41,7 @@ public class Book implements Serializable {
         this.status = status;
         this.cover = cover;
         this.owner = owner;
+        this.id = "";
     }
 
     /**
@@ -82,6 +86,10 @@ public class Book implements Serializable {
         this.status = status;
         this.cover = "default_book.png";
     }
+
+    public void setId( String Id ){ this.id = Id; }
+
+    public String getId(){ return this.id; }
 
     public void setLocation( String location ){ this.location = location; }
 

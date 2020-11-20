@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import com.example.papr_w8.Adapters.BookDisplayWithOwnerList;
 import com.example.papr_w8.Book;
 import com.example.papr_w8.BookView.BookBasicMapView;
 import com.example.papr_w8.BookView.BookBasicView;
+import com.example.papr_w8.BookView.BookRequestedView;
 import com.example.papr_w8.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -59,7 +61,7 @@ public class BooksRequested extends Fragment {
         View view =  inflater.inflate(R.layout.fragment_books_requested, container, false);
 
         //hold book objects
-        requestedBookList =  view.findViewById(R.id.books_accepted_list);
+        requestedBookList =  view.findViewById(R.id.books_requested_list);
         requestedBookDataList = new ArrayList<>();
 
         final Task<QuerySnapshot> bookDoc = FirebaseFirestore.getInstance().collection("Users")
@@ -75,6 +77,10 @@ public class BooksRequested extends Fragment {
                                         document.getString("Title"), document.getString("Author"),
                                         document.getString("ISBN"), document.getString("Status"),
                                         document.getString("Book Cover"), document.getString("Owner"));
+
+                                temp.setId(document.getId());
+
+                                Log.d("MyDebug", temp.getId());
 
                                 // add the book to the data list
                                 requestedBookDataList.add(temp);
@@ -92,19 +98,19 @@ public class BooksRequested extends Fragment {
 
             //go to book description when a book is clicked on
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                BookBasicMapView bookBasicMapView = new BookBasicMapView();
+                BookRequestedView bookRequestedView = new BookRequestedView();
 
                 //bundle data to transfer
                 Bundle bundle = new Bundle();
                 Book bookSelected = requestedBookAdapter.getItem(i);
                 bundle.putSerializable("bookSelected", (Serializable) bookSelected);
-                bookBasicMapView.setArguments(bundle);
+                bookRequestedView.setArguments(bundle);
 
-                Intent intent = new Intent(getActivity(), BookBasicView.class);
+                Intent intent = new Intent(getActivity(), BookRequestedView.class);
 
                 //transfer data
                 FragmentTransaction ft = getChildFragmentManager().beginTransaction();
-                ft.replace(R.id.accepted_books, bookBasicMapView);
+                ft.replace(R.id.fragment_requested, bookRequestedView);
                 ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                 ft.commit();
             }
