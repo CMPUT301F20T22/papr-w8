@@ -1,5 +1,7 @@
 package com.example.papr_w8.BookView;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -8,15 +10,27 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.papr_w8.Book;
 import com.example.papr_w8.R;
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+
 
 /**
  * This is a Fragment that displays the view of a basic Book Description
  */
-public class BookBasicMapView extends Fragment {
+public class BookBasicMapView extends Fragment implements OnMapReadyCallback {
+
+    GoogleMap map;
 
     public BookBasicMapView() {
     }
@@ -35,6 +49,10 @@ public class BookBasicMapView extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_book_basic_map, container, false);
+        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
+
 
         textViewTitle = view.findViewById(R.id.titleEditText);
         textViewAuthor = view.findViewById(R.id.authorEditText);
@@ -52,6 +70,16 @@ public class BookBasicMapView extends Fragment {
         textViewStatus.setText(book.getStatus());
         textViewOwner.setText(book.getOwner());
 
+
+
         return view;
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        map = googleMap;
+        LatLng bookLoc = new LatLng(0, 0);
+        map.addMarker(new MarkerOptions().position(bookLoc).title("book location"));
+        map.moveCamera(CameraUpdateFactory.newLatLng(bookLoc));
     }
 }
