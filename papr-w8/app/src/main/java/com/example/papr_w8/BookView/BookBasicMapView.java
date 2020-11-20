@@ -44,7 +44,6 @@ public class BookBasicMapView extends BookBase implements OnMapReadyCallback {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
 
-
         // Get the bundle containing the Book object passed to the View
         Bundle bundle = this.getArguments();
         Book book = (Book) bundle.getSerializable("bookSelected");
