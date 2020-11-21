@@ -7,9 +7,9 @@
         android:icon="@drawable/ic_home"/>
 
     <item
-        android:id="@+id/my_books"
-        android:title="My Books"
-        android:icon="@drawable/ic_book"/>
+        android:id="@+id/scan"
+        android:title="Scan"
+        android:icon="@drawable/ic_camera"/>
 
     <item
         android:id="@+id/search"

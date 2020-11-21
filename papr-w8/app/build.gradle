@@ -39,17 +39,18 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'com.google.firebase:firebase-storage:19.2.0'
+    //Firebase ML Kit
+    implementation 'com.google.mlkit:barcode-scanning:16.0.3'
+
+
+
+
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     androidTestImplementation 'com.jayway.android.robotium:robotium-solo:5.3.1'
-    androidTestImplementation 'androidx.test:runner:1.2.0'
-    androidTestImplementation 'androidx.test:rules:1.2.0'
 
-    androidTestImplementation 'androidx.test:runner:1.2.0'
-    androidTestImplementation 'androidx.test:rules:1.2.0'
-    androidTestImplementation 'com.jayway.android.robotium:robotium-solo:5.3.1'
-    androidTestImplementation "androidx.navigation:navigation-testing:2.3.1"
+
 
     debugImplementation "androidx.fragment:fragment-testing:1.0.0"
 
