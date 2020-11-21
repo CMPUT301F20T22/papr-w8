@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 
+import com.example.papr_w8.BookView.BookBasicView;
 import com.example.papr_w8.BookView.BookOwnedView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -161,7 +162,7 @@ public class Scan extends Fragment {
                                     String book_cover = document.getString("Book Cover");
                                     Book book = new Book(title,author,ISBN,status,book_cover);
 
-                                    BookOwnedView bookBasicView = new BookOwnedView();
+                                    BookBasicView bookBasicView = new BookBasicView();
 
                                     Bundle bundle = new Bundle();
 

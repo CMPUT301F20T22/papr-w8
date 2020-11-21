@@ -10,8 +10,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".AddBookCoverActivity" />
-        <activity android:name=".AddBook" />
+        <activity android:name=".AddPack.AddBookCoverActivity" />
+        <activity android:name=".AddPack.AddBook" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -33,7 +33,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".EditProfile">
+        <activity android:name=".ProfilePack.EditProfile">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

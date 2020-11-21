@@ -18,7 +18,7 @@ import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link search_books#newInstance} factory method to
+ * Use the {@link search_booksZ#newInstance} factory method to
  * create an instance of this fragment.
  */
 public class search_books extends Fragment {

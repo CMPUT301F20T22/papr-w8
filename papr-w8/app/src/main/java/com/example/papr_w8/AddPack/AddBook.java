@@ -1,4 +1,4 @@
-package com.example.papr_w8;
+package com.example.papr_w8.AddPack;
 
 import android.content.ContentResolver;
 import android.content.Intent;
@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.papr_w8.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;

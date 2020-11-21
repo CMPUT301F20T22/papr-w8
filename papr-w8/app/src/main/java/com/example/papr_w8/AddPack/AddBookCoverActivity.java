@@ -1,4 +1,4 @@
-package com.example.papr_w8;
+package com.example.papr_w8.AddPack;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -9,6 +9,7 @@ import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.papr_w8.R;
 import com.squareup.picasso.Picasso;
 
 /**
