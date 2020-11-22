@@ -40,14 +40,25 @@ dependencies {
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'com.google.firebase:firebase-storage:19.2.0'
 
+    //For Barcode scanner
+    implementation 'com.google.android.gms:play-services-vision:20.1.2'
+
+
+
+
+
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
+
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
+    androidTestImplementation 'com.jayway.android.robotium:robotium-solo:5.3.1'
+
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test:rules:1.2.0'
-    androidTestImplementation 'com.jayway.android.robotium:robotium-solo:5.3.1'
+
     androidTestImplementation "androidx.navigation:navigation-testing:2.3.1"
 
     debugImplementation "androidx.fragment:fragment-testing:1.0.0"
@@ -57,16 +68,7 @@ dependencies {
     debugImplementation("androidx.test:rules:1.2.0")
     debugImplementation("androidx.test:runner:1.2.0")
 
-    androidTestImplementation 'androidx.test:runner:1.2.0'
-    androidTestImplementation 'androidx.test:rules:1.2.0'
-    androidTestImplementation 'com.jayway.android.robotium:robotium-solo:5.3.1'
-    androidTestImplementation "androidx.navigation:navigation-testing:2.3.1"
 
-    debugImplementation "androidx.fragment:fragment-testing:1.0.0"
 
-    debugImplementation("androidx.fragment:fragment-testing:1.1.0-beta01")
-    debugImplementation("androidx.fragment:fragment-ktx:1.1.0-beta01")
-    debugImplementation("androidx.test:core:1.2.0")
-    debugImplementation("androidx.test:rules:1.2.0")
-    debugImplementation("androidx.test:runner:1.2.0")
+    
 }

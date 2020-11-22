@@ -6,20 +6,24 @@
     app:startDestination="@id/shelves">
 
     <fragment
-        android:id="@+id/scan"
+        android:id="@+id/shelves"
         android:name="com.example.papr_w8.Home"
-        android:label="fragment_scan"
-        tools:layout="@layout/fragment_scan" />
+        android:label="fragment_shelves"
+        tools:layout="@layout/fragment_shelves" />
+
     <fragment
         android:id="@+id/profile"
         android:name="com.example.papr_w8.ProfilePack.Profile"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
+
     <fragment
-        android:id="@+id/shelves"
-        android:name="com.example.papr_w8.ShelfPack.Shelves"
-        android:label="fragment_shelves"
-        tools:layout="@layout/fragment_shelves" />
+        android:id="@+id/scan"
+        android:name="com.example.papr_w8.ScanControl"
+        android:label="fragment_scan"
+        tools:layout="@layout/fragment_scan" />
+
+
     <fragment
         android:id="@+id/search"
         android:name="com.example.papr_w8.Search.Search"
