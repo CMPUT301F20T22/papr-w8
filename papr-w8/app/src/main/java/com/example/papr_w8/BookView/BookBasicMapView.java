@@ -18,7 +18,7 @@ import com.example.papr_w8.R;
 /**
  * This is a Fragment that displays the view of a basic Book Description
  */
-public class BookBasicView extends BookBase {
+public class BookBasicMapView extends BookBase {
 
     @Override
     public void onCreate( Bundle savedInstanceState ){
@@ -31,9 +31,8 @@ public class BookBasicView extends BookBase {
 
         setRetainInstance(true);
         ViewStub stub = baseView.findViewById(R.id.child_fragment_here);
-        stub.setLayoutResource(R.layout.fragment_book_base);
+        stub.setLayoutResource(R.layout.fragment_book_basic_map);
         stub.inflate();
 
     };
-
 }
