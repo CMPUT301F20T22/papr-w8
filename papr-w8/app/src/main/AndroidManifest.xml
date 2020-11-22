@@ -22,6 +22,7 @@
             android:value="barcode"/>
 
         <activity android:name=".ScanActivity"></activity>
+        <activity android:name=".BookView.RequestConfirmView"></activity>
         <activity android:name=".AddPack.AddBookCoverActivity" />
         <activity android:name=".AddPack.AddBook" />
         <activity android:name=".MainActivity">
