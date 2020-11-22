@@ -47,6 +47,7 @@ public class ScanActivity extends AppCompatActivity {
     private BarcodeDetector barcodeDetector;
 
     private String isbn;
+    private static final String TAG = "ScanActivity";
 
 
     /**
@@ -103,6 +104,7 @@ public class ScanActivity extends AppCompatActivity {
         });
 
         barcodeDetector.setProcessor(new Detector.Processor<Barcode>() {
+
             @Override
             public void release() {
                 Toast.makeText(getApplicationContext(),
@@ -144,6 +146,7 @@ public class ScanActivity extends AppCompatActivity {
                         //add book items from database
                         if (task.isSuccessful()){
                             for (QueryDocumentSnapshot document : task.getResult()){
+                                Log.i(TAG, "ISBN: " + document.getString("ISBN"));
                                 if (isbn == document.getString("ISBN")){
                                     String title = document.getString("Title");
                                     String author = document.getString("Author");

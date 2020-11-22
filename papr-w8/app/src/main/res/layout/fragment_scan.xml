@@ -1,79 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Scan">
+    tools:context=".ScanControl">
 
 
     <Button
         android:id="@+id/view_desc_button"
         android:layout_width="268dp"
         android:layout_height="42dp"
-        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="74dp"
         android:layout_marginLeft="74dp"
-        android:layout_marginTop="159dp"
+        android:layout_marginTop="100dp"
         android:layout_marginEnd="74dp"
         android:layout_marginRight="74dp"
         android:layout_marginBottom="40dp"
         android:background="@android:color/holo_purple"
         android:text="View Description"
-        android:textColor="@android:color/white"
-        app:layout_constraintBottom_toTopOf="@+id/borrow_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
+        android:textColor="@android:color/white" />
 
     <Button
         android:id="@+id/borrow_button"
         android:layout_width="266dp"
         android:layout_height="42dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="74dp"
         android:layout_marginLeft="74dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="200dp"
         android:layout_marginEnd="74dp"
         android:layout_marginRight="74dp"
         android:background="@android:color/holo_purple"
         android:text="Borrow"
-        android:textColor="@android:color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view_desc_button"
-        tools:ignore="MissingConstraints" />
+        android:textColor="@android:color/white" />
 
     <Button
         android:id="@+id/return_button"
         android:layout_width="266dp"
         android:layout_height="42dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_centerInParent="true"
+        android:layout_centerHorizontal="true"
         android:layout_marginStart="74dp"
         android:layout_marginLeft="74dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="300dp"
         android:layout_marginEnd="74dp"
         android:layout_marginRight="74dp"
         android:background="@android:color/holo_purple"
         android:text="Return"
-        android:textColor="@android:color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/borrow_button"
-        tools:ignore="MissingConstraints" />
+        android:textColor="@android:color/white" />
 
 
-
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>
 

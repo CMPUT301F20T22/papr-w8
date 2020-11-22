@@ -39,7 +39,7 @@ import java.util.List;
 /**
  * Fragment that allows user to view book, borrow, or return a book by scanning an ISBN
  */
-public class Scan extends Fragment {
+public class ScanControl extends Fragment {
 
     private String ISBN;
 
