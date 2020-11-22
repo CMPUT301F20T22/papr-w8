@@ -19,6 +19,7 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.widget.Toast;
 
+import com.example.papr_w8.AddPack.AddBook;
 import com.example.papr_w8.BookView.BookScannedView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -36,6 +37,10 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.io.IOException;
 import java.io.Serializable;
 
+/**
+ * Activity to allow users to scan a book's ISBN
+ */
+
 
 public class ScanActivity extends AppCompatActivity {
 
@@ -51,7 +56,7 @@ public class ScanActivity extends AppCompatActivity {
 
 
     /**
-     * Initialize UI elements, barcode detector, camera source and camera view.
+     * Initialize UI elements, barcode detector, camera source and surface view.
      * @param savedInstanceState saved instance state
      */
     @Override
@@ -65,6 +70,9 @@ public class ScanActivity extends AppCompatActivity {
 
 }
 
+    /**
+     * Initializes barcode detector, camera source, and surface view
+     */
     private void initializeDetectorsAndSources() {
         barcodeDetector = new BarcodeDetector.Builder(this)
                 .setBarcodeFormats(Barcode.EAN_13)
@@ -134,50 +142,13 @@ public class ScanActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Sends the ISBN to AddBookActivity
+     */
     private void getBookDetails(){
-        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        String email = user.getEmail();
-
-        final Task<QuerySnapshot> bookDoc = FirebaseFirestore.getInstance().collection("Users")
-                .document(email).collection("Books Owned").get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        //add book items from database
-                        if (task.isSuccessful()){
-                            for (QueryDocumentSnapshot document : task.getResult()){
-                                Log.i(TAG, "ISBN: " + document.getString("ISBN"));
-                                if (isbn == document.getString("ISBN")){
-                                    String title = document.getString("Title");
-                                    String author = document.getString("Author");
-                                    String status = document.getString("Status");
-                                    String book_cover = document.getString("Book Cover");
-                                    Book book = new Book(title,author,isbn,status,book_cover);
-
-                                    BookScannedView bookScannedView = new BookScannedView();
-
-                                    //bundle data to transfer
-                                    Bundle bundle = new Bundle();
-                                    bundle.putSerializable("bookScanned", (Serializable) book);
-                                    bookScannedView.setArguments(bundle);
-
-                                    FragmentManager fragmentmanager = getSupportFragmentManager();
-                                    FragmentTransaction transaction = fragmentmanager.beginTransaction();
-                                    transaction.replace(R.id.book_scanned, bookScannedView);
-                                    transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                                    transaction.commit();
-
-
-
-                                }
-                                else{
-                                    Toast.makeText(ScanActivity.this, "You do not own this book, unable to view.",
-                                            Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        }
-                    }
-                });
-
+        Intent intent = new Intent(ScanActivity.this, AddBook.class);
+        intent.putExtra("ISBN", isbn);
+        startActivity(intent);
+        finish();
     }
 }

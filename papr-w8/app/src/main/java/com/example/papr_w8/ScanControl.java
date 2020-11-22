@@ -37,7 +37,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * Fragment that allows user to view book, borrow, or return a book by scanning an ISBN
+ * Fragment that
  */
 public class ScanControl extends Fragment {
 
@@ -84,6 +84,7 @@ public class ScanControl extends Fragment {
                 Intent intent = new Intent(getContext(), ScanActivity.class);
                 intent.putExtra("request", "borrow");
                 startActivity(intent);
+
             }
         });
 
