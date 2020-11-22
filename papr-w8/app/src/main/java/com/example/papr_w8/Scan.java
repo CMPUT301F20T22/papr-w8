@@ -7,8 +7,10 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +20,7 @@ import android.widget.Toast;
 
 import com.example.papr_w8.BookView.BookBasicView;
 import com.example.papr_w8.BookView.BookOwnedView;
+import com.example.papr_w8.BookView.BookScannedView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -27,10 +30,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.mlkit.vision.barcode.BarcodeScanner;
-import com.google.mlkit.vision.barcode.BarcodeScannerOptions;
-import com.google.mlkit.vision.barcode.BarcodeScanning;
-import com.google.mlkit.vision.common.InputImage;
+
 
 
 import java.io.Serializable;
@@ -72,119 +72,32 @@ public class Scan extends Fragment {
         view_desc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(intent, VIEW_DESCRIPTION_REQUEST_CODE);
+                Intent intent = new Intent(getContext(), ScanActivity.class);
+                intent.putExtra("request", "view description");
+                startActivity(intent);
             }
         });
 
         borrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(intent, BORROW_REQUEST_CODE);
+                Intent intent = new Intent(getContext(), ScanActivity.class);
+                intent.putExtra("request", "borrow");
+                startActivity(intent);
             }
         });
 
         return_book.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(intent, RETURN_REQUEST_CODE);
+                Intent intent = new Intent(getContext(), ScanActivity.class);
+                intent.putExtra("request", "return");
+                startActivity(intent);
             }
         });
+
         return view;
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
 
-        Bitmap photo = (Bitmap)data.getExtras().get("data");
-
-        InputImage image = InputImage.fromBitmap(photo, 0);
-
-        scanBarcode(image, requestCode);
-
-    }
-
-
-
-
-    private void scanBarcode(InputImage image, final int requestCode){
-        BarcodeScannerOptions options =
-                new BarcodeScannerOptions.Builder().setBarcodeFormats(
-                        Barcode.ISBN)
-                        .build();
-
-        BarcodeScanner scanner = BarcodeScanning.getClient(options);
-
-        Task<List<com.google.mlkit.vision.barcode.Barcode>> result = scanner.process(image)
-                .addOnSuccessListener(new OnSuccessListener<List<com.google.mlkit.vision.barcode.Barcode>>() {
-                    @Override
-                    public void onSuccess(List<com.google.mlkit.vision.barcode.Barcode> barcodes) {
-
-                        for (com.google.mlkit.vision.barcode.Barcode barcode : barcodes) {
-
-                            ISBN = barcode.getDisplayValue();
-                            switch (requestCode) {
-                                case VIEW_DESCRIPTION_REQUEST_CODE:
-                                    getBookDetails();
-                                    break;
-                                case BORROW_REQUEST_CODE:
-                                    //notify owner of borrow
-                                    break;
-                                case RETURN_REQUEST_CODE:
-                                    //notify owner of return
-                                    break;
-                            }
-                        }
-                    }
-                });
-
-    }
-
-    private void getBookDetails(){
-        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        String email = user.getEmail();
-
-        final Task<QuerySnapshot> bookDoc = FirebaseFirestore.getInstance().collection("Users")
-                .document(email).collection("Books Owned").get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        //add book items from database
-                        if (task.isSuccessful()){
-                            for (QueryDocumentSnapshot document : task.getResult()){
-                                if (ISBN == document.getString("ISBN")){
-                                    String title = document.getString("Title");
-                                    String author = document.getString("Author");
-                                    String status = document.getString("Status");
-                                    String book_cover = document.getString("Book Cover");
-                                    Book book = new Book(title,author,ISBN,status,book_cover);
-
-                                    BookBasicView bookBasicView = new BookBasicView();
-
-                                    Bundle bundle = new Bundle();
-
-                                    bundle.putSerializable("bookSelected", (Serializable) book);
-
-                                    Intent intent = new Intent(getContext(), BookOwnedView.class);
-
-                                    //transfer data
-
-                                    bookBasicView.setArguments(bundle);
-                                    startActivity(intent);
-
-
-                                }
-                                else{
-                                    Toast.makeText(getContext(), "You do not own this book, unable to view.",
-                                            Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        }
-                    }
-                });
-
-    }
 }

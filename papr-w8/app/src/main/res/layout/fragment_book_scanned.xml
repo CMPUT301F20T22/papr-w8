@@ -16,15 +16,6 @@
         android:textSize="26dp"
         android:text="Description" />
 
-    <TextView
-        android:id="@+id/actionsText"
-        android:layout_width="170dp"
-        android:layout_height="43dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="400dp"
-        android:textSize="26dp"
-        android:text="Actions" />
-
     <ImageView
         android:id="@+id/frontImageView"
         android:layout_width="125dp"
@@ -45,11 +36,6 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginTop="235dp"
-        android:background="@android:color/darker_gray"/>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="435dp"
         android:background="@android:color/darker_gray"/>
 
     <TextView
@@ -128,30 +114,7 @@
         android:textSize="20dp"
         android:text="Status" />
 
-    <Button
-        android:id="@+id/lendButton"
-        android:layout_width="300dp"
-        android:layout_height="40dp"
-        android:layout_gravity="bottom|center"
-        android:layout_marginBottom="120dp"
-        android:text="Lend" />
 
-    <Button
-        android:id="@+id/requestButton"
-        android:layout_width="300dp"
-        android:layout_height="40dp"
-        android:layout_gravity="bottom|center"
-        android:layout_marginBottom="75dp"
-        android:text="Request" />
-
-    <Button
-        android:id="@+id/cancelButton"
-        android:layout_width="294dp"
-        android:layout_height="40dp"
-        android:layout_gravity="bottom|center"
-        android:layout_marginBottom="30dp"
-        android:background="#C62E49"
-        android:text="Cancel" />
 
 
 </FrameLayout>

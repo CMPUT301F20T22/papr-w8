@@ -39,8 +39,10 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'com.google.firebase:firebase-storage:19.2.0'
-    //Firebase ML Kit
-    implementation 'com.google.mlkit:barcode-scanning:16.0.3'
+    //For Barcode scanner
+    implementation 'com.google.android.gms:play-services-vision:20.1.2'
+
+
 
 
 
