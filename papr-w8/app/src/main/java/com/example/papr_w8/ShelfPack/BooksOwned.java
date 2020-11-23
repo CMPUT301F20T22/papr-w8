@@ -86,10 +86,13 @@ public class BooksOwned extends Fragment {
                         //add book items from database
                         if (task.isSuccessful()){
                             for (QueryDocumentSnapshot document : task.getResult()){
-                                ownedBookDataList.add(new Book(
+                                Book temp = new Book(
                                         document.getString("Title"), document.getString("Author"),
                                         document.getString("ISBN"), document.getString("Status"),
-                                        document.getString("Book Cover")));
+                                        document.getString("Book Cover"),document.getString("Owner"));
+                                temp.setId(document.getId());
+                                ownedBookDataList.add(temp);
+
                                 //setup an array adapter for the books
                                 ownedBookAdapter = new BookDisplayList(getContext(), ownedBookDataList);
                                 ownedBookList.setAdapter(ownedBookAdapter);
