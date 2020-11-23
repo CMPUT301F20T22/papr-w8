@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingLeft="20sp"
+    android:paddingTop="20sp"
+    android:paddingRight="20sp"
+    tools:context=".AddPack.EditBook">
+
+    <TextView
+        android:id="@+id/editBookTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Edit Book"
+        android:textSize="36sp" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Title:"
+        android:textSize="24sp" />
+
+    <EditText
+        android:id="@+id/edit_title_editText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="New Title" />
+
+    <TextView
+        android:id="@+id/author"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Author:"
+        android:textSize="24sp" />
+
+    <EditText
+        android:id="@+id/edit_author_editText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="New Author" />
+
+    <TextView
+        android:id="@+id/isbn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New ISBN:"
+        android:textSize="24sp" />
+
+    <EditText
+        android:id="@+id/edit_isbn_editText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="New ISBN" />
+
+    <TextView
+        android:id="@+id/attach_photo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Attach Book Cover:"
+        android:textSize="24sp" />
+
+    <ImageButton
+        android:id="@+id/editImageButton"
+        android:layout_width="98dp"
+        android:layout_height="120dp"
+        android:src="@android:drawable/ic_menu_add"
+        android:padding="20dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <Button
+            android:id="@+id/cancel_editBook_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/button_rounded_purple"
+            android:text="Cancel"
+            android:textColor="#FFFFFF" />
+
+        <Button
+            android:id="@+id/confirm_editBook_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/button_rounded_blue"
+            android:text="Edit Book"
+            android:textColor="#FFFFFF" />
+    </LinearLayout>
+</LinearLayout>
