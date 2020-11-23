@@ -68,6 +68,10 @@ public class AddBook extends AppCompatActivity {
         FirebaseUser user = firebaseAuth.getInstance().getCurrentUser();
         final String email = user.getEmail();
 
+        Intent intent = getIntent();
+        String isbn = intent.getStringExtra("ISBN");
+        newBookISBN.setText(isbn);
+
         addBookCover.setOnClickListener(new View.OnClickListener() {  // onClickListener for when the user clicks on the add book cover image buttor
             @Override
             public void onClick(View view) {

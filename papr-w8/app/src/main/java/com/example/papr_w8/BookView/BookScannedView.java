@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
+import com.example.papr_w8.Book;
 import com.example.papr_w8.R;
 
 /**
@@ -38,40 +39,21 @@ public class BookScannedView extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_book_scanned, container, false);
 
-        buttonLend = (Button) view.findViewById(R.id.lendButton);
-        buttonRequest = (Button) view.findViewById(R.id.requestButton);
-        buttonCancel = (Button) view.findViewById(R.id.cancelButton);
 
         textViewTitle = view.findViewById(R.id.titleEditText);
         textViewAuthor = view.findViewById(R.id.authorEditText);
         textViewISBN = view.findViewById(R.id.isbnEditText);
         textViewStatus = view.findViewById(R.id.statusEditText);
 
-        // This onClickListener performs the action of updating a Book to Lend it out
-        // Sending the user back to the MainActivity
-        buttonLend.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // TODO implement the action of clicking the Lend button
-            }
-        });
+        Bundle bundle = this.getArguments();
+        Book book = (Book) bundle.getSerializable("bookScanned");
 
-        // This onClickListener performs the action of updating a Book to being requested and
-        // adding it to the Requested Books collection
-        buttonRequest.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // TODO implement the action of clicking the Request button
-            }
-        });
+        textViewTitle.setText(book.getTitle());
+        textViewAuthor.setText(book.getAuthor());
+        textViewISBN.setText(book.getISBN());
+        textViewStatus.setText(book.getStatus());
 
-        // This onClickListener performs the action of taking the user back to the MainActivity
-        buttonCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // TODO implement the action of clicking the Cancel Button
-            }
-        });
+
 
         return view;
     }

@@ -1,69 +1,84 @@
 package com.example.papr_w8.BookView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewStub;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
+import com.example.papr_w8.AddPack.AddBook;
 import com.example.papr_w8.Book;
+import com.example.papr_w8.Host;
+import com.example.papr_w8.MainActivity;
 import com.example.papr_w8.R;
+import com.example.papr_w8.ShelfPack.BooksOwned;
+import com.example.papr_w8.ShelfPack.Shelves;
+import com.example.papr_w8.SignUpActivity;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * This is a Fragment that displays the view of a Book Description that is Owned providing
  * options for the Owner to Edit, View Requests, or Delete Book.
  */
-public class BookOwnedView extends Fragment {
+public class BookOwnedView extends BookBase {
 
-    public BookOwnedView() {
-    }
+    private String fileName;
+    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+    FirebaseUser user = firebaseAuth.getInstance().getCurrentUser();
+    private FirebaseFirestore fbDB = FirebaseFirestore.getInstance();
+    private String email = user.getEmail();
 
-    private Button buttonViewApprove;
-    private Button buttonEditDescription;
-    private Button buttonDeleteBook;
-
-    private TextView textViewTitle;
-    private TextView textViewAuthor;
-    private TextView textViewISBN;
-    private TextView textViewStatus;
-
-    private ImageView imageViewDefault;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public void onCreate( Bundle savedInstanceState ){
+        super.onCreate(savedInstanceState);
+        setRetainInstance(true);
 
-        View view = inflater.inflate(R.layout.fragment_book_owned, container, false);
 
-        buttonViewApprove = (Button) view.findViewById(R.id.viewapproveButton);
-        buttonEditDescription = (Button) view.findViewById(R.id.editdescriptionButton);
-        buttonDeleteBook = (Button) view.findViewById(R.id.deleteButton);
 
-        textViewTitle = view.findViewById(R.id.titleEditText);
-        textViewAuthor = view.findViewById(R.id.authorEditText);
-        textViewISBN = view.findViewById(R.id.isbnEditText);
-        textViewStatus = view.findViewById(R.id.statusEditText);
+    }
 
-        // Get the bundle containing the Book object passed to the View
-        Bundle bundle = this.getArguments();
-        Book book = (Book) bundle.getSerializable("bookSelected");
+    @Override
+    public void provideYourFragmentView(final View baseView, ViewGroup container){
 
-        textViewTitle.setText(book.getTitle());
-        textViewAuthor.setText(book.getAuthor());
-        textViewISBN.setText(book.getISBN());
-        textViewStatus.setText(book.getStatus());
 
-        // This onClickListener performs the action of taking the Owner to view requests activity
-        buttonViewApprove.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // TODO implement the action of clicking the ViewApprove button
-            }
-        });
+        Button buttonEditDescription;
+        Button buttonDeleteBook;
+
+        setRetainInstance(true);
+        ViewStub stub = baseView.findViewById(R.id.child_fragment_here);
+        stub.setLayoutResource(R.layout.fragment_book_owned);
+        stub.inflate();
+
+        buttonEditDescription = (Button) baseView.findViewById(R.id.editdescriptionButton);
+        buttonDeleteBook = (Button) baseView.findViewById(R.id.deleteButton);
 
         buttonEditDescription.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,14 +86,23 @@ public class BookOwnedView extends Fragment {
                 // TODO implement the action of clicking the EditDescription button
             }
         });
-
+        Log.d("CREATION","HELLOOOOOO");
         buttonDeleteBook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO implement the action of clicking the DeleteBook button
+
+                String bookID = book.getId();
+                fbDB.collection("Users").document(email).collection("Books Owned").document(bookID.toString()).delete();
+                fbDB.collection("Books").document(bookID);
+
+
+                Intent intent = new Intent(getActivity(), Host.class);
+                startActivity(intent);
+
             }
         });
 
-        return view;
-    }
+
+    };
+
 }
