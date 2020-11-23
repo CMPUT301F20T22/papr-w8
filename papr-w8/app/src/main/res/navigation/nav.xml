@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/shelves"
-        android:name="com.example.papr_w8.Home"
+        android:name="com.example.papr_w8.ShelfPack.Shelves"
         android:label="fragment_shelves"
         tools:layout="@layout/fragment_shelves" />
 
