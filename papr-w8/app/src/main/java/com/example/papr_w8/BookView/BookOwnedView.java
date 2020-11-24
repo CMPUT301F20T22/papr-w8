@@ -84,7 +84,7 @@ public class BookOwnedView extends BookBase {
                 // TODO implement the action of clicking the EditDescription button
             }
         });
-        Log.d("CREATION","HELLOOOOOO");
+
         buttonDeleteBook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
