@@ -4,6 +4,7 @@ import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
@@ -108,10 +109,13 @@ public class AddBook extends AppCompatActivity {
                     newBookAuthor.setError("Please enter author's name");
                     newBookAuthor.requestFocus();
                     return;
-
                 } else if (ISBN.isEmpty()) { //checks for valid ISBN entry
                     newBookISBN.setError("Please enter valid ISBN");
                     newBookISBN.requestFocus();
+                    return;
+                }else if (imageUri == null) {
+                    Toast.makeText(AddBook.this, "No Book Cover Added", Toast.LENGTH_SHORT).show();
+                    addBookCover.requestFocus();
                     return;
                 } else {
                     final Map<String, Object> book = new HashMap<>();
@@ -120,7 +124,7 @@ public class AddBook extends AppCompatActivity {
                     book.put("ISBN", ISBN);
                     book.put("Status", "Available");
                     book.put("Book Cover", fileName);
-
+                    book.put("Owner", email);
                     // Implementation for adding book details to the firestore collection
                     fbDB.collection("Users").document(email).collection("Books Owned")
                             .add(book)
@@ -128,7 +132,7 @@ public class AddBook extends AppCompatActivity {
                                 @Override
                                 public void onSuccess(DocumentReference documentReference) {
                                     Toast.makeText(AddBook.this, "Book Added", Toast.LENGTH_SHORT).show();
-                                    fbDB.collection("Books").document(documentReference.getId())
+                                    fbDB.collection("Books").document(documentReference.getId()) //adds book to "Books" collections too
                                             .set(book);
                                 }
                             })
@@ -209,6 +213,7 @@ public class AddBook extends AppCompatActivity {
                         }
                     });
         } else {
+            fileName = "default_book.png";
             Toast.makeText(this, "No book cover selected", Toast.LENGTH_SHORT).show();
         }
     }
