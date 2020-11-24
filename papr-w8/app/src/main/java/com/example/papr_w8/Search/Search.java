@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.text.Editable;
@@ -22,6 +23,7 @@ import android.widget.Toast;
 import com.example.papr_w8.Adapters.BookDisplayList;
 import com.example.papr_w8.Adapters.UserDisplayList;
 import com.example.papr_w8.Book;
+import com.example.papr_w8.ProfilePack.RetrivedProfile;
 import com.example.papr_w8.R;
 import com.example.papr_w8.User;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -58,6 +60,15 @@ public class Search extends Fragment implements AdapterView.OnItemSelectedListen
      * @param adapter ArrayAdapter handling the String options for the spinner options
      * @return Search view
      */
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (savedInstanceState != null) {
+            // restore fragment state
+        }
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -147,8 +158,36 @@ public class Search extends Fragment implements AdapterView.OnItemSelectedListen
             }
         });
 
+        // handle click on list item
+        resultList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int pos, long l) {
+                if(resultList.getItemAtPosition(pos) instanceof User){
+                    User user = userAdapter.getItem(pos);
+                    new RetrivedProfile();
+                    RetrivedProfile retrivedProfileFragment = RetrivedProfile.newInstance(user);
+                    FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction()
+                            .show(retrivedProfileFragment);
+                    ft.replace(R.id.fragment_search, retrivedProfileFragment);
+//                    ft.add(retrivedProfileFragment,"retrivedProfileFragment_TAG");
+//                    ft.addToBackStack("retrivedProfileFragment_TAG");
+                    ft.commit();
+                } else if (resultList.getItemAtPosition(pos) instanceof Book) {
+                    Book book = bookAdapter.getItem(pos);
+                    
+                }
+            }
+        });
+
         // Inflate the layout for this fragment
         return view;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        //Save the fragment's state here
     }
 
     private TextWatcher searchFilter = new TextWatcher() {
@@ -204,7 +243,7 @@ public class Search extends Fragment implements AdapterView.OnItemSelectedListen
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 if(!document.getString("name").toLowerCase().contains(searchContent.toLowerCase()) && !searchContent.equals("")){
-                                    userAdapter = new UserDisplayList(getContext(), userDataList); // userDataList is an empty array of users
+                                    userAdapter = new UserDisplayList(getContext(), userDataList);
                                     resultList.setAdapter(userAdapter);
                                 } else if(document.getString("name").toLowerCase().contains(searchContent.toLowerCase())){
                                     userDataList.add(new User(document.getString("name"), document.getString("password"), document.getString("email"), document.getString("address")));
