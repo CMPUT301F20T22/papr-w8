@@ -41,15 +41,29 @@ public class NotificationDisplayList extends ArrayAdapter<Notification> {
         TextView message = view.findViewById(R.id.notification_text);
 
         String status = notification.getType();
+        String sender = notification.getSenderName();
+        String book_title = notification.getBookTitle();
 
         switch (status){
             case "request":
+                message.setText(sender + " is requesting to borrow " + book_title + ".");
                 break;
+            case "borrow_scan":
+                message.setText(sender + " has scanned to checkout " + book_title +". Scan to confirm.");
+                break;
+            case "return_scan":
+                message.setText(sender + " has scanned to return " + book_title + ". Scan to confirm.");
+                break;
+            case "accepted":
+                message.setText(sender + " has accepted your request to borrow " + book_title + ".");
+                break;
+            case "declined":
+                message.setText(sender + " has denied your request to borrow " + book_title + ".");
+                break;
+
         }
-
-
-
         return view;
+
     }
 
 
