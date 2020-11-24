@@ -3,39 +3,31 @@ package com.example.papr_w8;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
+
 
 import android.Manifest;
-import android.app.Activity;
+
 import android.content.Intent;
-import android.content.pm.PackageItemInfo;
+
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.util.Log;
+
 import android.util.SparseArray;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.widget.Toast;
 
 import com.example.papr_w8.AddPack.AddBook;
-import com.example.papr_w8.BookView.BookScannedView;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
+
 
 
 import java.io.IOException;
-import java.io.Serializable;
+
 
 /**
  * Activity to allow users to scan a book's ISBN
@@ -127,28 +119,14 @@ public class ScanActivity extends AppCompatActivity {
                     isbn = barcodes.valueAt(0).displayValue;
 
                     // go back to the caller activity and return the ISBN with an intent.
-                    Intent intent = getIntent();
-                    String request = intent.getStringExtra("request");
-                    switch(request){
-                        case "view description":
-                            getBookDetails();
-                            break;
-                    }
-
-
+                    Intent intent = new Intent();
+                    intent.putExtra("ISBN", isbn);  // isbn is passed back to calling activity in bundle
+                    setResult(RESULT_OK, intent);
+                    finish();
 
                 }
             }
         });
     }
 
-    /**
-     * Sends the ISBN to AddBookActivity
-     */
-    private void getBookDetails(){
-        Intent intent = new Intent(ScanActivity.this, AddBook.class);
-        intent.putExtra("ISBN", isbn);
-        startActivity(intent);
-        finish();
-    }
 }
