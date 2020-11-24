@@ -12,6 +12,9 @@ import androidx.fragment.app.Fragment;
 
 import com.example.papr_w8.Book;
 import com.example.papr_w8.R;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.squareup.picasso.Picasso;
 
 public abstract class BookBase extends Fragment{
 
@@ -20,14 +23,9 @@ public abstract class BookBase extends Fragment{
     private TextView textViewISBN;
     private TextView textViewStatus;
     private TextView textViewOwner;
-
     protected Book book;
 
-    private ImageView imageViewDefault;
-    private Uri ImageUri;
-
     public BookBase(){
-
     }
 
     public void onCreate(Bundle savedInstanceState) {
@@ -45,6 +43,7 @@ public abstract class BookBase extends Fragment{
         textViewISBN = baseView.findViewById(R.id.isbnEditText);
         textViewStatus = baseView.findViewById(R.id.statusEditText);
         textViewOwner = baseView.findViewById(R.id.ownerEditText);
+        final ImageView bookBaseCover = baseView.findViewById(R.id.book_base_cover);
 
         // Get the bundle containing the Book object passed to the View
         Bundle bundle = this.getArguments();
@@ -56,8 +55,19 @@ public abstract class BookBase extends Fragment{
         textViewStatus.setText(book.getStatus());
         textViewOwner.setText(book.getOwner());
 
-        provideYourFragmentView(baseView, container);
+        //set book cover to imageview
+        FirebaseStorage.getInstance().getReference("images/" + book.getCover()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Picasso.get()
+                        .load(uri)
+                        .fit()
+                        .centerCrop()
+                        .into(bookBaseCover);
+            }
+        });
 
+        provideYourFragmentView(baseView, container);
         return baseView;
     }
 

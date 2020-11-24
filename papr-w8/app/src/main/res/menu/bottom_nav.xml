@@ -9,9 +9,9 @@
         android:title="Shelves"
         android:icon="@drawable/ic_book"/>
     <item
-        android:id="@+id/scan"
-        android:title="Scan"
-        android:icon="@drawable/ic_camera"/>
+        android:id="@+id/notifications"
+        android:title="Notifications"
+        android:icon="@drawable/ic_notifications"/>
 
     <item
         android:id="@+id/search"

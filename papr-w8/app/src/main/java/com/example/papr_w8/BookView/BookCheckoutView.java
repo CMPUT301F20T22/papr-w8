@@ -1,78 +1,159 @@
 package com.example.papr_w8.BookView;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.papr_w8.R;
+import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewStub;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.example.papr_w8.R;
+import com.example.papr_w8.ScanActivity;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
- * This is a Fragment that displays the view of a Book Description that has been Accepted and needs
- * to be Confirmed by the Borrower with a Location.
+ * Fragment that allows user to view an accepted book
  */
-public class BookCheckoutView extends Fragment {
+public class BookCheckoutView extends BookBase {
+    private static final String TAG = "MyTag" ;
+    private FirebaseAuth firebaseAuth;
+    private final int SCAN_ISBN_FOR_BORROW = 1;
 
-    public BookCheckoutView() {
-    }
 
     private Button buttonConfirmBorrow;
     private Button buttonCancelBorrow;
-    private Button buttonCancel;
 
-    private TextView textViewTitle;
-    private TextView textViewAuthor;
-    private TextView textViewISBN;
-    private TextView textViewStatus;
 
     private ImageView imageViewDefault;
 
+
+    public BookCheckoutView() {
+        // Required empty public constructor
+    }
+
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public void provideYourFragmentView(View rootView, ViewGroup container) {
 
-        View view = inflater.inflate(R.layout.fragment_book_checkout, container, false);
 
-        buttonConfirmBorrow = (Button) view.findViewById(R.id.confirmButton);
-        buttonCancelBorrow = (Button) view.findViewById(R.id.cancelborrowButton);
-        buttonCancel = (Button) view.findViewById(R.id.deleteButton);
+        setRetainInstance(true);
+        ViewStub stub = rootView.findViewById(R.id.child_fragment_here);
+        stub.setLayoutResource(R.layout.fragment_book_checkout);
+        stub.inflate();
 
-        textViewTitle = view.findViewById(R.id.titleEditText);
-        textViewAuthor = view.findViewById(R.id.authorEditText);
-        textViewISBN = view.findViewById(R.id.isbnEditText);
-        textViewStatus = view.findViewById(R.id.statusEditText);
+        buttonConfirmBorrow = (Button) rootView.findViewById(R.id.confirmButton);
+        buttonCancelBorrow = (Button) rootView.findViewById(R.id.cancel_checkout);
 
-        // This onClickListener performs the action of updating the status of a Book to Borrowed
-        // sending the user to the MainActivity
+
+        // This onClickListener goes to ScanActivity
+        // sending the user to Shelves
         buttonConfirmBorrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO implement the action of clicking the Confirm Borrow button
-            }
-        });
-        // This onClickListener performs the action of updating the status of a Book to Canceled
-        // sending the user to the MainActivity
-        buttonCancelBorrow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // TODO implement the action of clicking the Cancel Borrow button
+                Intent intent = new Intent(getContext(), ScanActivity.class);
+                startActivityForResult(intent, SCAN_ISBN_FOR_BORROW);
             }
         });
 
-        // This onClickListener performs the action of taking the user back to the MainActivity
-        buttonCancel.setOnClickListener(new View.OnClickListener() {
+        // This onClickListener performs the action of taking the user back to Shelves
+        buttonCancelBorrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // TODO implement the action of clicking the Cancel button
             }
         });
 
-        return view;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == SCAN_ISBN_FOR_BORROW){
+            final String isbn = data.getStringExtra("ISBN");
+            Log.d(TAG, "ISBN from scan: " + isbn);
+
+            firebaseAuth = FirebaseAuth.getInstance();
+            final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            final String email = user.getEmail();
+            final String name = user.getDisplayName();
+
+            final Task<QuerySnapshot> bookDoc = FirebaseFirestore.getInstance().collection("Users")
+                    .document(email).collection("Books_Accepted").get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            //add book items from database
+                            if (task.isSuccessful()){
+                                for (QueryDocumentSnapshot document : task.getResult()){
+                                    if (isbn.matches(document.getString("ISBN"))){
+                                        String owner = (String) document.get("Owner");
+                                        Log.d(TAG, "owner_email" + owner);
+                                        notifyOwner(owner, email, name);
+                                    }
+
+                                }
+                            }
+                        }
+                    });
+
+        }
+    }
+
+    public void notifyOwner(final String owner_email, final String user_email, final String user_name) {
+        Task<DocumentSnapshot> user = FirebaseFirestore.getInstance().collection("Users")
+                .document(owner_email)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            final FirebaseFirestore db = FirebaseFirestore.getInstance();
+                            Map<String, Object> notification = new HashMap<>();
+                            notification.put("Sender", user_email);
+                            notification.put("Name", user_name);
+                            notification.put("Type", "borrow_scan");
+                            notification.put("Book Title", book.getTitle());
+
+                            db.collection("Users")
+                                    .document(owner_email)
+                                    .collection("Notifications")
+                                    .add(notification)
+                                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                        @Override
+                                        public void onSuccess(DocumentReference documentReference) {
+                                            Toast.makeText(getContext(), "Owner has been notified.", Toast.LENGTH_SHORT).show();
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Toast.makeText(getContext(), "Unable to notify owner.", Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                        }
+                    }
+                });
     }
 }
