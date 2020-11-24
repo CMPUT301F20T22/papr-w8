@@ -15,7 +15,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.papr_w8.Host;
 import com.example.papr_w8.R;
+import com.example.papr_w8.ScanActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -42,6 +44,12 @@ public class AddBook extends AppCompatActivity {
     private ImageButton addBookCover;
     private StorageReference storageReference;
     private String fileName;
+    private EditText newBookTitle;
+    private EditText newBookISBN;
+    private EditText newBookAuthor;
+
+    private final int ADD_COVER_REQUEST_CODE = 1;
+    private final int SCAN_ISBN_REQUEST_CODE = 2;
 
     /**
      * onCreate starts the code for adding a book functionality
@@ -52,11 +60,12 @@ public class AddBook extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_book);
 
-        final EditText newBookTitle = findViewById(R.id.new_title_editText);
-        final EditText newBookISBN = findViewById(R.id.new_isbn_editText);
-        final EditText newBookAuthor = findViewById(R.id.new_author_editText);
+        newBookTitle = findViewById(R.id.new_title_editText);
+        newBookISBN = findViewById(R.id.new_isbn_editText);
+        newBookAuthor = findViewById(R.id.new_author_editText);
         Button cancel = findViewById(R.id.cancel_addbook_button);
         Button confirm = findViewById(R.id.confirm_addbook_button);
+        Button scan = findViewById(R.id.scan_isbn);
         addBookCover = findViewById(R.id.imageButton);
 
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
@@ -67,16 +76,22 @@ public class AddBook extends AppCompatActivity {
 
         FirebaseUser user = firebaseAuth.getInstance().getCurrentUser();
         final String email = user.getEmail();
+        
 
-        Intent intent = getIntent();
-        String isbn = intent.getStringExtra("ISBN");
-        newBookISBN.setText(isbn);
+        scan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(AddBook.this, ScanActivity.class);
+                startActivityForResult(intent, SCAN_ISBN_REQUEST_CODE);
+            }
+        });
+
 
         addBookCover.setOnClickListener(new View.OnClickListener() {  // onClickListener for when the user clicks on the add book cover image buttor
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(AddBook.this, AddBookCoverActivity.class);
-                startActivityForResult(intent, 1);
+                startActivityForResult(intent, ADD_COVER_REQUEST_CODE);
             }
         });
 
@@ -115,6 +130,7 @@ public class AddBook extends AppCompatActivity {
                                 @Override
                                 public void onSuccess(DocumentReference documentReference) {
                                     Toast.makeText(AddBook.this, "Book Added", Toast.LENGTH_SHORT).show();
+
                                 }
                             })
                             .addOnFailureListener(new OnFailureListener() {
@@ -123,6 +139,8 @@ public class AddBook extends AppCompatActivity {
                                     Toast.makeText(AddBook.this, "Book Add Failed", Toast.LENGTH_SHORT).show();
                                 }
                             });
+                    Intent intent = new Intent(AddBook.this, Host.class);
+                    startActivity(intent);
 
                     fbDB.collection("Books")
                             .add(book)
@@ -140,7 +158,9 @@ public class AddBook extends AppCompatActivity {
                             });
 
                     finish();
+
                 }
+
             }
         });
 
@@ -161,14 +181,20 @@ public class AddBook extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1) {
+        if (requestCode == ADD_COVER_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 String imageUriString = data.getStringExtra("coverUri");
                 imageUri = Uri.parse(imageUriString);
                 Picasso.get().load(imageUri).into(addBookCover);
                 uploadCover();
             }
+        }else if (requestCode == SCAN_ISBN_REQUEST_CODE){
+            if (resultCode == RESULT_OK){
+                String isbn = data.getStringExtra("ISBN");
+                newBookISBN.setText(isbn);
+            }
         }
+
     }
 
     /**

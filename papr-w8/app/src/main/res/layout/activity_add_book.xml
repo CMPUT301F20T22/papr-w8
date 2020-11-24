@@ -43,6 +43,7 @@
         android:layout_height="wrap_content"
         android:hint="New Author" />
 
+
     <TextView
         android:id="@+id/isbn"
         android:layout_width="wrap_content"
@@ -50,11 +51,23 @@
         android:text="New ISBN:"
         android:textSize="24sp" />
 
-    <EditText
-        android:id="@+id/new_isbn_editText"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="New ISBN" />
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/new_isbn_editText"
+            android:layout_width="267dp"
+            android:layout_height="wrap_content"
+            android:hint="New ISBN" />
+
+        <Button
+            android:id="@+id/scan_isbn"
+            android:layout_width="103dp"
+            android:layout_height="wrap_content"
+            android:text="Scan" />
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/attach_photo"
@@ -101,4 +114,5 @@
         android:text="testButton"
         android:layout_marginLeft="100dp"
         android:layout_marginTop="0dp"/>
+
 </LinearLayout>
