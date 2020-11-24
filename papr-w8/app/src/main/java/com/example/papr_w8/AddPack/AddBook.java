@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.papr_w8.Host;
 import com.example.papr_w8.R;
 import com.example.papr_w8.ScanActivity;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -129,6 +130,7 @@ public class AddBook extends AppCompatActivity {
                                 @Override
                                 public void onSuccess(DocumentReference documentReference) {
                                     Toast.makeText(AddBook.this, "Book Added", Toast.LENGTH_SHORT).show();
+
                                 }
                             })
                             .addOnFailureListener(new OnFailureListener() {
@@ -137,9 +139,13 @@ public class AddBook extends AppCompatActivity {
                                     Toast.makeText(AddBook.this, "Book Add Failed", Toast.LENGTH_SHORT).show();
                                 }
                             });
+                    Intent intent = new Intent(AddBook.this, Host.class);
+                    startActivity(intent);
 
                     finish();
+
                 }
+
             }
         });
 
