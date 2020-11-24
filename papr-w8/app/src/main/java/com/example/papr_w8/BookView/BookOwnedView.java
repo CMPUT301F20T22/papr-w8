@@ -40,6 +40,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -60,9 +61,6 @@ public class BookOwnedView extends BookBase {
     public void onCreate( Bundle savedInstanceState ){
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
-
-
-
     }
 
     @Override
@@ -90,14 +88,25 @@ public class BookOwnedView extends BookBase {
         buttonDeleteBook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 String bookID = book.getId();
-                fbDB.collection("Users").document(email).collection("Books Owned").document(bookID.toString()).delete();
-                fbDB.collection("Books").document(bookID);
 
+                ConfirmDelete confirmDelete = new ConfirmDelete();
 
-                Intent intent = new Intent(getActivity(), Host.class);
-                startActivity(intent);
+                Bundle bundle = new Bundle();
+                //book = (Book) bundle.getSerializable("bookSelected");
+                //bundle.putSerializable("bookSelected", (Serializable) book);
+                bundle.putString("Book ID", bookID );
+                confirmDelete.setArguments(bundle);
+
+                FragmentTransaction ft = getChildFragmentManager().beginTransaction();
+
+                ft.replace(R.id.fragment_book_base,confirmDelete,confirmDelete.getTag());
+
+                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+
+                ft.addToBackStack(null);
+
+                ft.commit();
 
             }
         });
