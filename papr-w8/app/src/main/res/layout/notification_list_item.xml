@@ -17,5 +17,6 @@
         android:id="@+id/notification_text"
         android:layout_width="match_parent"
         android:layout_height="82dp"
-        android:layout_weight ="98"/>
+        android:layout_weight ="98"
+        android:gravity="center_vertical" />
 </LinearLayout>

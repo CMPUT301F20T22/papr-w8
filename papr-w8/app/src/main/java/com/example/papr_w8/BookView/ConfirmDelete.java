@@ -2,6 +2,7 @@ package com.example.papr_w8.BookView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,14 +31,17 @@ public class ConfirmDelete extends Fragment {
         final String bookID = getArguments().getString("Book ID");
 
         final View view = inflater.inflate(R.layout.fragment_confirm_delete, container, false);
-        deleteConfirm = (Button) view.findViewById(R.id.cancel_deletion);
+        deleteConfirm = (Button) view.findViewById(R.id.confirm_deletion);
         cancel = (Button) view.findViewById(R.id.cancel_deletion);
 
+
+        // ASSERT BOOK AVAILABLE |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
         deleteConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 fbDB.collection("Users").document(email).collection("Books Owned").document(bookID).delete();
-                fbDB.collection("Books").document(bookID);
+
+                fbDB.collection("Books").document(bookID).delete();
 
 
                 Intent intent = new Intent(getActivity(), Host.class);

@@ -6,15 +6,13 @@ package com.example.papr_w8;
 
 public class Notification {
     private String senderId;
-    private String ISBN;
-    private String type;
     private String senderName;
+    private String type;
     private String bookTitle;
     private String viewed;
 
-    public Notification(String senderId, String ISBN, String type, String bookTitle, String senderName) {
+    public Notification(String senderId, String type, String bookTitle, String senderName) {
         this.senderId = senderId;
-        this.ISBN = ISBN;
         this.type = type;
         this.bookTitle = bookTitle;
         this.senderName = senderName;
@@ -30,13 +28,6 @@ public class Notification {
         this.senderId = senderId;
     }
 
-    public String getISBN() {
-        return ISBN;
-    }
-
-    public void setISBN(String ISBN) {
-        this.ISBN = ISBN;
-    }
 
     public String getType() {
         return type;
@@ -44,14 +35,6 @@ public class Notification {
 
     public void setType(String type) {
         this.type = type;
-    }
-
-    public String getSenderName() {
-        return senderName;
-    }
-
-    public void setSenderName(String senderName) {
-        this.senderName = senderName;
     }
 
     public String getBookTitle() {
@@ -71,4 +54,7 @@ public class Notification {
         this.viewed = "true";
     }
 
+    public String getSenderName() { return senderName; }
+
+    public void setSenderName(String senderName) { this.senderName = senderName; }
 }
