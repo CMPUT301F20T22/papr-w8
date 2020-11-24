@@ -18,6 +18,9 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+
+import java.util.ArrayList;
+
 /**
  * Login Activity, the first page a user sees
  */
@@ -28,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
     private EditText passwordEditText;
     private FirebaseAuth firebaseAuth;
     private final static String TAG = "my_message";
+    private ArrayList<Book> booklist;
+    private User user;
 
 
     @Override
@@ -44,28 +49,31 @@ public class MainActivity extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
 
+        booklist = new ArrayList();
+
 
         login_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String email = emailEditText.getText().toString();
+                final String email = emailEditText.getText().toString();
                 String password = passwordEditText.getText().toString();
 
                 if (TextUtils.isEmpty(email)) {
                     emailEditText.setError("Email is required.");
                     emailEditText.requestFocus();
                     return;
-                }
+                };
                 if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
                     emailEditText.setError("Invalid email.");
                     emailEditText.requestFocus();
                     return;
-                }
+                };
                 if (TextUtils.isEmpty(password)) {
                     passwordEditText.setError("Password is required.");
                     emailEditText.requestFocus();
                     return;
-                }
+                };
+
                 //Authenticate user
                 firebaseAuth.signInWithEmailAndPassword(email, password)
                         .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
@@ -73,7 +81,9 @@ public class MainActivity extends AppCompatActivity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
                                     Log.d(TAG, "signInWithEmail:success");
-                                    startActivity(new Intent(MainActivity.this, Host.class));
+                                    Intent intent = new Intent(MainActivity.this, Host.class);
+                                    startActivity(intent);
+
                                 } else {
                                     Log.w(TAG,"signInWithEmail:failure", task.getException());
                                     Toast.makeText(MainActivity.this, "Authentication failed.",

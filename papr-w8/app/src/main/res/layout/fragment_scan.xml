@@ -1,31 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Home">
+    tools:context=".ScanControl">
 
-    <!-- TODO: Update blank fragment layout -->
-
-    <TextView
-        android:id="@+id/textView7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="10dp"
-        android:text="Scan"
-        android:textSize="30dp" />
 
     <Button
-        android:id="@+id/button_1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="BUTTON 1"
-        android:textSize="15dp" />
+        android:id="@+id/get_isbn_button"
+        android:layout_width="268dp"
+        android:layout_height="42dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="74dp"
+        android:layout_marginLeft="74dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="74dp"
+        android:layout_marginRight="74dp"
+        android:layout_marginBottom="40dp"
+        android:background="@android:color/holo_purple"
+        android:text="Get ISBN"
+        android:textColor="@android:color/white" />
+
+    <Button
+        android:id="@+id/borrow_button"
+        android:layout_width="266dp"
+        android:layout_height="42dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="74dp"
+        android:layout_marginLeft="74dp"
+        android:layout_marginTop="200dp"
+        android:layout_marginEnd="74dp"
+        android:layout_marginRight="74dp"
+        android:background="@android:color/holo_purple"
+        android:text="Borrow"
+        android:textColor="@android:color/white" />
+
+    <Button
+        android:id="@+id/return_button"
+        android:layout_width="266dp"
+        android:layout_height="42dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="74dp"
+        android:layout_marginLeft="74dp"
+        android:layout_marginTop="300dp"
+        android:layout_marginEnd="74dp"
+        android:layout_marginRight="74dp"
+        android:background="@android:color/holo_purple"
+        android:text="Return"
+        android:textColor="@android:color/white" />
 
 
+</RelativeLayout>
 
-
-</FrameLayout>

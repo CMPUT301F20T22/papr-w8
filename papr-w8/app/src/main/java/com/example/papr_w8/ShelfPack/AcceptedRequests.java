@@ -7,7 +7,6 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,8 +16,7 @@ import android.widget.ListView;
 
 import com.example.papr_w8.Adapters.BookDisplayWithOwnerList;
 import com.example.papr_w8.Book;
-import com.example.papr_w8.BookView.BookBasicMapView;
-import com.example.papr_w8.BookView.BookBasicView;
+import com.example.papr_w8.BookView.BookCheckoutView;
 import com.example.papr_w8.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -92,19 +90,19 @@ public class AcceptedRequests extends Fragment {
 
             //go to book description when a book is clicked on
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                BookBasicMapView bookBasicMapView = new BookBasicMapView();
+                BookCheckoutView bookCheckoutView = new BookCheckoutView();
 
                 //bundle data to transfer
                 Bundle bundle = new Bundle();
                 Book bookSelected = acceptedBookAdapter.getItem(i);
                 bundle.putSerializable("bookSelected", (Serializable) bookSelected);
-                bookBasicMapView.setArguments(bundle);
+                bookCheckoutView.setArguments(bundle);
 
-                Intent intent = new Intent(getActivity(), BookBasicView.class);
+                Intent intent = new Intent(getActivity(), BookCheckoutView.class);
 
                 //transfer data
                 FragmentTransaction ft = getChildFragmentManager().beginTransaction();
-                ft.replace(R.id.accepted_books, bookBasicMapView);
+                ft.replace(R.id.accepted_books, bookCheckoutView);
                 ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                 ft.commit();
             }
