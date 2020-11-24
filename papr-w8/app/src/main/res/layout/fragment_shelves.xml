@@ -22,14 +22,6 @@
             android:text="Shelves"
             android:textSize="30dp" />
 
-        <ImageButton
-            android:id="@+id/imageButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="320dp"
-            android:src="@drawable/ic_notifications" />
-
         <TextView
             android:id="@+id/textView9"
             android:layout_width="wrap_content"

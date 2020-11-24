@@ -97,6 +97,7 @@ public class BookCheckoutView extends BookBase {
             firebaseAuth = FirebaseAuth.getInstance();
             final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
             final String email = user.getEmail();
+            final String name = user.getDisplayName();
 
             final Task<QuerySnapshot> bookDoc = FirebaseFirestore.getInstance().collection("Users")
                     .document(email).collection("Books_Accepted").get()
@@ -109,7 +110,7 @@ public class BookCheckoutView extends BookBase {
                                     if (isbn.matches(document.getString("ISBN"))){
                                         String owner = (String) document.get("Owner");
                                         Log.d(TAG, "owner_email" + owner);
-                                        notifyOwner(owner, email);
+                                        notifyOwner(owner, email, name);
                                     }
 
                                 }
@@ -120,7 +121,7 @@ public class BookCheckoutView extends BookBase {
         }
     }
 
-    public void notifyOwner(final String owner_email, final String user_email) {
+    public void notifyOwner(final String owner_email, final String user_email, final String user_name) {
         Task<DocumentSnapshot> user = FirebaseFirestore.getInstance().collection("Users")
                 .document(owner_email)
                 .get()
@@ -131,7 +132,8 @@ public class BookCheckoutView extends BookBase {
                             final FirebaseFirestore db = FirebaseFirestore.getInstance();
                             Map<String, Object> notification = new HashMap<>();
                             notification.put("Sender", user_email);
-                            notification.put("type", "borrow_scan");
+                            notification.put("Name", user_name);
+                            notification.put("Type", "borrow_scan");
                             notification.put("Book Title", book.getTitle());
 
                             db.collection("Users")
