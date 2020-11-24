@@ -76,7 +76,6 @@ public class AddBook extends AppCompatActivity {
 
         FirebaseUser user = firebaseAuth.getInstance().getCurrentUser();
         final String email = user.getEmail();
-        
 
         scan.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,7 +84,6 @@ public class AddBook extends AppCompatActivity {
                 startActivityForResult(intent, SCAN_ISBN_REQUEST_CODE);
             }
         });
-
 
         addBookCover.setOnClickListener(new View.OnClickListener() {  // onClickListener for when the user clicks on the add book cover image buttor
             @Override
@@ -116,7 +114,7 @@ public class AddBook extends AppCompatActivity {
                     newBookISBN.requestFocus();
                     return;
                 } else {
-                    Map<String, Object> book = new HashMap<>();
+                    final Map<String, Object> book = new HashMap<>();
                     book.put("Title", title);
                     book.put("Author", author);
                     book.put("ISBN", ISBN);
@@ -130,7 +128,8 @@ public class AddBook extends AppCompatActivity {
                                 @Override
                                 public void onSuccess(DocumentReference documentReference) {
                                     Toast.makeText(AddBook.this, "Book Added", Toast.LENGTH_SHORT).show();
-
+                                    fbDB.collection("Books").document(documentReference.getId())
+                                            .set(book);
                                 }
                             })
                             .addOnFailureListener(new OnFailureListener() {
@@ -141,29 +140,10 @@ public class AddBook extends AppCompatActivity {
                             });
                     Intent intent = new Intent(AddBook.this, Host.class);
                     startActivity(intent);
-
-                    fbDB.collection("Books")
-                            .add(book)
-                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                @Override
-                                public void onSuccess(DocumentReference documentReference) {
-                                    Toast.makeText(AddBook.this, "Book Added", Toast.LENGTH_SHORT).show();
-                                }
-                            })
-                            .addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Toast.makeText(AddBook.this, "Book Add Failed", Toast.LENGTH_SHORT).show();
-                                }
-                            });
-
                     finish();
-
                 }
-
             }
         });
-
         cancel.setOnClickListener(new View.OnClickListener() {  // onClickListener for cancel button if the user wants to cancel adding a book
             @Override
             public void onClick(View view) {
