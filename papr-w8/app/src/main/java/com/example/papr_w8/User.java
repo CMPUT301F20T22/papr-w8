@@ -9,13 +9,15 @@ public class User implements Serializable {
     private String email;
     private String address;
     private ArrayList<Book> books;
+    private ArrayList<Notification> notifications;
 
-    public User(String name, String password, String email, String address, ArrayList<Book> books){
+    public User(String name, String password, String email, String address, ArrayList<Book> books, ArrayList<Notification> notifications){
         this.name = name;
         this.password = password;
         this.email = email;
         this.address = address;
         this.books = books;
+        this.notifications = notifications;
     }
 
     public User(String name, String password, String email, String address){
@@ -69,4 +71,8 @@ public class User implements Serializable {
     public void addBooks(Book book) {
         books.add(book);
     }
+
+    public ArrayList<Notification> getNotifications() { return notifications; }
+
+
 }

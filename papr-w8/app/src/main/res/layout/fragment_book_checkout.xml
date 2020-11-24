@@ -16,15 +16,6 @@
         android:textSize="26dp"
         android:text="Description" />
 
-    <TextView
-        android:id="@+id/actionsText"
-        android:layout_width="170dp"
-        android:layout_height="43dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="400dp"
-        android:textSize="26dp"
-        android:text="Actions" />
-
     <ImageView
         android:id="@+id/frontImageView"
         android:layout_width="125dp"
@@ -133,25 +124,18 @@
         android:layout_width="300dp"
         android:layout_height="40dp"
         android:layout_gravity="bottom|center"
-        android:layout_marginBottom="120dp"
-        android:text="Confirm Borrow" />
+        android:layout_marginBottom="90dp"
+        android:text="Scan to Borrow" />
+
 
     <Button
-        android:id="@+id/cancelborrowButton"
-        android:layout_width="300dp"
-        android:layout_height="40dp"
-        android:layout_gravity="bottom|center"
-        android:layout_marginBottom="75dp"
-        android:text="Cancel Borrow" />
-
-    <Button
-        android:id="@+id/deleteButton"
+        android:id="@+id/cancel_checkout"
         android:layout_width="294dp"
         android:layout_height="40dp"
         android:layout_marginBottom="30dp"
         android:layout_gravity="bottom|center"
         android:background="#C62E49"
-        android:text="Delete Book" />
+        android:text="Cancel" />
 
 
 </FrameLayout>

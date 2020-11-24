@@ -9,7 +9,7 @@
 
 
     <Button
-        android:id="@+id/view_desc_button"
+        android:id="@+id/get_isbn_button"
         android:layout_width="268dp"
         android:layout_height="42dp"
         android:layout_centerHorizontal="true"
@@ -20,7 +20,7 @@
         android:layout_marginRight="74dp"
         android:layout_marginBottom="40dp"
         android:background="@android:color/holo_purple"
-        android:text="View Description"
+        android:text="Get ISBN"
         android:textColor="@android:color/white" />
 
     <Button
