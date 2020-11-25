@@ -32,27 +32,33 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.HashMap;
 import java.util.Map;
 
+import static android.app.Activity.RESULT_OK;
+
 /**
- * Fragment that allows user to view an accepted book
+ * Fragment that allows user to view an accepted book and to borrow a book by scanning
  */
 public class BookCheckoutView extends BookBase {
     private static final String TAG = "MyTag" ;
     private FirebaseAuth firebaseAuth;
     private final int SCAN_ISBN_FOR_BORROW = 1;
+    private String book_id;
+    private String user_name;
 
 
     private Button buttonConfirmBorrow;
-    private Button buttonCancelBorrow;
+    private Button buttonCancel;
 
-
-    private ImageView imageViewDefault;
 
 
     public BookCheckoutView() {
         // Required empty public constructor
     }
 
-
+    /**
+     * Sets the view of the fragment
+     * @param rootView
+     * @param container
+     */
     @Override
     public void provideYourFragmentView(View rootView, ViewGroup container) {
 
@@ -63,11 +69,11 @@ public class BookCheckoutView extends BookBase {
         stub.inflate();
 
         buttonConfirmBorrow = (Button) rootView.findViewById(R.id.confirmButton);
-        buttonCancelBorrow = (Button) rootView.findViewById(R.id.cancel_checkout);
+        buttonCancel = (Button) rootView.findViewById(R.id.cancel_checkout);
 
+        book_id = book.getId();
 
         // This onClickListener goes to ScanActivity
-        // sending the user to Shelves
         buttonConfirmBorrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -76,52 +82,79 @@ public class BookCheckoutView extends BookBase {
             }
         });
 
-        // This onClickListener performs the action of taking the user back to Shelves
-        buttonCancelBorrow.setOnClickListener(new View.OnClickListener() {
+        // This onClickListener performs the action of taking the user back to Accepted Books
+        buttonCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO implement the action of clicking the Cancel button
+                getActivity().getFragmentManager().popBackStack();
             }
         });
 
+
     }
 
+    /**
+     * On successful scan, notify the Owner of the book
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == SCAN_ISBN_FOR_BORROW){
-            final String isbn = data.getStringExtra("ISBN");
-            Log.d(TAG, "ISBN from scan: " + isbn);
+        if (requestCode == SCAN_ISBN_FOR_BORROW) {
+            if (resultCode == RESULT_OK) {
 
-            firebaseAuth = FirebaseAuth.getInstance();
-            final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-            final String email = user.getEmail();
-            final String name = user.getDisplayName();
+                final String owner_email = book.getOwner();
 
-            final Task<QuerySnapshot> bookDoc = FirebaseFirestore.getInstance().collection("Users")
-                    .document(email).collection("Books_Accepted").get()
-                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                            //add book items from database
-                            if (task.isSuccessful()){
-                                for (QueryDocumentSnapshot document : task.getResult()){
-                                    if (isbn.matches(document.getString("ISBN"))){
-                                        String owner = (String) document.get("Owner");
-                                        Log.d(TAG, "owner_email" + owner);
-                                        notifyOwner(owner, email, name);
+                firebaseAuth = FirebaseAuth.getInstance();
+                final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                final String user_email = user.getEmail();
+
+                FirebaseFirestore.getInstance()
+                        .collection("Users")
+                        .document(user_email)
+                        .get()
+                        .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                            @Override
+                            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                user_name = documentSnapshot.getString("name");
+                            }
+                        });
+
+                final Task<DocumentSnapshot> bookDoc = FirebaseFirestore.getInstance().collection("Users")
+                        .document(owner_email)
+                        .collection("Books Owned")
+                        .document(book_id)
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    DocumentSnapshot document = task.getResult();
+                                    if (document.exists()) {
+                                        notifyOwner(owner_email, user_email, user_name, book_id);
+                                    } else {
+                                        Toast.makeText(getContext(), "This book does not belong to the listed owner.",
+                                                Toast.LENGTH_SHORT).show();
                                     }
-
                                 }
                             }
-                        }
-                    });
-
+                        });
+            }
         }
     }
 
-    public void notifyOwner(final String owner_email, final String user_email, final String user_name) {
+
+    /**
+     * Notifies the owner by adding Notification of type "borrow_scan" to Notifications collection
+     * @param owner_email
+     * @param user_email
+     * @param user_name
+     * @param book_id
+     */
+    public void notifyOwner(final String owner_email, final String user_email, final String user_name, final String book_id) {
         Task<DocumentSnapshot> user = FirebaseFirestore.getInstance().collection("Users")
                 .document(owner_email)
                 .get()
@@ -135,6 +168,7 @@ public class BookCheckoutView extends BookBase {
                             notification.put("Name", user_name);
                             notification.put("Type", "borrow_scan");
                             notification.put("Book Title", book.getTitle());
+                            notification.put("Book ID", book_id);
 
                             db.collection("Users")
                                     .document(owner_email)
@@ -156,4 +190,5 @@ public class BookCheckoutView extends BookBase {
                     }
                 });
     }
+
 }
