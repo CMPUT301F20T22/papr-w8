@@ -44,11 +44,13 @@ public class Search extends Fragment implements AdapterView.OnItemSelectedListen
 
     ListView resultList;
     ArrayAdapter<Book> bookAdapter;
+    ArrayAdapter<Book> allBooksAdapter;
     ArrayList<Book> bookDataList;
+    ArrayList<Book> allBooksDataList;
     ArrayAdapter<User> userAdapter;
     ArrayList<User> userDataList;
     private EditText searchText;
-    private Integer selection  = 0; // 0 or Available books, 1 for Users
+    private Integer selection  = 0; // 0 or Available books, 1 for Users, 2 for All books
 
     /**
      * Displays "Seach" page when user clicks on "Search" from the bottom navigation bar
@@ -85,6 +87,7 @@ public class Search extends Fragment implements AdapterView.OnItemSelectedListen
         resultList = view.findViewById(R.id.result_list);
         bookDataList = new ArrayList<>();
         userDataList = new ArrayList<>();
+        allBooksDataList = new ArrayList<>();
         searchText.addTextChangedListener(searchFilter);
 
         /* Citation:
@@ -119,8 +122,10 @@ public class Search extends Fragment implements AdapterView.OnItemSelectedListen
                                     if (task.isSuccessful()) {
                                         for (QueryDocumentSnapshot document : task.getResult()) {
                                             if(document.getString("Status").equals("Available")){
-                                                bookDataList.add(new Book(document.getString("Title"), document.getString("Author"), document.getString("ISBN"), document.getString("Status")));
-                                                bookAdapter = new BookDisplayList(getContext(), bookDataList); // userDataList is an array of users
+                                                Book book = new Book(document.getString("Title"), document.getString("Author"), document.getString("ISBN"), document.getString("Status"));
+                                                book.setOwner(document.getString("Owner"));
+                                                bookDataList.add(book);
+                                                bookAdapter = new BookDisplayList(getContext(), bookDataList); // bookAdapter is an array of Books
                                                 resultList.setAdapter(bookAdapter);
                                                 Log.d("TAG-B", document.getId() + " => " + document.getData());
                                             }
@@ -154,6 +159,31 @@ public class Search extends Fragment implements AdapterView.OnItemSelectedListen
                                 }
                             });
                         break;
+
+                    case 2: // "All books"
+                        selection = 2;
+                        // get Book data from Firebase
+                        final Task<QuerySnapshot> allBooksDoc = FirebaseFirestore.getInstance().collection("Books")
+                            .get()
+                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                    ArrayList<Book> allBooksDataList = new ArrayList<>();
+                                    if (task.isSuccessful()) {
+                                        for (QueryDocumentSnapshot document : task.getResult()) {
+                                            Book book = new Book(document.getString("Title"), document.getString("Author"), document.getString("ISBN"), document.getString("Status"));
+                                            book.setOwner(document.getString("Owner"));
+                                            allBooksDataList.add(book);
+                                            allBooksAdapter = new BookDisplayList(getContext(), allBooksDataList); // allBooksAdapter is an array of Books
+                                            resultList.setAdapter(allBooksAdapter);
+                                            Log.d("TAG-C", document.getId() + " => " + document.getData());
+                                        }
+                                    } else {
+                                        Log.d("TAG", "Error getting documents: ", task.getException());
+                                    }
+                                }
+                            });
+                        break;
                 }
             }
 
@@ -167,6 +197,7 @@ public class Search extends Fragment implements AdapterView.OnItemSelectedListen
         resultList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int pos, long l) {
+                // if clicked item is User
                 if(resultList.getItemAtPosition(pos) instanceof User){
                     User user = userAdapter.getItem(pos);
                     new RetrivedProfile();
@@ -175,15 +206,15 @@ public class Search extends Fragment implements AdapterView.OnItemSelectedListen
                             .show(retrivedProfileFragment);
                     ft.replace(R.id.fragment_search, retrivedProfileFragment);
                     ft.commit();
-                } else if (resultList.getItemAtPosition(pos) instanceof Book) {
 
+                // if clicked item is an Available Book
+                } else if (resultList.getItemAtPosition(pos) instanceof Book
+                        && ((Book) resultList.getItemAtPosition(pos)).getStatus().equals("Available")) {
                     Book book = bookAdapter.getItem(pos);
-
                     RequestBookView requestBookView = new RequestBookView();
 
                     //bundle data to transfer
                     Bundle bundle = new Bundle();
-
                     bundle.putSerializable("bookSelected", (Serializable) book);
                     requestBookView.setArguments(bundle);
 
@@ -194,8 +225,10 @@ public class Search extends Fragment implements AdapterView.OnItemSelectedListen
                     ft.replace(R.id.fragment_search, requestBookView);
                     ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                     ft.commit();
-
                     
+                // if clicked item is a non-avilable book (status = Awaiting Approval, requested, etc.)
+                } else if (resultList.getItemAtPosition(pos) instanceof Book){
+
                 }
             }
         });
@@ -242,8 +275,10 @@ public class Search extends Fragment implements AdapterView.OnItemSelectedListen
                                             || document.getString("Author").toLowerCase().contains(searchContent.toLowerCase())
                                             || document.getString("ISBN").toLowerCase().contains(searchContent.toLowerCase())){
                                         // display applicable search results
-                                        bookDataList.add(new Book(document.getString("Title"), document.getString("Author"), document.getString("ISBN"), document.getString("Status")));
-                                        bookAdapter = new BookDisplayList(getContext(), bookDataList); // userDataList is an array of users
+                                        Book book = new Book(document.getString("Title"), document.getString("Author"), document.getString("ISBN"), document.getString("Status"));
+                                        book.setOwner(document.getString("Owner"));
+                                        bookDataList.add(book);
+                                        bookAdapter = new BookDisplayList(getContext(), bookDataList); // bookAdapter is an array of Books
                                         resultList.setAdapter(bookAdapter);
                                         Log.d("TAG-CB", document.getId() + " => " + document.getData());
                                     }
@@ -271,6 +306,39 @@ public class Search extends Fragment implements AdapterView.OnItemSelectedListen
                                     userAdapter = new UserDisplayList(getContext(), userDataList); // userDataList is an array of users
                                     resultList.setAdapter(userAdapter);
                                     Log.d("TAG", document.getId() + " => " + document.getData());
+                                }
+                            }
+                        } else {
+                            Log.d("TAG", "Error getting documents: ", task.getException());
+                        }
+                        }
+                    });
+            } else if (selection==2){
+                final Task<QuerySnapshot> bookDoc = FirebaseFirestore.getInstance().collection("Books")
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        ArrayList<Book> bookDataList = new ArrayList<>();
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                if(!searchContent.equals("")
+                                        && !document.getString("Title").toLowerCase().contains(searchContent.toLowerCase())
+                                        && !document.getString("Author").toLowerCase().contains(searchContent.toLowerCase())
+                                        && !document.getString("ISBN").toLowerCase().contains(searchContent.toLowerCase())){
+                                    // clear the listview if no results match
+                                    bookAdapter = new BookDisplayList(getContext(), bookDataList);
+                                    resultList.setAdapter(bookAdapter);
+                                } else if(document.getString("Title").toLowerCase().contains(searchContent.toLowerCase())
+                                        || document.getString("Author").toLowerCase().contains(searchContent.toLowerCase())
+                                        || document.getString("ISBN").toLowerCase().contains(searchContent.toLowerCase())){
+                                    // display applicable search results
+                                    Book book = new Book(document.getString("Title"), document.getString("Author"), document.getString("ISBN"), document.getString("Status"));
+                                    book.setOwner(document.getString("Owner"));
+                                    bookDataList.add(book);
+                                    bookAdapter = new BookDisplayList(getContext(), bookDataList); // bookAdapter is an array of Books
+                                    resultList.setAdapter(bookAdapter);
+                                    Log.d("TAG-CB", document.getId() + " => " + document.getData());
                                 }
                             }
                         } else {
