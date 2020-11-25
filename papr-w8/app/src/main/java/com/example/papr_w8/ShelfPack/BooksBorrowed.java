@@ -17,6 +17,7 @@ import android.widget.ListView;
 import com.example.papr_w8.Adapters.BookDisplayWithOwnerList;
 import com.example.papr_w8.Book;
 import com.example.papr_w8.BookView.BookBasicView;
+import com.example.papr_w8.BookView.BookReturningView;
 import com.example.papr_w8.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -75,6 +76,7 @@ public class BooksBorrowed extends Fragment {
                                         document.getString("Title"), document.getString("Author"),
                                         document.getString("ISBN"), document.getString("Status"),
                                         document.getString("Book Cover"), document.getString("Owner"));
+                                temp.setId(document.getId());
 
                                 // add the book to the data list
                                 borrowedBookDataList.add(temp);
@@ -92,19 +94,19 @@ public class BooksBorrowed extends Fragment {
 
             //go to book description when a book is clicked on
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                BookBasicView bookBasicView = new BookBasicView();
+                BookReturningView returningView = new BookReturningView();
 
                 //bundle data to transfer
                 Bundle bundle = new Bundle();
                 Book bookSelected = borrowedBookAdapter.getItem(i);
                 bundle.putSerializable("bookSelected", (Serializable) bookSelected);
-                bookBasicView.setArguments(bundle);
+                returningView.setArguments(bundle);
 
-                Intent intent = new Intent(getActivity(), BookBasicView.class);
+                Intent intent = new Intent(getActivity(), BookReturningView.class);
 
                 //transfer data
                 FragmentTransaction ft = getChildFragmentManager().beginTransaction();
-                ft.replace(R.id.fragment_borrowed, bookBasicView);
+                ft.replace(R.id.fragment_borrowed, returningView);
                 ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                 ft.commit();
             }

@@ -19,7 +19,6 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 
-import java.util.ArrayList;
 
 /**
  * Login Activity, the first page a user sees
@@ -31,8 +30,6 @@ public class MainActivity extends AppCompatActivity {
     private EditText passwordEditText;
     private FirebaseAuth firebaseAuth;
     private final static String TAG = "my_message";
-    private ArrayList<Book> booklist;
-    private User user;
 
 
     @Override
@@ -49,7 +46,6 @@ public class MainActivity extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
 
-        booklist = new ArrayList();
 
 
         login_button.setOnClickListener(new View.OnClickListener() {
