@@ -56,6 +56,17 @@ public class RequestBookView extends BookBase {
     private FirebaseFirestore fbDB = FirebaseFirestore.getInstance();
     private String userEmail = user.getEmail();
 
+//    public static RequestBookView newInstance(Book book) {
+//        Bundle args = new Bundle();
+//        args.putSerializable("book", book);
+//        Log.d("CREATION", "Book list was clicked");
+//
+//        RequestBookView fragment  = new RequestBookView();
+//        fragment.setArguments(args);
+//        return fragment;
+//    }
+
+
 
     @Override
     public void onCreate( Bundle savedInstanceState ){
@@ -74,28 +85,37 @@ public class RequestBookView extends BookBase {
         ViewStub stub = baseView.findViewById(R.id.child_fragment_here);
         stub.setLayoutResource(R.layout.fragment_book_request_view);
         stub.inflate();
+        final Bundle bundle = getArguments();
+        final Book book = (Book) bundle.getSerializable("bookSelected");
+        assert book != null;
+        final String title = book.getTitle();
+        final String author = book.getAuthor();
+        final String ISBN = book.getISBN();
+        final String owner = book.getOwner();
 
         requestBookButton = (Button) baseView.findViewById(R.id.request_book_button);
         cancelRequestButton = (Button) baseView.findViewById(R.id.cancel_request);
 
-        requestBookButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // TODO implement the action of clicking the EditDescription button
-            }
-        });
 
         requestBookButton.setOnClickListener(new View.OnClickListener() {  // onClickListener for when the user clicks on the confirm button to add a book
             @Override
             public void onClick(View view) {
 
                 Map<String, Object> book = new HashMap<>();
+                book.put("Title", title);
+                book.put("Author", author);
+                book.put("ISBN", ISBN);
                 book.put("Status", "Requested");
+                book.put("Book Cover", fileName);
+                book.put("Owner", owner);
+
 
 
                 // Add Book to users awaiting approval collection
                 fbDB.collection("Users").document(userEmail).collection("Awaiting Approval")
                         .add(book);
+                Intent intent = new Intent(getActivity(), Host.class);
+                startActivity(intent);
                 // Add Book to Owners Books Requested collection
 
 

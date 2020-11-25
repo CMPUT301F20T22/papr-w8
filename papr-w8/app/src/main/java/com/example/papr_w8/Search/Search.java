@@ -1,5 +1,6 @@
 package com.example.papr_w8.Search;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -23,6 +24,9 @@ import android.widget.Toast;
 import com.example.papr_w8.Adapters.BookDisplayList;
 import com.example.papr_w8.Adapters.UserDisplayList;
 import com.example.papr_w8.Book;
+import com.example.papr_w8.BookView.BookOwnedView;
+import com.example.papr_w8.BookView.BookRequestedView;
+import com.example.papr_w8.BookView.RequestBookView;
 import com.example.papr_w8.ProfilePack.RetrivedProfile;
 import com.example.papr_w8.R;
 import com.example.papr_w8.User;
@@ -32,6 +36,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
@@ -169,11 +174,27 @@ public class Search extends Fragment implements AdapterView.OnItemSelectedListen
                     FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction()
                             .show(retrivedProfileFragment);
                     ft.replace(R.id.fragment_search, retrivedProfileFragment);
-//                    ft.add(retrivedProfileFragment,"retrivedProfileFragment_TAG");
-//                    ft.addToBackStack("retrivedProfileFragment_TAG");
                     ft.commit();
                 } else if (resultList.getItemAtPosition(pos) instanceof Book) {
+
                     Book book = bookAdapter.getItem(pos);
+
+                    RequestBookView requestBookView = new RequestBookView();
+
+                    //bundle data to transfer
+                    Bundle bundle = new Bundle();
+
+                    bundle.putSerializable("bookSelected", (Serializable) book);
+                    requestBookView.setArguments(bundle);
+
+                    Intent intent = new Intent(getActivity(), BookOwnedView.class);
+
+                    //transfer data
+                    FragmentTransaction ft = getChildFragmentManager().beginTransaction();
+                    ft.replace(R.id.fragment_search, requestBookView);
+                    ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                    ft.commit();
+
                     
                 }
             }
