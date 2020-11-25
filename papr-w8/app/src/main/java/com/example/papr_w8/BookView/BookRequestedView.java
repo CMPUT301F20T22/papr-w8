@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import com.example.papr_w8.Adapters.BookDisplayWithOwnerList;
 import com.example.papr_w8.Adapters.UserRequestsDisplayList;
 import com.example.papr_w8.Book;
+import com.example.papr_w8.ProfilePack.RetrivedProfile;
 import com.example.papr_w8.R;
 import com.example.papr_w8.User;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -38,6 +39,8 @@ public class BookRequestedView extends BookBase {
     private ListView requestsList;
     private FirebaseAuth firebaseAuth;
 
+
+
     @Override
     public void onCreate( Bundle savedInstanceState ){
         super.onCreate(savedInstanceState);
@@ -56,6 +59,8 @@ public class BookRequestedView extends BookBase {
         ViewStub stub = baseView.findViewById(R.id.child_fragment_here);
         stub.setLayoutResource(R.layout.fragment_book_requested);
         stub.inflate();
+
+
 
         requestsList = baseView.findViewById(R.id.user_requests_list);
         requestsDataList = new ArrayList<>();

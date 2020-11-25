@@ -49,7 +49,8 @@
             android:layout_weight="1"
             android:background="@android:color/holo_red_light"
             android:shadowColor="#FFFFFF"
-            android:text="Delete Book" />
+            android:text="Delete Book"
+            android:clickable="true"/>
     </LinearLayout>
 
     <TextView
