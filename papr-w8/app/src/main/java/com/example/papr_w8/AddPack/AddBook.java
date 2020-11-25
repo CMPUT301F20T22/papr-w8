@@ -4,6 +4,7 @@ import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
@@ -76,7 +77,6 @@ public class AddBook extends AppCompatActivity {
 
         FirebaseUser user = firebaseAuth.getInstance().getCurrentUser();
         final String email = user.getEmail();
-        
 
         scan.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,7 +85,6 @@ public class AddBook extends AppCompatActivity {
                 startActivityForResult(intent, SCAN_ISBN_REQUEST_CODE);
             }
         });
-
 
         addBookCover.setOnClickListener(new View.OnClickListener() {  // onClickListener for when the user clicks on the add book cover image buttor
             @Override
@@ -110,19 +109,22 @@ public class AddBook extends AppCompatActivity {
                     newBookAuthor.setError("Please enter author's name");
                     newBookAuthor.requestFocus();
                     return;
-
                 } else if (ISBN.isEmpty()) { //checks for valid ISBN entry
                     newBookISBN.setError("Please enter valid ISBN");
                     newBookISBN.requestFocus();
                     return;
+                }else if (imageUri == null) {
+                    Toast.makeText(AddBook.this, "No Book Cover Added", Toast.LENGTH_SHORT).show();
+                    addBookCover.requestFocus();
+                    return;
                 } else {
-                    Map<String, Object> book = new HashMap<>();
+                    final Map<String, Object> book = new HashMap<>();
                     book.put("Title", title);
                     book.put("Author", author);
                     book.put("ISBN", ISBN);
                     book.put("Status", "Available");
                     book.put("Book Cover", fileName);
-
+                    book.put("Owner", email);
                     // Implementation for adding book details to the firestore collection
                     fbDB.collection("Users").document(email).collection("Books Owned")
                             .add(book)
@@ -130,7 +132,8 @@ public class AddBook extends AppCompatActivity {
                                 @Override
                                 public void onSuccess(DocumentReference documentReference) {
                                     Toast.makeText(AddBook.this, "Book Added", Toast.LENGTH_SHORT).show();
-
+                                    fbDB.collection("Books").document(documentReference.getId()) //adds book to "Books" collections too
+                                            .set(book);
                                 }
                             })
                             .addOnFailureListener(new OnFailureListener() {
@@ -141,14 +144,10 @@ public class AddBook extends AppCompatActivity {
                             });
                     Intent intent = new Intent(AddBook.this, Host.class);
                     startActivity(intent);
-
                     finish();
-
                 }
-
             }
         });
-
         cancel.setOnClickListener(new View.OnClickListener() {  // onClickListener for cancel button if the user wants to cancel adding a book
             @Override
             public void onClick(View view) {
@@ -204,16 +203,19 @@ public class AddBook extends AppCompatActivity {
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            Toast.makeText(AddBook.this, "Cover Uploaded", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(AddBook.this, "Cover Uploaded", Toast.LENGTH_SHORT).show();
+                            Log.d("CoverDEBUG", "Cover Uploaded");
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(AddBook.this, "Cover Upload Failed", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(AddBook.this, "Cover Upload Failed", Toast.LENGTH_SHORT).show();
+                            Log.d("CoverDEBUG", "Cover Upload Failed");
                         }
                     });
         } else {
+            fileName = "default_book.png";
             Toast.makeText(this, "No book cover selected", Toast.LENGTH_SHORT).show();
         }
     }
