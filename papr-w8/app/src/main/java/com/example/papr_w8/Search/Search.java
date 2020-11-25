@@ -119,8 +119,12 @@ public class Search extends Fragment implements AdapterView.OnItemSelectedListen
                                     if (task.isSuccessful()) {
                                         for (QueryDocumentSnapshot document : task.getResult()) {
                                             if(document.getString("Status").equals("Available")){
-                                                bookDataList.add(new Book(document.getString("Title"), document.getString("Author"), document.getString("ISBN"), document.getString("Status")));
-                                                bookAdapter = new BookDisplayList(getContext(), bookDataList); // userDataList is an array of users
+                                                Book book = new Book(document.getString("Title"), document.getString("Author"), document.getString("ISBN"), document.getString("Status"));
+                                                book.setOwner(document.getString("Owner"));
+                                                bookDataList.add(book);
+                                                bookAdapter = new BookDisplayList(getContext(), bookDataList); // bookAdapter is an array of Books
+//                                                bookDataList.add(new Book(document.getString("Title"), document.getString("Author"), document.getString("ISBN"), document.getString("Status")));
+//                                                bookAdapter = new BookDisplayList(getContext(), bookDataList); // userDataList is an array of users
                                                 resultList.setAdapter(bookAdapter);
                                                 Log.d("TAG-B", document.getId() + " => " + document.getData());
                                             }
@@ -242,8 +246,10 @@ public class Search extends Fragment implements AdapterView.OnItemSelectedListen
                                             || document.getString("Author").toLowerCase().contains(searchContent.toLowerCase())
                                             || document.getString("ISBN").toLowerCase().contains(searchContent.toLowerCase())){
                                         // display applicable search results
-                                        bookDataList.add(new Book(document.getString("Title"), document.getString("Author"), document.getString("ISBN"), document.getString("Status")));
-                                        bookAdapter = new BookDisplayList(getContext(), bookDataList); // userDataList is an array of users
+                                        Book book = new Book(document.getString("Title"), document.getString("Author"), document.getString("ISBN"), document.getString("Status"));
+                                        book.setOwner(document.getString("Owner"));
+                                        bookDataList.add(book);
+                                        bookAdapter = new BookDisplayList(getContext(), bookDataList); // bookAdapter is an array of Books
                                         resultList.setAdapter(bookAdapter);
                                         Log.d("TAG-CB", document.getId() + " => " + document.getData());
                                     }
