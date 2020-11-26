@@ -25,6 +25,7 @@ public class UserRequestsDisplayList extends ArrayAdapter<User> {
     private Context context;
     private ArrayList<User> users;
     private Book book;
+    private Boolean isAccepted;
 
     public UserRequestsDisplayList(Context context, ArrayList<User> users, Book book) { // items is an array of all the default items
         super(context,0,users);

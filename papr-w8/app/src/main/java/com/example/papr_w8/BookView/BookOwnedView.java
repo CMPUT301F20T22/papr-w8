@@ -93,8 +93,6 @@ public class BookOwnedView extends BookBase {
                 ConfirmDelete confirmDelete = new ConfirmDelete();
 
                 Bundle bundle = new Bundle();
-                //book = (Book) bundle.getSerializable("bookSelected");
-                //bundle.putSerializable("bookSelected", (Serializable) book);
                 bundle.putString("Book ID", bookID );
                 confirmDelete.setArguments(bundle);
 

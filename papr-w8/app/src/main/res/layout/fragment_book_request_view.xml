@@ -34,13 +34,4 @@
         android:background="@color/colorAccent"
         android:text="Request" />
 
-    <Button
-        android:id="@+id/cancel_request"
-        android:layout_width="294dp"
-        android:layout_height="34dp"
-        android:layout_gravity="top|center"
-        android:layout_marginTop="90dp"
-        android:background="@color/purple_cancel"
-        android:text="Cancel" />
-
 </FrameLayout>
