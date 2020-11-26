@@ -45,8 +45,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * This is a Fragment that displays the view of a Book Description that is Owned providing
- * options for the Owner to Edit, View Requests, or Delete Book.
+ * This is a Fragment that displays the view of a book description for a book that has been
+ * searched with the option to request the book.
  */
 public class RequestBookView extends BookBase {
 
