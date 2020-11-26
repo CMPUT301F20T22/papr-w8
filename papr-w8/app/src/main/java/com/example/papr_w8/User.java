@@ -32,6 +32,9 @@ public class User implements Serializable {
         this.email = email;
     }
 
+    public User(){
+    }
+
     public String getName() {
         return name;
     }
