@@ -4,4 +4,5 @@
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
     <color name="purple_cancel">#6558F5</color>
+    <color name="deep_purple">#581845</color>
 </resources>

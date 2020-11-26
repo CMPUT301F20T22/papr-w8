@@ -5,7 +5,6 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.text.Editable;
@@ -19,15 +18,13 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.example.papr_w8.Adapters.BookDisplayList;
 import com.example.papr_w8.Adapters.UserDisplayList;
 import com.example.papr_w8.Book;
 import com.example.papr_w8.BookView.BookOwnedView;
-import com.example.papr_w8.BookView.BookRequestedView;
 import com.example.papr_w8.BookView.RequestBookView;
-import com.example.papr_w8.ProfilePack.RetrivedProfile;
+import com.example.papr_w8.ProfilePack.RetrievedProfile;
 import com.example.papr_w8.R;
 import com.example.papr_w8.User;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -200,8 +197,8 @@ public class Search extends Fragment implements AdapterView.OnItemSelectedListen
                 // if clicked item is User
                 if(resultList.getItemAtPosition(pos) instanceof User){
                     User user = userAdapter.getItem(pos);
-                    new RetrivedProfile();
-                    RetrivedProfile retrivedProfileFragment = RetrivedProfile.newInstance(user);
+                    new RetrievedProfile();
+                    RetrievedProfile retrivedProfileFragment = RetrievedProfile.newInstance(user);
                     FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction()
                             .show(retrivedProfileFragment);
                     ft.replace(R.id.fragment_search, retrivedProfileFragment);

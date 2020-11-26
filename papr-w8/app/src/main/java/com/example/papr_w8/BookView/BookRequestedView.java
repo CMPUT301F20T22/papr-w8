@@ -2,20 +2,15 @@ package com.example.papr_w8.BookView;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewStub;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 
-import com.example.papr_w8.Adapters.BookDisplayWithOwnerList;
 import com.example.papr_w8.Adapters.UserRequestsDisplayList;
-import com.example.papr_w8.Book;
-import com.example.papr_w8.ProfilePack.RetrivedProfile;
 import com.example.papr_w8.R;
 import com.example.papr_w8.User;
 import com.google.android.gms.tasks.OnCompleteListener;

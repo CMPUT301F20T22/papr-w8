@@ -11,6 +11,7 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -45,6 +46,7 @@ public class SignUpActivity extends AppCompatActivity {
     private FirebaseFirestore firebaseFirestore;
     private Button sign_up_button;
     private final static String TAG = "my_message";
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,9 +59,11 @@ public class SignUpActivity extends AppCompatActivity {
         usernameET = findViewById(R.id.editTextUserName);
         passwordET = findViewById(R.id.editTextPassword);
         emailET = findViewById(R.id.editTextEmailAddress);
-        addressET = findViewById(R.id.editTextTextPostalAddress);
+        addressET = findViewById(R.id.editTextPostalAddress);
 
         sign_up_button = findViewById(R.id.sign_up_button);
+        progressBar = findViewById(R.id.signup_progress_bar);
+        progressBar.setVisibility(View.GONE);
 
 
         sign_up_button.setOnClickListener(new View.OnClickListener() {
@@ -139,6 +143,7 @@ public class SignUpActivity extends AppCompatActivity {
                     }
                 });
                 // Create new user with email and password
+                progressBar.setVisibility(View.VISIBLE);
                 firebaseAuth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener(SignUpActivity.this, new OnCompleteListener<AuthResult>() {
                             @Override
