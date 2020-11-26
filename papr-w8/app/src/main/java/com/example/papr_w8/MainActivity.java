@@ -11,7 +11,6 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -32,9 +31,6 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private final static String TAG = "my_message";
 
-    private ProgressBar progressBar;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +43,6 @@ public class MainActivity extends AppCompatActivity {
 
         login_button = findViewById(R.id.login_button);
         sign_up_button = findViewById(R.id.sign_up_button);
-        progressBar = findViewById(R.id.login_progress_bar);
-        progressBar.setVisibility(View.GONE);
 
         firebaseAuth = FirebaseAuth.getInstance();
 
@@ -77,7 +71,6 @@ public class MainActivity extends AppCompatActivity {
                 };
 
                 //Authenticate user
-                progressBar.setVisibility(View.VISIBLE);
                 firebaseAuth.signInWithEmailAndPassword(email, password)
                         .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
                             @Override

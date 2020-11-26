@@ -13,17 +13,17 @@ import androidx.fragment.app.FragmentManager;
 import com.example.papr_w8.R;
 import com.example.papr_w8.User;
 
-public class RetrievedProfile extends Fragment {
+public class RetrivedProfile extends Fragment {
 
     private TextView name;
     private TextView email;
     private TextView address;
 
-    public static RetrievedProfile newInstance(User user) {
+    public static RetrivedProfile newInstance(User user) {
         Bundle args = new Bundle();
         args.putSerializable("user", user);
 
-        RetrievedProfile fragment = new RetrievedProfile();
+        RetrivedProfile fragment = new RetrivedProfile();
         fragment.setArguments(args);
         return fragment;
     }
