@@ -30,21 +30,9 @@ import com.google.android.gms.maps.model.MarkerOptions;
 /**
  * This is a Fragment that displays the view of a basic Book Description
  */
-public class BookBasicMapView extends Fragment implements OnMapReadyCallback {
+public class BookBasicMapView extends BookBase implements OnMapReadyCallback {
 
     GoogleMap map;
-
-    public BookBasicMapView() {
-    }
-
-    private TextView textViewTitle;
-    private TextView textViewAuthor;
-    private TextView textViewISBN;
-    private TextView textViewStatus;
-    private TextView textViewOwner;
-
-    private ImageView imageViewDefault;
-    private Uri ImageUri;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
