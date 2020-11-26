@@ -106,7 +106,7 @@ public class SignUpActivity extends AppCompatActivity {
                 }
                 // check username doesn't already exist
                 Query usernames = firebaseFirestore.collection("Users")
-                        .whereEqualTo("name",username);
+                        .whereEqualTo("username",username);
                 usernames.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {

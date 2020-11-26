@@ -47,10 +47,10 @@ public class EditProfile extends AppCompatActivity {
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         final DocumentReference userDoc = FirebaseFirestore.getInstance().collection("Users").document(user.getEmail());
 
-        final EditText username = (EditText) findViewById(R.id.usernameEdit);
+        final EditText username = (EditText) findViewById(R.id.editUsername);
 //        EditText phone = (EditText) findViewById(R.id.phoneEdit);
-        final EditText email = (EditText) findViewById(R.id.emailEdit);
-        final EditText address = (EditText) findViewById(R.id.addressEdit);
+        final EditText email = (EditText) findViewById(R.id.editEmail);
+        final EditText address = (EditText) findViewById(R.id.editAddress);
 
 
 
@@ -78,25 +78,25 @@ public class EditProfile extends AppCompatActivity {
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final String usernameET = username.getText().toString();
-                final String emailET = email.getText().toString();
+                //final String usernameET = username.getText().toString();
+                //final String emailET = email.getText().toString();
                 final String addressET = address.getText().toString();
 
-                if (TextUtils.isEmpty(usernameET)) {
-                    username.setError("Invalid username.");
-                    username.requestFocus();
-                    return;
-                }
-                if (TextUtils.isEmpty(emailET)) {
-                    email.setError("Invalid email.");
-                    email.requestFocus();
-                    return;
-                }
-                if (!Patterns.EMAIL_ADDRESS.matcher(emailET).matches()) {
-                    email.setError("Please provide valid email.");
-                    email.requestFocus();
-                    return;
-                }
+                //if (TextUtils.isEmpty(usernameET)) {
+                    //username.setError("Invalid username.");
+                    //username.requestFocus();
+                    //return;
+                //}
+                //if (TextUtils.isEmpty(emailET)) {
+                    //email.setError("Invalid email.");
+                    //email.requestFocus();
+                    //return;
+                //}
+                //if (!Patterns.EMAIL_ADDRESS.matcher(emailET).matches()) {
+                    //email.setError("Please provide valid email.");
+                    //email.requestFocus();
+                    //return;
+                //}
                 if (TextUtils.isEmpty(addressET)) {
                     address.setError("Invalid address.");
                     address.requestFocus();
@@ -105,8 +105,8 @@ public class EditProfile extends AppCompatActivity {
 
 
                 HashMap<String, Object> user_info = new HashMap<>();
-                user_info.put("name", usernameET);
-                user_info.put("email", emailET);
+                //user_info.put("name", usernameET);
+                //user_info.put("email", emailET);
                 user_info.put("address", addressET);
                 firebaseFirestore.getInstance().collection("Users")
                         .document(user.getEmail())
