@@ -12,5 +12,6 @@
     <string-array name="search_options">
         <item>Ava. Books</item>
         <item>Users</item>
+        <item>All Books</item>
     </string-array>
 </resources>

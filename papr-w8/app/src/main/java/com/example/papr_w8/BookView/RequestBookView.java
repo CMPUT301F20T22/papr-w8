@@ -48,13 +48,24 @@ import java.util.Map;
  * This is a Fragment that displays the view of a Book Description that is Owned providing
  * options for the Owner to Edit, View Requests, or Delete Book.
  */
-public class BookOwnedView extends BookBase {
+public class RequestBookView extends BookBase {
 
     private String fileName;
     FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     FirebaseUser user = firebaseAuth.getInstance().getCurrentUser();
     private FirebaseFirestore fbDB = FirebaseFirestore.getInstance();
-    private String email = user.getEmail();
+    private String userEmail = user.getEmail();
+
+//    public static RequestBookView newInstance(Book book) {
+//        Bundle args = new Bundle();
+//        args.putSerializable("book", book);
+//        Log.d("CREATION", "Book list was clicked");
+//
+//        RequestBookView fragment  = new RequestBookView();
+//        fragment.setArguments(args);
+//        return fragment;
+//    }
+
 
 
     @Override
@@ -67,50 +78,59 @@ public class BookOwnedView extends BookBase {
     public void provideYourFragmentView(final View baseView, ViewGroup container){
 
 
-        Button buttonEditDescription;
-        Button buttonDeleteBook;
+        Button requestBookButton;
+        Button cancelRequestButton;
 
         setRetainInstance(true);
         ViewStub stub = baseView.findViewById(R.id.child_fragment_here);
-        stub.setLayoutResource(R.layout.fragment_book_owned);
+        stub.setLayoutResource(R.layout.fragment_book_request_view);
         stub.inflate();
+        final Bundle bundle = getArguments();
+        final Book book = (Book) bundle.getSerializable("bookSelected");
+        assert book != null;
+        final String title = book.getTitle();
+        final String author = book.getAuthor();
+        final String ISBN = book.getISBN();
+        final String owner = book.getOwner();
 
-        buttonEditDescription = (Button) baseView.findViewById(R.id.editdescriptionButton);
-        buttonDeleteBook = (Button) baseView.findViewById(R.id.deleteButton);
+        requestBookButton = (Button) baseView.findViewById(R.id.request_book_button);
+        cancelRequestButton = (Button) baseView.findViewById(R.id.cancel_request);
 
-        buttonEditDescription.setOnClickListener(new View.OnClickListener() {
+
+        requestBookButton.setOnClickListener(new View.OnClickListener() {  // onClickListener for when the user clicks on the confirm button to add a book
             @Override
             public void onClick(View view) {
-                // TODO implement the action of clicking the EditDescription button
-            }
+
+                Map<String, Object> book = new HashMap<>();
+                book.put("Title", title);
+                book.put("Author", author);
+                book.put("ISBN", ISBN);
+                book.put("Status", "Requested");
+                book.put("Book Cover", fileName);
+                book.put("Owner", owner);
+
+
+
+                // Add Book to users awaiting approval collection
+                fbDB.collection("Users").document(userEmail).collection("Awaiting Approval")
+                        .add(book);
+                Intent intent = new Intent(getActivity(), Host.class);
+                startActivity(intent);
+                // Add Book to Owners Books Requested collection
+
+
+
+
+                }
+
+
         });
-
-        buttonDeleteBook.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String bookID = book.getId();
-
-                ConfirmDelete confirmDelete = new ConfirmDelete();
-
-                Bundle bundle = new Bundle();
-                //book = (Book) bundle.getSerializable("bookSelected");
-                //bundle.putSerializable("bookSelected", (Serializable) book);
-                bundle.putString("Book ID", bookID );
-                confirmDelete.setArguments(bundle);
-
-                FragmentTransaction ft = getChildFragmentManager().beginTransaction();
-
-                ft.replace(R.id.fragment_book_base,confirmDelete,confirmDelete.getTag());
-
-                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-
-                ft.addToBackStack(null);
-
-                ft.commit();
-
-            }
-        });
-
+//        cancelRequestButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(getActivity(), Host.class);
+//                startActivity(intent);
+//            });
 
     };
 

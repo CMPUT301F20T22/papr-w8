@@ -7,10 +7,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+import android.util.Log;
 
 import com.example.papr_w8.Book;
 import com.example.papr_w8.Host;
 import com.example.papr_w8.ProfilePack.EditProfile;
+import com.example.papr_w8.Book;
 import com.example.papr_w8.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -30,21 +32,19 @@ public class RequestConfirmView extends AppCompatActivity implements GoogleMap.O
     Book book;
     LatLng pos;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_request_confirm_view);
-
-        book = (Book) savedInstanceState.getSerializable("bookSelected");
-
-        SupportMapFragment supportMapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.confirmMap);
-        supportMapFragment.getMapAsync(this);
-
-        setLoc = (Button) findViewById(R.id.set_loc_button);
+    public RequestConfirmView(){
 
     }
 
+    @Override
+    protected void onCreate(final Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_request_confirm_view);
 
+        final Book book = (Book) getIntent().getSerializableExtra("book");
+
+        Log.d("hello", book.getOwner());
+    }
     @Override
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
