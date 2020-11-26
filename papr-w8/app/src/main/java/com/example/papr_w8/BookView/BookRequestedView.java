@@ -85,7 +85,7 @@ public class BookRequestedView extends BookBase {
                                 requestsDataList.add(temp);
 
                                 //setup an array adapter for the books
-                                requestsAdapter = new UserRequestsDisplayList(getContext(), requestsDataList);
+                                requestsAdapter = new UserRequestsDisplayList(getContext(), requestsDataList, book);
                                 requestsList.setAdapter(requestsAdapter);
                             }
                         }
