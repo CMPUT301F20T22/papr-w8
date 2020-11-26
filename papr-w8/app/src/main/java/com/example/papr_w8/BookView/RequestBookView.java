@@ -57,18 +57,6 @@ public class RequestBookView extends BookBase {
     private String userEmail = user.getEmail();
     private String userId = user.getUid();
 
-//    public static RequestBookView newInstance(Book book) {
-//        Bundle args = new Bundle();
-//        args.putSerializable("book", book);
-//        Log.d("CREATION", "Book list was clicked");
-//
-//        RequestBookView fragment  = new RequestBookView();
-//        fragment.setArguments(args);
-//        return fragment;
-//    }
-
-
-
     @Override
     public void onCreate( Bundle savedInstanceState ){
         super.onCreate(savedInstanceState);
@@ -96,8 +84,6 @@ public class RequestBookView extends BookBase {
         final String id = book.getId();
 
         requestBookButton = (Button) baseView.findViewById(R.id.request_book_button);
-        cancelRequestButton = (Button) baseView.findViewById(R.id.cancel_request);
-
 
         requestBookButton.setOnClickListener(new View.OnClickListener() {  // onClickListener for when the user clicks on the confirm button to add a book
             @Override
@@ -135,22 +121,10 @@ public class RequestBookView extends BookBase {
 
                 Intent intent = new Intent(getActivity(), Host.class);
                 startActivity(intent);
-                // Add Book to Owners Books Requested collection
-
-
-
-
                 }
 
 
         });
-//        cancelRequestButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(getActivity(), Host.class);
-//                startActivity(intent);
-//            });
-
     };
 
 }
