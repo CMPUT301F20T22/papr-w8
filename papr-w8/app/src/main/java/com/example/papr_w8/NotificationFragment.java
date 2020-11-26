@@ -82,7 +82,7 @@ public class NotificationFragment extends Fragment {
 
         firebaseAuth = FirebaseAuth.getInstance();
         final FirebaseUser user = firebaseAuth.getCurrentUser();
-        String email = user.getEmail();
+        final String email = user.getEmail();
 
         FirebaseFirestore.getInstance()
                 .collection("Users")
@@ -95,7 +95,7 @@ public class NotificationFragment extends Fragment {
                     }
                 });
 
-        // Gets the user's notifications from firestore and adds them to notifications list
+        // Gets the user's notifications from Firestore and adds them to notifications list
         final Task<QuerySnapshot> user_notifications = FirebaseFirestore.getInstance().collection("Users")
                 .document(email).collection("Notifications").get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -110,7 +110,7 @@ public class NotificationFragment extends Fragment {
                                         document.getString("Sender"), document.getString("Type"),
                                         document.getString("Book Title"), document.getString("Name"),
                                         document.getString("Book ID"));
-
+                                notification.setNotification_id(document.getId());
                                 notifications.add(notification);
                                 notification_adapter = new NotificationDisplayList(getContext(), notifications);
                                 notification_listview.setAdapter(notification_adapter);
@@ -122,7 +122,7 @@ public class NotificationFragment extends Fragment {
         notification_listview.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                selected_notification = notification_adapter.getItem(i);
+                selected_notification = notifications.get(i);
                 String type = selected_notification.getType();
                 switch(type){
                     case "borrow_scan":
@@ -134,8 +134,17 @@ public class NotificationFragment extends Fragment {
                         startActivityForResult(confirm_return, SCAN_TO_CONFIRM_RETURN);
                         break;
                 }
+                FirebaseFirestore.getInstance()
+                        .collection("Users")
+                        .document(email)
+                        .collection("Notifications")
+                        .document(selected_notification.getNotification_id())
+                        .delete();
+
             }
         });
+
+
 
         return view;
 
@@ -170,8 +179,6 @@ public class NotificationFragment extends Fragment {
                             @Override
                             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                 if (task.isSuccessful()){
-                                    //set the notification to viewed
-                                    selected_notification.setViewed();
                                     //notify the borrower
                                     notifyBorrower(user_email, selected_notification.getSenderId(), user_name, "confirm_borrow");
                                     //update their books
@@ -371,4 +378,5 @@ public class NotificationFragment extends Fragment {
                     }
                 });
     }
+
 }
