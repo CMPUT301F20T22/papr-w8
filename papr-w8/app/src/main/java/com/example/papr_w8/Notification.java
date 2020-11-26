@@ -9,9 +9,11 @@ public class Notification {
     private String senderName;
     private String type;
     private String bookTitle;
+
     private boolean viewed;
     private String book_id;
     private String notification_id;
+
 
     public Notification(String senderId, String type, String bookTitle, String senderName, String book_id) {
         this.senderId = senderId;
@@ -21,6 +23,7 @@ public class Notification {
         this.book_id = book_id;
         this.viewed = false;
         this.notification_id = "";
+
     }
 
 
@@ -68,7 +71,9 @@ public class Notification {
         this.book_id = book_id;
     }
 
+
     public String getNotification_id() { return notification_id; }
 
     public void setNotification_id(String notification_id) { this.notification_id = notification_id; }
+
 }

@@ -31,7 +31,9 @@ public class MainActivity extends AppCompatActivity {
     private EditText passwordEditText;
     private FirebaseAuth firebaseAuth;
     private final static String TAG = "my_message";
+
     private ProgressBar progressBar;
+
 
 
     @Override
