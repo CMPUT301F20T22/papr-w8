@@ -31,8 +31,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
- * Placeholder, implementation to be added next sprint
- * will show books  user has recieved requests for
+ * This is a Fragment that displays the view of a list of books that are Awaiting Approval from
+ * their respective owners.
 */
 public class AwaitingApproval extends Fragment {
     public AwaitingApproval(){
@@ -73,11 +73,13 @@ public class AwaitingApproval extends Fragment {
                             for (QueryDocumentSnapshot document : task.getResult()){
 
                                 Book temp = new Book(
-                                        document.getString("Title"), document.getString("Author"),
-                                        document.getString("ISBN"), document.getString("Status"),
-                                        document.getString("Book Cover"), document.getString("Owner"));
-
-                                Log.d("myTag", temp.getOwner());
+                                        document.getString("Title"),
+                                        document.getString("Author"),
+                                        document.getString("ISBN"),
+                                        document.getString("Status"),
+                                        document.getString("Book Cover"),
+                                        document.getString("Owner"),
+                                        document.getId());
 
                                 // add the book to the data list
                                 awaitingBookDataList.add(temp);
