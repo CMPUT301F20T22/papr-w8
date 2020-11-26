@@ -111,8 +111,13 @@ public class RequestBookView extends BookBase {
                         .collection("Books Owned")
                         .document(id)
                         .collection("Requested")
-                        .document(userId)
+                        .document(userEmail)
                         .set(user);
+                fbDB.collection("Users")
+                        .document(owner)
+                        .collection("Books_Requested")
+                        .document(id)
+                        .set(book);
                 fbDB.collection("Users")
                         .document(owner)
                         .collection("Books Owned")

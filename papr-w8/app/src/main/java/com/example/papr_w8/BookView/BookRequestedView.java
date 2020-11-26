@@ -81,10 +81,10 @@ public class BookRequestedView extends BookBase {
                         if (task.isSuccessful()){
                             for (QueryDocumentSnapshot document : task.getResult()){
 
-                                User temp = new User(
-                                        document.getString("name"), document.getString("email"));
+                                User temp = new User();
 
-                                Log.d("MyDebug", temp.getName());
+                                temp.setEmail(document.getString("email"));
+
                                 // add the book to the data list
                                 requestsDataList.add(temp);
 
