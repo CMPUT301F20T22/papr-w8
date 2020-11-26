@@ -64,7 +64,7 @@ public class AwaitingApproval extends Fragment {
         awaitingBookDataList = new ArrayList<>();
 
         final Task<QuerySnapshot> bookDoc = FirebaseFirestore.getInstance().collection("Users")
-                .document(email).collection("Awaiting_Borrower").get()
+                .document(email).collection("Awaiting Approval").get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {

@@ -55,6 +55,7 @@ public class RequestBookView extends BookBase {
     FirebaseUser user = firebaseAuth.getInstance().getCurrentUser();
     private FirebaseFirestore fbDB = FirebaseFirestore.getInstance();
     private String userEmail = user.getEmail();
+    private String userId = user.getUid();
 
 //    public static RequestBookView newInstance(Book book) {
 //        Bundle args = new Bundle();
@@ -92,6 +93,7 @@ public class RequestBookView extends BookBase {
         final String author = book.getAuthor();
         final String ISBN = book.getISBN();
         final String owner = book.getOwner();
+        final String id = book.getId();
 
         requestBookButton = (Button) baseView.findViewById(R.id.request_book_button);
         cancelRequestButton = (Button) baseView.findViewById(R.id.cancel_request);
@@ -109,11 +111,28 @@ public class RequestBookView extends BookBase {
                 book.put("Book Cover", fileName);
                 book.put("Owner", owner);
 
-
+                Map<String, Object> user = new HashMap<>();
+                user.put("email", userEmail);
 
                 // Add Book to users awaiting approval collection
-                fbDB.collection("Users").document(userEmail).collection("Awaiting Approval")
-                        .add(book);
+                fbDB.collection("Users")
+                        .document(userEmail)
+                        .collection("Awaiting Approval")
+                        .document(id)
+                        .set(book);
+                fbDB.collection("Users")
+                        .document(owner)
+                        .collection("Books Owned")
+                        .document(id)
+                        .collection("Requested")
+                        .document(userId)
+                        .set(user);
+                fbDB.collection("Users")
+                        .document(owner)
+                        .collection("Books Owned")
+                        .document(id)
+                        .set(book);
+
                 Intent intent = new Intent(getActivity(), Host.class);
                 startActivity(intent);
                 // Add Book to Owners Books Requested collection
