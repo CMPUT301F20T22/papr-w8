@@ -53,7 +53,7 @@ public class Search extends Fragment implements AdapterView.OnItemSelectedListen
     private Integer selection  = 0; // 0 or Available books, 1 for Users, 2 for All books
 
     /**
-     * Displays "Seach" page when user clicks on "Search" from the bottom navigation bar
+     * Displays "Search" page when user clicks on "Search" from the bottom navigation bar
      * Displays spinner in the top left-hand corner so the user can choose between searching for Users or Available books
      * When either "User" or "Available Books" is selected from spinner, a new fragment displaying the search results will be returned
      * Search bar will return results of search query when completed
@@ -122,12 +122,17 @@ public class Search extends Fragment implements AdapterView.OnItemSelectedListen
                                     if (task.isSuccessful()) {
                                         for (QueryDocumentSnapshot document : task.getResult()) {
                                             if(document.getString("Status").equals("Available")){
-                                                Book book = new Book(document.getString("Title"), document.getString("Author"), document.getString("ISBN"), document.getString("Status"));
-                                                book.setOwner(document.getString("Owner"));
+                                                Book book = new Book(
+                                                        document.getString("Title"),
+                                                        document.getString("Author"),
+                                                        document.getString("ISBN"),
+                                                        document.getString("Status"),
+                                                        document.getString("Cover"),
+                                                        document.getString("Owner"),
+                                                        document.getId());
                                                 bookDataList.add(book);
                                                 bookAdapter = new BookDisplayList(getContext(), bookDataList); // bookAdapter is an array of Books
                                                 resultList.setAdapter(bookAdapter);
-                                                Log.d("TAG-B", document.getId() + " => " + document.getData());
                                             }
                                         }
                                     } else {
@@ -171,8 +176,14 @@ public class Search extends Fragment implements AdapterView.OnItemSelectedListen
                                     ArrayList<Book> allBooksDataList = new ArrayList<>();
                                     if (task.isSuccessful()) {
                                         for (QueryDocumentSnapshot document : task.getResult()) {
-                                            Book book = new Book(document.getString("Title"), document.getString("Author"), document.getString("ISBN"), document.getString("Status"));
-                                            book.setOwner(document.getString("Owner"));
+                                            Book book = new Book(
+                                                    document.getString("Title"),
+                                                    document.getString("Author"),
+                                                    document.getString("ISBN"),
+                                                    document.getString("Status"),
+                                                    document.getString("Cover"),
+                                                    document.getString("Owner"),
+                                                    document.getId());
                                             allBooksDataList.add(book);
                                             allBooksAdapter = new BookDisplayList(getContext(), allBooksDataList); // allBooksAdapter is an array of Books
                                             resultList.setAdapter(allBooksAdapter);
@@ -275,8 +286,14 @@ public class Search extends Fragment implements AdapterView.OnItemSelectedListen
                                             || document.getString("Author").toLowerCase().contains(searchContent.toLowerCase())
                                             || document.getString("ISBN").toLowerCase().contains(searchContent.toLowerCase())){
                                         // display applicable search results
-                                        Book book = new Book(document.getString("Title"), document.getString("Author"), document.getString("ISBN"), document.getString("Status"));
-                                        book.setOwner(document.getString("Owner"));
+                                        Book book = new Book(
+                                                document.getString("Title"),
+                                                document.getString("Author"),
+                                                document.getString("ISBN"),
+                                                document.getString("Status"),
+                                                document.getString("Cover"),
+                                                document.getString("Owner"),
+                                                document.getId());
                                         bookDataList.add(book);
                                         bookAdapter = new BookDisplayList(getContext(), bookDataList); // bookAdapter is an array of Books
                                         resultList.setAdapter(bookAdapter);
@@ -333,8 +350,14 @@ public class Search extends Fragment implements AdapterView.OnItemSelectedListen
                                         || document.getString("Author").toLowerCase().contains(searchContent.toLowerCase())
                                         || document.getString("ISBN").toLowerCase().contains(searchContent.toLowerCase())){
                                     // display applicable search results
-                                    Book book = new Book(document.getString("Title"), document.getString("Author"), document.getString("ISBN"), document.getString("Status"));
-                                    book.setOwner(document.getString("Owner"));
+                                    Book book = new Book(
+                                            document.getString("Title"),
+                                            document.getString("Author"),
+                                            document.getString("ISBN"),
+                                            document.getString("Status"),
+                                            document.getString("Cover"),
+                                            document.getString("Owner"),
+                                            document.getId());
                                     bookDataList.add(book);
                                     bookAdapter = new BookDisplayList(getContext(), bookDataList); // bookAdapter is an array of Books
                                     resultList.setAdapter(bookAdapter);

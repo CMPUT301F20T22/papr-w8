@@ -18,8 +18,30 @@ public class Book implements Serializable {
     private LatLng location;
     private String id;
 
+    /**
+     * Constructor to initialize a Book with a cover provided
+     * @param title
+     *      This is a title string  to be set
+     * @param author
+     *      This is an author string to be set
+     * @param ISBN
+     *      This is a 13-character book ISBN string to be set
+     * @param status
+     *      This is the current status of a book to be set
+     * @param cover
+     *      This is a filename string to be set for retrieving an image from Firestore
+     *
+     */
+    public Book(String title, String author, String ISBN, String status, String cover, String owner, String id) {
 
-
+        this.title = title;
+        this.author = author;
+        this.ISBN = ISBN;
+        this.status = status;
+        this.cover = cover;
+        this.owner = owner;
+        this.id = id;
+    }
 
     /**
      * Constructor to initialize a Book with a cover provided
@@ -43,7 +65,6 @@ public class Book implements Serializable {
         this.status = status;
         this.cover = cover;
         this.owner = owner;
-        this.id = "";
     }
 
     /**

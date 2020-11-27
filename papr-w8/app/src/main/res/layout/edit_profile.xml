@@ -5,76 +5,144 @@
     android:id="@+id/User"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".ProfilePack.EditProfile">
 
-    <ImageView
-        android:id="@+id/ProfilePic"
-        android:layout_width="103dp"
-        android:layout_height="105dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.182"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.175"
-        tools:srcCompat="@tools:sample/avatars" />
 
     <LinearLayout
-        android:layout_width="180dp"
-        android:layout_height="450dp"
+        android:id="@+id/linearLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:layout_marginEnd="36dp"
+        android:gravity="fill_vertical|center_horizontal"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.835"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.355">
+        tools:ignore="MissingConstraints">
 
-        <TextView
-            android:id="@+id/usernameText"
+        <ImageView
+            android:id="@+id/ProfilePic"
+            android:layout_width="103dp"
+            android:layout_height="105dp"
+            android:layout_marginTop="50dp"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Username:" />
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="80dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="15dp"
+            android:gravity="fill"
+            android:orientation="horizontal"
+            android:background="@drawable/round_border">
 
-        <EditText
-            android:id="@+id/usernameEdit"
+
+            <ImageView
+                android:id="@+id/signupEmailView"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_weight="4"
+                android:src="@drawable/ic_email"
+                android:background="@color/common_google_signin_btn_text_dark_disabled"/>
+
+            <TextView
+                android:id="@+id/editEmail"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1"
+                android:autofillHints=""
+                android:background="@null"
+                android:ems="10"
+                android:hint="Enter an Email Address"
+                android:inputType="textEmailAddress"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:textSize="20sp"
+                android:layout_marginLeft="10dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Name" />
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/round_border"
+            android:gravity="fill"
+            android:orientation="horizontal">
 
 
-        <TextView
-            android:id="@+id/emailText"
+            <ImageView
+                android:id="@+id/userImageView"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_weight="4"
+                android:background="@color/common_google_signin_btn_text_dark_disabled"
+                android:src="@drawable/ic_baseline_person_24"
+                app:tint="@color/deep_purple" />
+
+            <TextView
+                android:id="@+id/editUsername"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:autofillHints=""
+                android:background="@null"
+                android:ems="10"
+                android:hint="Enter a username"
+                android:textSize="20sp"
+                android:inputType="textPersonName"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="7dp"
-            android:text="email:" />
-
-        <EditText
-            android:id="@+id/emailEdit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textEmailAddress"
-            android:text = "Enter email"/>
-
-        <TextView
-            android:id="@+id/addressText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="7dp"
-            android:text="address:" />
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="15dp"
+            android:gravity="fill"
+            android:orientation="horizontal"
+            android:background="@drawable/round_border">
 
 
-        <EditText
-            android:id="@+id/addressEdit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Enter address" />
+            <ImageView
+                android:id="@+id/homeImageView"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_weight="4"
+                android:src="@drawable/ic_home"
+                android:background="@color/common_google_signin_btn_text_dark_disabled"
+                app:tint="@color/deep_purple" />
+
+            <EditText
+                android:id="@+id/editAddress"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1"
+                android:autofillHints=""
+                android:background="@null"
+                android:ems="10"
+                android:hint="Enter your address"
+                android:textSize="20sp"
+                android:inputType="textPostalAddress"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:layout_marginLeft="10dp" />
+
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -85,7 +153,11 @@
                 android:id="@+id/cancel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="30dp"
+                android:layout_weight="1"
+                android:background="@drawable/button_rounded_deep_purple"
+                android:textColor="@android:color/white"
                 android:text="Cancel" />
 
             <Button
@@ -93,9 +165,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_marginTop="25dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/button_rounded_deep_purple"
+                android:textColor="@android:color/white"
                 android:text="Confirm" />
         </LinearLayout>
+
 
     </LinearLayout>
 

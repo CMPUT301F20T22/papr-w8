@@ -15,13 +15,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Add Book"
+        android:textStyle="bold"
+        android:textColor="@color/deep_purple"
+        android:layout_gravity="center_horizontal"
         android:textSize="36sp" />
 
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Title:"
+        android:text="New Title:"
+        android:textStyle="bold"
+        android:textColor="@color/deep_purple"
         android:textSize="24sp" />
 
     <EditText
@@ -35,6 +40,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="New Author:"
+        android:textStyle="bold"
+        android:textColor="@color/deep_purple"
         android:textSize="24sp" />
 
     <EditText
@@ -49,6 +56,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="New ISBN:"
+        android:textStyle="bold"
+        android:textColor="@color/deep_purple"
         android:textSize="24sp" />
 
     <LinearLayout
@@ -65,6 +74,8 @@
             android:id="@+id/scan_isbn"
             android:layout_width="103dp"
             android:layout_height="wrap_content"
+            android:background="@drawable/button_rounded_deep_purple"
+            android:textColor="@android:color/white"
             android:text="Scan" />
 
     </LinearLayout>
@@ -74,6 +85,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Attach Book Cover:"
+        android:textStyle="bold"
+        android:textColor="@color/deep_purple"
         android:textSize="24sp" />
 
     <ImageButton
@@ -94,7 +107,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/button_rounded_purple"
+            android:background="@drawable/button_rounded_deep_purple"
             android:text="Cancel"
             android:textColor="#FFFFFF" />
 
@@ -103,16 +116,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/button_rounded_blue"
+            android:background="@drawable/button_rounded_deep_purple"
             android:text="Add Book"
             android:textColor="#FFFFFF" />
     </LinearLayout>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="testButton"
-        android:layout_marginLeft="100dp"
-        android:layout_marginTop="0dp"/>
 
 </LinearLayout>

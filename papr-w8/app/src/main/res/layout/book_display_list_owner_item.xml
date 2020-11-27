@@ -29,6 +29,7 @@
                 android:layout_height="wrap_content"
                 android:padding="2dp"
                 android:text="ISBN:"
+                android:textStyle="bold"
                 android:textSize="20sp">
 
             </TextView>
@@ -58,6 +59,7 @@
                 android:layout_height="wrap_content"
                 android:padding="2dp"
                 android:text="Status:"
+                android:textStyle="bold"
                 android:textSize="20sp">
 
             </TextView>
@@ -88,6 +90,7 @@
                 android:layout_height="wrap_content"
                 android:padding="2dp"
                 android:text="Author:"
+                android:textStyle="bold"
                 android:textSize="20sp">
 
             </TextView>
@@ -117,6 +120,7 @@
                 android:layout_height="wrap_content"
                 android:padding="2dp"
                 android:text="Title:"
+                android:textStyle="bold"
                 android:textSize="20sp"></TextView>
 
             <TextView
@@ -143,6 +147,7 @@
                 android:layout_height="wrap_content"
                 android:padding="2dp"
                 android:text="Owner:"
+                android:textStyle="bold"
                 android:textSize="20sp">
 
             </TextView>

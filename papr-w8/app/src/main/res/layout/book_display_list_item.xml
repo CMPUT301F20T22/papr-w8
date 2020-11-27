@@ -29,6 +29,7 @@
                 android:layout_height="wrap_content"
                 android:padding="5dp"
                 android:text="Status:"
+                android:textStyle="bold"
                 android:textSize="20sp">
 
             </TextView>
@@ -57,6 +58,7 @@
                 android:layout_height="wrap_content"
                 android:padding="5dp"
                 android:text="ISBN:"
+                android:textStyle="bold"
                 android:textSize="20sp">
 
             </TextView>
@@ -85,6 +87,7 @@
                 android:layout_height="wrap_content"
                 android:padding="5dp"
                 android:text="Title:"
+                android:textStyle="bold"
                 android:textSize="20sp"></TextView>
 
             <TextView
@@ -111,6 +114,7 @@
                 android:layout_height="wrap_content"
                 android:padding="5dp"
                 android:text="Author:"
+                android:textStyle="bold"
                 android:textSize="20sp">
 
             </TextView>

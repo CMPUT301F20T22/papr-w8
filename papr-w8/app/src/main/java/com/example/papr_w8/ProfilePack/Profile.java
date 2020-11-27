@@ -47,7 +47,7 @@ public class Profile extends Fragment {
         // get all the TextView
         final TextView email = (TextView)view.findViewById(R.id.email);
         final TextView address = (TextView)view.findViewById(R.id.address);
-        Button edit = (Button)view.findViewById(R.id.EditProfile);
+        Button edit = (Button)view.findViewById(R.id.edit_profile_button);
 
         userDoc.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override

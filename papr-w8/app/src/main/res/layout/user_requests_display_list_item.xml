@@ -15,11 +15,10 @@
     <!--    Licence: Creative Commons/Unknown-->
     <!--    URL: https://www.youtube.com/watch?v=eDLQ6wgm31w&ab_channel=%CE%91%CE%BD%CF%84%CF%8E%CE%BD%CE%B9%CE%BF%CF%82%CE%92%CF%85%CE%B6%CE%B5%CE%BD%CF%84%CE%AF%CE%BD%CE%B7%CF%82-->
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:weightSum="100"
         android:layout_gravity="bottom">
 
         <TextView
@@ -32,32 +31,22 @@
 
         </TextView>
 
-        <View
-            android:layout_width="75dp"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            />
-
         <Button
             android:id="@+id/accept_request"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_gravity="center_vertical"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="center|right"
+            android:layout_marginRight="90dp"
             android:background="@drawable/checkmark_flat"
             />
-        <View
-            android:layout_width="75dp"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            />
 
-        <Button
+                <Button
             android:id="@+id/decline_request"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:layout_gravity="center|right"
-            android:background="@drawable/cross_flat"
-            />
-    </LinearLayout>
+            android:layout_marginRight="30dp"
+            android:background="@drawable/cross_flat" />
+    </FrameLayout>
 
 </LinearLayout>
