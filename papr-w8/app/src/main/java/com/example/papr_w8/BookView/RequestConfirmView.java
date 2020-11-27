@@ -1,5 +1,6 @@
 package com.example.papr_w8.BookView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -21,6 +22,14 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
 
 import static com.example.papr_w8.ProfilePack.EditProfile.EXTRA_TEXT;
 
@@ -30,8 +39,13 @@ public class RequestConfirmView extends AppCompatActivity implements OnMapReadyC
     GoogleMap map;
     private Marker bookLoc;
     private Button setLoc;
-    Book book;
-    LatLng pos;
+    private Book book;
+    private LatLng pos;
+    private DocumentReference bookDoc;
+    private FirebaseFirestore firebaseFirestore;
+
+
+    private FirebaseUser user;
 
     public RequestConfirmView() {
 
@@ -42,7 +56,7 @@ public class RequestConfirmView extends AppCompatActivity implements OnMapReadyC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_request_confirm_view);
 
-        final Book book = (Book) getIntent().getSerializableExtra("book");
+        book = (Book) getIntent().getSerializableExtra("book");
 
         Log.d("hello", book.getOwner());
 
@@ -52,12 +66,15 @@ public class RequestConfirmView extends AppCompatActivity implements OnMapReadyC
                 getSupportFragmentManager().findFragmentById(R.id.confirmMap);
         supportMapFragment.getMapAsync(this);
 
+        bookDoc = FirebaseFirestore.getInstance().collection("Books").document(book.getId());
+
+        user = FirebaseAuth.getInstance().getCurrentUser();
+
 //        pos = bookLoc.getPosition();
-        if (bookLoc!=null) {
-            pos = bookLoc.getPosition();
-            book.setLocation(pos);
-            Log.d("book loc", book.getLocation().toString());
-        }
+//        if (pos!=null) {
+//            book.setLocation(pos);
+//            Log.d("##################### ", book.getLocation().toString());
+//        }
     }
 
     @Override
@@ -75,6 +92,7 @@ public class RequestConfirmView extends AppCompatActivity implements OnMapReadyC
                 bookLoc = map.addMarker(markerOptions);
                 bookLoc.setTag(0);
 
+
                 map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                     @Override
                     public boolean onMarkerClick(Marker marker) {
@@ -82,11 +100,40 @@ public class RequestConfirmView extends AppCompatActivity implements OnMapReadyC
                         marker.setTitle("book_loc");
 
                         if (data != null) {
-//                            pos = marker.getPosition();
+                            pos = marker.getPosition();
 //                            book.setLocation(pos);
-                            Intent intent = new Intent(RequestConfirmView.this, Host.class);
-                            intent.putExtra(EXTRA_TEXT, "Shelves");
-                            startActivity(intent);
+                            Toast.makeText(RequestConfirmView.this, "Please tap on marker to set your book location",
+                                    Toast.LENGTH_SHORT).show();
+
+                            if (book!=null) {
+//                                HashMap<String, Object> book_info = new HashMap<>();
+//                                book_info.put("Location", pos);
+                                firebaseFirestore.getInstance().collection("Users")
+                                        .document(book.getId())
+                                        .update("Location", pos)
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                Log.d("change book location", "book location updated.");
+                                                Toast.makeText(RequestConfirmView.this, "Update successful!",
+                                                        Toast.LENGTH_SHORT).show();
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Log.d("change book location", "Data storing failed");
+                                            }
+                                        });
+
+
+                                Intent intent = new Intent(RequestConfirmView.this, Host.class);
+                                intent.putExtra(EXTRA_TEXT, "Shelves");
+                                startActivity(intent);
+                            }else{
+                                Toast.makeText(RequestConfirmView.this, "book object is null",
+                                        Toast.LENGTH_SHORT).show();
+                            }
                         }
                         return false;
                     }
