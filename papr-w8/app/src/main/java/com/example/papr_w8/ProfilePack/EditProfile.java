@@ -79,8 +79,25 @@ public class EditProfile extends AppCompatActivity {
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //final String usernameET = username.getText().toString();
+                //final String emailET = email.getText().toString();
                 final String addressET = address.getText().toString();
 
+                //if (TextUtils.isEmpty(usernameET)) {
+                //username.setError("Invalid username.");
+                //username.requestFocus();
+                //return;
+                //}
+                //if (TextUtils.isEmpty(emailET)) {
+                //email.setError("Invalid email.");
+                //email.requestFocus();
+                //return;
+                //}
+                //if (!Patterns.EMAIL_ADDRESS.matcher(emailET).matches()) {
+                //email.setError("Please provide valid email.");
+                //email.requestFocus();
+                //return;
+                //}
                 if (TextUtils.isEmpty(addressET)) {
                     address.setError("Invalid address.");
                     address.requestFocus();
