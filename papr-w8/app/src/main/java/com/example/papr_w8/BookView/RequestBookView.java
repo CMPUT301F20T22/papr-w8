@@ -45,8 +45,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * This is a Fragment that displays the view of a Book Description that is Owned providing
- * options for the Owner to Edit, View Requests, or Delete Book.
+ * This is a Fragment that displays the view of a book description for a book that has been
+ * searched with the option to request the book.
  */
 public class RequestBookView extends BookBase {
 
@@ -55,18 +55,7 @@ public class RequestBookView extends BookBase {
     FirebaseUser user = firebaseAuth.getInstance().getCurrentUser();
     private FirebaseFirestore fbDB = FirebaseFirestore.getInstance();
     private String userEmail = user.getEmail();
-
-//    public static RequestBookView newInstance(Book book) {
-//        Bundle args = new Bundle();
-//        args.putSerializable("book", book);
-//        Log.d("CREATION", "Book list was clicked");
-//
-//        RequestBookView fragment  = new RequestBookView();
-//        fragment.setArguments(args);
-//        return fragment;
-//    }
-
-
+    private String userId = user.getUid();
 
     @Override
     public void onCreate( Bundle savedInstanceState ){
@@ -92,10 +81,9 @@ public class RequestBookView extends BookBase {
         final String author = book.getAuthor();
         final String ISBN = book.getISBN();
         final String owner = book.getOwner();
+        final String id = book.getId();
 
         requestBookButton = (Button) baseView.findViewById(R.id.request_book_button);
-        cancelRequestButton = (Button) baseView.findViewById(R.id.cancel_request);
-
 
         requestBookButton.setOnClickListener(new View.OnClickListener() {  // onClickListener for when the user clicks on the confirm button to add a book
             @Override
@@ -109,29 +97,39 @@ public class RequestBookView extends BookBase {
                 book.put("Book Cover", fileName);
                 book.put("Owner", owner);
 
-
+                Map<String, Object> user = new HashMap<>();
+                user.put("email", userEmail);
 
                 // Add Book to users awaiting approval collection
-                fbDB.collection("Users").document(userEmail).collection("Awaiting Approval")
-                        .add(book);
+                fbDB.collection("Users")
+                        .document(userEmail)
+                        .collection("Awaiting Approval")
+                        .document(id)
+                        .set(book);
+                fbDB.collection("Users")
+                        .document(owner)
+                        .collection("Books Owned")
+                        .document(id)
+                        .collection("Requested")
+                        .document(userEmail)
+                        .set(user);
+                fbDB.collection("Users")
+                        .document(owner)
+                        .collection("Books_Requested")
+                        .document(id)
+                        .set(book);
+                fbDB.collection("Users")
+                        .document(owner)
+                        .collection("Books Owned")
+                        .document(id)
+                        .set(book);
+
                 Intent intent = new Intent(getActivity(), Host.class);
                 startActivity(intent);
-                // Add Book to Owners Books Requested collection
-
-
-
-
                 }
 
 
         });
-//        cancelRequestButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(getActivity(), Host.class);
-//                startActivity(intent);
-//            });
-
     };
 
 }
