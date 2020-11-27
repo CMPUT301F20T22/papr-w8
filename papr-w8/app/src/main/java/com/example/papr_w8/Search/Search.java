@@ -24,6 +24,7 @@ import android.widget.Toast;
 import com.example.papr_w8.Adapters.BookDisplayList;
 import com.example.papr_w8.Adapters.UserDisplayList;
 import com.example.papr_w8.Book;
+import com.example.papr_w8.BookView.BookBasicView;
 import com.example.papr_w8.BookView.BookOwnedView;
 import com.example.papr_w8.BookView.BookRequestedView;
 import com.example.papr_w8.BookView.RequestBookView;
@@ -239,7 +240,17 @@ public class Search extends Fragment implements AdapterView.OnItemSelectedListen
                     
                 // if clicked item is a non-avilable book (status = Awaiting Approval, requested, etc.)
                 } else if (resultList.getItemAtPosition(pos) instanceof Book){
+                    Book book = bookAdapter.getItem(pos);
+                    BookBasicView bookBasicView = new BookBasicView();
 
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("bookSelected", (Serializable) book);
+                    bookBasicView.setArguments(bundle);
+
+                    FragmentTransaction ft = getChildFragmentManager().beginTransaction();
+                    ft.replace(R.id.fragment_search, bookBasicView);
+                    ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                    ft.commit();
                 }
             }
         });
