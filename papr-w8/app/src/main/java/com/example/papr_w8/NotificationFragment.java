@@ -200,7 +200,7 @@ public class NotificationFragment extends Fragment {
                                     //set the notification to viewed
                                     selected_notification.setViewed();
                                     //notify the borrower
-                                    notifyBorrower(user_email, selected_notification.getSenderId(), user_name, "confirm_scan");
+                                    notifyBorrower(user_email, selected_notification.getSenderId(), user_name, "confirm_return");
                                     //delete book from Borrowed collection
                                     deleteBookFromCollection(sender, selected_notification.getBook_id());
                                     //change book status to "Available"
