@@ -15,6 +15,8 @@ import android.util.Log;
 
 import com.example.papr_w8.Book;
 import com.example.papr_w8.Host;
+import com.example.papr_w8.ProfilePack.EditProfile;
+import com.example.papr_w8.Book;
 import com.example.papr_w8.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -43,28 +45,35 @@ public class RequestConfirmView extends AppCompatActivity implements OnMapReadyC
     private FirebaseFirestore firebaseFirestore;
     private View.OnClickListener handleClick;
 
-    public RequestConfirmView(){
+    public RequestConfirmView() {
 
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_request_confirm_view);
 
-        book = (Book) savedInstanceState.getSerializable("book");
-        user = FirebaseAuth.getInstance().getCurrentUser();
-
-        SupportMapFragment supportMapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.confirmMap);
-        supportMapFragment.getMapAsync(this);
-
-        setLoc = (Button) findViewById(R.id.set_loc_button);
-        setLoc.setOnClickListener(handleClick);
+        final Book book = (Book) getIntent().getSerializableExtra("book");
 
         Log.d("hello", book.getOwner());
 
-    }
+        setLoc = (Button) findViewById(R.id.set_loc_button);
 
+        SupportMapFragment supportMapFragment = (SupportMapFragment)
+                getSupportFragmentManager().findFragmentById(R.id.confirmMap);
+        supportMapFragment.getMapAsync(this);
+
+        bookDoc = FirebaseFirestore.getInstance().collection("Books").document(book.getId());
+
+        user = FirebaseAuth.getInstance().getCurrentUser();
+
+//        pos = bookLoc.getPosition();
+//        if (pos!=null) {
+//            book.setLocation(pos);
+//            Log.d("##################### ", book.getLocation().toString());
+//        }
+    }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -80,7 +89,6 @@ public class RequestConfirmView extends AppCompatActivity implements OnMapReadyC
                 map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 20)); //set zoom
                 bookLoc = map.addMarker(markerOptions);
                 bookLoc.setTag(0);
-
 
                 map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                     @Override
