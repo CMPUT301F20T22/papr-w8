@@ -67,7 +67,7 @@ public class BookBasicMapView extends BookBase implements OnMapReadyCallback {
     @Override
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
-        LatLng bookLoc = new LatLng(0, 0);
+        LatLng bookLoc = book.getLocation();
         map.addMarker(new MarkerOptions().position(bookLoc).title("book location"));
         map.moveCamera(CameraUpdateFactory.newLatLng(bookLoc));
     }
