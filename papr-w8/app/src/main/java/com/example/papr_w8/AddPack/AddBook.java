@@ -104,20 +104,16 @@ public class AddBook extends AppCompatActivity {
                 if (title.isEmpty()) { //checks for valid title entry
                     newBookTitle.setError("Please enter title");
                     newBookTitle.requestFocus();
-                    return;
                 } else if (author.isEmpty()) { //checks for valid author entry
                     newBookAuthor.setError("Please enter author's name");
                     newBookAuthor.requestFocus();
-                    return;
                 } else if (ISBN.isEmpty()) { //checks for valid ISBN entry
                     newBookISBN.setError("Please enter valid ISBN");
                     newBookISBN.requestFocus();
-                    return;
-                }else if (imageUri == null) {
-                    Toast.makeText(AddBook.this, "No Book Cover Added", Toast.LENGTH_SHORT).show();
-                    addBookCover.requestFocus();
-                    return;
                 } else {
+                    if (imageUri == null) {  // if no image cover uploaded then set to default
+                        fileName = "default_book.png";
+                    }
                     final Map<String, Object> book = new HashMap<>();
                     book.put("Title", title);
                     book.put("Author", author);
