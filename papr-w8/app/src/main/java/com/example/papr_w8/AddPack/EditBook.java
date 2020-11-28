@@ -104,12 +104,14 @@ public class EditBook extends AppCompatActivity {
                     newBookISBN.requestFocus();
                     return;
                 } else {
-
+                    if (imageUri == null) {  // if no image cover uploaded then set to default
+                        fileName = "default_book.png";
+                    }
                     final Map<String, Object> e_book = new HashMap<>();
                     e_book.put("Title", title);
                     e_book.put("Author", author);
                     e_book.put("ISBN", ISBN);
-                    e_book.put("Status", "Available");
+                    e_book.put("Status", book.getStatus());
                     e_book.put("Book Cover", fileName);
 
                     // Implementation for editing book details to the firestore collection
