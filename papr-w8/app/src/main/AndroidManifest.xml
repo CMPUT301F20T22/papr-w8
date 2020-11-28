@@ -30,6 +30,7 @@
         <activity android:name=".BookView.RequestConfirmView"></activity>
         <activity android:name=".AddPack.AddBookCoverActivity" />
         <activity android:name=".AddPack.AddBook" />
+        <activity android:name=".AddPack.EditBook" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
