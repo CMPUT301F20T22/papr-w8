@@ -15,13 +15,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Edit Book"
+        android:textStyle="bold"
+        android:textColor="@color/deep_purple"
+        android:layout_gravity="center_horizontal"
         android:textSize="36sp" />
 
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Title:"
+        android:text="New Title:"
+        android:textStyle="bold"
+        android:textColor="@color/deep_purple"
         android:textSize="24sp" />
 
     <EditText
@@ -35,6 +40,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="New Author:"
+        android:textStyle="bold"
+        android:textColor="@color/deep_purple"
         android:textSize="24sp" />
 
     <EditText
@@ -48,6 +55,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="New ISBN:"
+        android:textStyle="bold"
+        android:textColor="@color/deep_purple"
         android:textSize="24sp" />
 
     <EditText
@@ -61,14 +70,34 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Attach Book Cover:"
+        android:textStyle="bold"
+        android:textColor="@color/deep_purple"
         android:textSize="24sp" />
 
-    <ImageButton
-        android:id="@+id/editImageButton"
-        android:layout_width="98dp"
-        android:layout_height="120dp"
-        android:src="@android:drawable/ic_menu_add"
-        android:padding="20dp"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="120dp">
+
+        <ImageButton
+            android:id="@+id/editImageButton"
+            android:layout_width="98dp"
+            android:layout_height="120dp"
+            android:src="@android:drawable/ic_menu_add"
+            android:padding="20dp"/>
+
+        <ImageView
+            android:id="@+id/delete_image_eb"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="77dp"
+            android:layout_marginLeft="77dp"
+            android:layout_marginTop="-2dp"
+            android:background="@drawable/cross_image" />
+
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
