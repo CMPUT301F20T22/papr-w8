@@ -60,12 +60,12 @@ public class BookOwnedView extends BookBase {
         buttonDeleteBook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String bookID = book.getId();
+
 
                 ConfirmDelete confirmDelete = new ConfirmDelete();
 
                 Bundle bundle = new Bundle();
-                bundle.putString("Book ID", bookID );
+                bundle.putSerializable("Book Del", book );
                 confirmDelete.setArguments(bundle);
 
                 FragmentTransaction ft = getChildFragmentManager().beginTransaction();

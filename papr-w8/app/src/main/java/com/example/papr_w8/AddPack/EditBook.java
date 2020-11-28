@@ -18,6 +18,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.papr_w8.Book;
+import com.example.papr_w8.Host;
 import com.example.papr_w8.R;
 import com.example.papr_w8.ScanActivity;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -168,6 +169,8 @@ public class EditBook extends AppCompatActivity {
                                 }
                             });
                     uploadCover();
+                    Intent intent = new Intent(EditBook.this, Host.class);
+                    startActivity(intent);
                     finish();
                 }
             }

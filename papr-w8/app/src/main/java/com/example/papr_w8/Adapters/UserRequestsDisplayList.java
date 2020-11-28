@@ -3,6 +3,7 @@ package com.example.papr_w8.Adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,6 +51,7 @@ public class UserRequestsDisplayList extends ArrayAdapter<User> {
         }
 
         User user = users.get(position);
+        Log.d("BOOK ID", book.getId());
 
         TextView userName = (TextView) view.findViewById(R.id.user_name_text);
         Button acceptRequest = (Button) view.findViewById(R.id.accept_request);
