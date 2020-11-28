@@ -73,10 +73,21 @@ public class EditBook extends AppCompatActivity {
         final String email = user.getEmail();
 
         Log.d("Debug", book.getId());
+
+        // set current book description
         newBookTitle.setText(book.getTitle());
         newBookISBN.setText(book.getISBN());
         newBookAuthor.setText(book.getAuthor());
-
+        FirebaseStorage.getInstance().getReference("images/" + book.getCover()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Picasso.get()
+                        .load(uri)
+                        .fit()
+                        .centerCrop()
+                        .into(editBookCover);
+            }
+        });
 
         editBookCover.setOnClickListener(new View.OnClickListener() {  // onClickListener for when the user clicks on the add book cover image buttor
             @Override
