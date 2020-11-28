@@ -54,9 +54,9 @@ public class RequestConfirmView extends AppCompatActivity implements OnMapReadyC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_request_confirm_view);
 
-        final Book book = (Book) getIntent().getSerializableExtra("book");
+        book = (Book) getIntent().getSerializableExtra("book");
 
-        Log.d("hello", book.getOwner());
+        Log.d("#####hello", book.getOwner());
 
         setLoc = (Button) findViewById(R.id.set_loc_button);
 
@@ -64,15 +64,8 @@ public class RequestConfirmView extends AppCompatActivity implements OnMapReadyC
                 getSupportFragmentManager().findFragmentById(R.id.confirmMap);
         supportMapFragment.getMapAsync(this);
 
-        bookDoc = FirebaseFirestore.getInstance().collection("Books").document(book.getId());
-
         user = FirebaseAuth.getInstance().getCurrentUser();
 
-//        pos = bookLoc.getPosition();
-//        if (pos!=null) {
-//            book.setLocation(pos);
-//            Log.d("##################### ", book.getLocation().toString());
-//        }
     }
 
     @Override
@@ -90,95 +83,113 @@ public class RequestConfirmView extends AppCompatActivity implements OnMapReadyC
                 bookLoc = map.addMarker(markerOptions);
                 bookLoc.setTag(0);
 
-                map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                setLoc.setVisibility(View.VISIBLE);
+
+                setLoc.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public boolean onMarkerClick(final Marker marker) {
-                        final Integer data = (Integer) marker.getTag();
-                        marker.setTitle("book_loc");
+                    public void onClick(View v) {
+                        Toast.makeText(RequestConfirmView.this, "set location clicked",
+                                Toast.LENGTH_SHORT).show();
 
-                        handleClick = new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                setLoc.setVisibility(View.VISIBLE);
-
-                                if (data != null) {
-                                    pos = marker.getPosition();
+                        if (bookLoc != null) {
+                            pos = bookLoc.getPosition();
 //                            book.setLocation(pos);
-                                    Toast.makeText(RequestConfirmView.this, "Please tap on marker to set your book location",
-                                            Toast.LENGTH_SHORT).show();
+                            Toast.makeText(RequestConfirmView.this, pos.toString(),
+                                    Toast.LENGTH_SHORT).show();
 
-                                    if ((book!=null)&(user!=null)) {
+                            if (book!=null) {
 //                                HashMap<String, Object> book_info = new HashMap<>();
 //                                book_info.put("Location", pos);
-                                        firebaseFirestore.getInstance().collection("Users")
-                                                .document(user.getEmail())
-                                                .collection("Books_Requested")
-                                                .document(book.getId())
-                                                .update("Location", pos)
-                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                    @Override
-                                                    public void onSuccess(Void aVoid) {
-                                                        Log.d("change book location", "book location updated.");
-                                                        Toast.makeText(RequestConfirmView.this, "Update successful!",
-                                                                Toast.LENGTH_SHORT).show();
-                                                    }
-                                                })
-                                                .addOnFailureListener(new OnFailureListener() {
-                                                    @Override
-                                                    public void onFailure(@NonNull Exception e) {
-                                                        Log.d("change book location", "Data storing failed");
-                                                    }
-                                                });
-                                        Intent intent = new Intent(RequestConfirmView.this, Host.class);
-                                        intent.putExtra(EXTRA_TEXT, "Shelves");
-                                        startActivity(intent);
-                                    }else{
-                                        Toast.makeText(RequestConfirmView.this, "book object is null",
-                                                Toast.LENGTH_SHORT).show();
-                                    }
-                                }
+                                firebaseFirestore.getInstance().collection("Users")
+                                        .document(user.getEmail())
+                                        .collection("Books_Requested")
+                                        .document(book.getId())
+                                        .update("Location", pos)
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                Log.d("change book location", "book location updated.");
+                                                Toast.makeText(RequestConfirmView.this, "Update successful!",
+                                                        Toast.LENGTH_SHORT).show();
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Log.d("change book location", "Data storing failed");
+                                            }
+                                        });
+                                Intent intent = new Intent(RequestConfirmView.this, Host.class);
+                                intent.putExtra(EXTRA_TEXT, "Shelves");
+                                startActivity(intent);
+                            }else{
+                                Toast.makeText(RequestConfirmView.this, "book object is null",
+                                        Toast.LENGTH_SHORT).show();
                             }
-                        };
-
-//                        if (data != null) {
-//                            pos = marker.getPosition();
-////                            book.setLocation(pos);
-//                            Toast.makeText(RequestConfirmView.this, "Please tap on marker to set your book location",
-//                                    Toast.LENGTH_SHORT).show();
-//
-//                            if ((book!=null)&(user!=null)) {
-////                                HashMap<String, Object> book_info = new HashMap<>();
-////                                book_info.put("Location", pos);
-//                                firebaseFirestore.getInstance().collection("Users")
-//                                        .document(user.getEmail())
-//                                        .collection("Books_Requested")
-//                                        .document(book.getId())
-//                                        .update("Location", pos)
-//                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-//                                            @Override
-//                                            public void onSuccess(Void aVoid) {
-//                                                Log.d("change book location", "book location updated.");
-//                                                Toast.makeText(RequestConfirmView.this, "Update successful!",
-//                                                        Toast.LENGTH_SHORT).show();
-//                                            }
-//                                        })
-//                                        .addOnFailureListener(new OnFailureListener() {
-//                                            @Override
-//                                            public void onFailure(@NonNull Exception e) {
-//                                                Log.d("change book location", "Data storing failed");
-//                                            }
-//                                        });
-//                                Intent intent = new Intent(RequestConfirmView.this, Host.class);
-//                                intent.putExtra(EXTRA_TEXT, "Shelves");
-//                                startActivity(intent);
-//                            }else{
-//                                Toast.makeText(RequestConfirmView.this, "book object is null",
-//                                        Toast.LENGTH_SHORT).show();
-//                            }
-//                        }
-                        return false;
+                        }
                     }
                 });
+
+
+//                map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+//                    @Override
+//                    public boolean onMarkerClick(final Marker marker) {
+//                        final Integer data = (Integer) marker.getTag();
+//                        marker.setTitle("book_loc");
+//
+//                        Toast.makeText(RequestConfirmView.this, "Please tap on marker to set your book location",
+//                                Toast.LENGTH_SHORT).show();
+//
+//                        setLoc.setVisibility(View.VISIBLE);
+//
+//                        setLoc.setOnClickListener(new View.OnClickListener() {
+//                            @Override
+//                            public void onClick(View v) {
+//                                Toast.makeText(RequestConfirmView.this, "set location clicked",
+//                                        Toast.LENGTH_SHORT).show();
+//
+//                                if (data != null) {
+//                                    pos = marker.getPosition();
+////                            book.setLocation(pos);
+//                                    Toast.makeText(RequestConfirmView.this, "Please tap on marker to set your book location",
+//                                            Toast.LENGTH_SHORT).show();
+//
+//                                    if ((book!=null)&(user!=null)) {
+////                                HashMap<String, Object> book_info = new HashMap<>();
+////                                book_info.put("Location", pos);
+//                                        firebaseFirestore.getInstance().collection("Users")
+//                                                .document(user.getEmail())
+//                                                .collection("Books_Requested")
+//                                                .document(book.getId())
+//                                                .update("Location", pos)
+//                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+//                                                    @Override
+//                                                    public void onSuccess(Void aVoid) {
+//                                                        Log.d("change book location", "book location updated.");
+//                                                        Toast.makeText(RequestConfirmView.this, "Update successful!",
+//                                                                Toast.LENGTH_SHORT).show();
+//                                                    }
+//                                                })
+//                                                .addOnFailureListener(new OnFailureListener() {
+//                                                    @Override
+//                                                    public void onFailure(@NonNull Exception e) {
+//                                                        Log.d("change book location", "Data storing failed");
+//                                                    }
+//                                                });
+//                                        Intent intent = new Intent(RequestConfirmView.this, Host.class);
+//                                        intent.putExtra(EXTRA_TEXT, "Shelves");
+//                                        startActivity(intent);
+//                                    }else{
+//                                        Toast.makeText(RequestConfirmView.this, "book object is null",
+//                                                Toast.LENGTH_SHORT).show();
+//                                    }
+//                                }
+//                            }
+//                        });
+//
+//                        return false;
+//                    }
+
             }
         });
     }
