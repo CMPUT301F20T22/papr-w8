@@ -24,6 +24,7 @@ import android.widget.Toast;
 import com.example.papr_w8.Adapters.BookDisplayList;
 import com.example.papr_w8.Adapters.UserDisplayList;
 import com.example.papr_w8.Book;
+import com.example.papr_w8.BookView.BookBasicView;
 import com.example.papr_w8.BookView.BookOwnedView;
 import com.example.papr_w8.BookView.BookRequestedView;
 import com.example.papr_w8.BookView.RequestBookView;
@@ -32,6 +33,8 @@ import com.example.papr_w8.R;
 import com.example.papr_w8.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -229,8 +232,6 @@ public class Search extends Fragment implements AdapterView.OnItemSelectedListen
                     bundle.putSerializable("bookSelected", (Serializable) book);
                     requestBookView.setArguments(bundle);
 
-                    Intent intent = new Intent(getActivity(), BookOwnedView.class);
-
                     //transfer data
                     FragmentTransaction ft = getChildFragmentManager().beginTransaction();
                     ft.replace(R.id.fragment_search, requestBookView);
@@ -239,7 +240,17 @@ public class Search extends Fragment implements AdapterView.OnItemSelectedListen
                     
                 // if clicked item is a non-avilable book (status = Awaiting Approval, requested, etc.)
                 } else if (resultList.getItemAtPosition(pos) instanceof Book){
+                    Book book = bookAdapter.getItem(pos);
+                    BookBasicView bookBasicView = new BookBasicView();
 
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("bookSelected", (Serializable) book);
+                    bookBasicView.setArguments(bundle);
+
+                    FragmentTransaction ft = getChildFragmentManager().beginTransaction();
+                    ft.replace(R.id.fragment_search, bookBasicView);
+                    ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                    ft.commit();
                 }
             }
         });

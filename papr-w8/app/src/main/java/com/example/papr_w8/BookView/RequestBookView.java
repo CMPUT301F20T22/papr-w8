@@ -85,6 +85,14 @@ public class RequestBookView extends BookBase {
 
         requestBookButton = (Button) baseView.findViewById(R.id.request_book_button);
 
+        // owner cannot request an available book that they own
+        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        final String email = user.getEmail();
+        if (email.equals(owner)){
+            requestBookButton.setEnabled(false);
+            Toast.makeText(getContext(), "Cannot request a book you own!", Toast.LENGTH_SHORT).show();
+        }
+
         requestBookButton.setOnClickListener(new View.OnClickListener() {  // onClickListener for when the user clicks on the confirm button to add a book
             @Override
             public void onClick(View view) {
