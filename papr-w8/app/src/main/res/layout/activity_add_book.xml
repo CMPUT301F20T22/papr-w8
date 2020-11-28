@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -89,12 +90,30 @@
         android:textColor="@color/deep_purple"
         android:textSize="24sp" />
 
-    <ImageButton
-        android:id="@+id/imageButton"
-        android:layout_width="98dp"
-        android:layout_height="120dp"
-        android:src="@android:drawable/ic_menu_add"
-        android:padding="20dp"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="120dp">
+
+        <ImageButton
+            android:id="@+id/imageButton"
+            android:layout_width="98dp"
+            android:layout_height="120dp"
+            android:src="@android:drawable/ic_menu_add"
+            android:padding="20dp"/>
+
+        <ImageView
+            android:id="@+id/delete_image_ab"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="77dp"
+            android:layout_marginLeft="77dp"
+            android:layout_marginTop="-2dp"
+            android:background="@drawable/cross_image" />
+
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"

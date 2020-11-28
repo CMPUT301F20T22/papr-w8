@@ -10,6 +10,7 @@ import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -68,6 +69,8 @@ public class AddBook extends AppCompatActivity {
         Button confirm = findViewById(R.id.confirm_addbook_button);
         Button scan = findViewById(R.id.scan_isbn);
         addBookCover = findViewById(R.id.imageButton);
+        ImageView deleteBookCover = findViewById(R.id.delete_image_ab);
+        final int add_id = getResources().getIdentifier("@android:drawable/ic_menu_add", null, null);
 
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
@@ -91,6 +94,15 @@ public class AddBook extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(AddBook.this, AddBookCoverActivity.class);
                 startActivityForResult(intent, ADD_COVER_REQUEST_CODE);
+            }
+        });
+
+        deleteBookCover.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fileName = "default_book.png";
+                addBookCover.setImageResource(add_id);
+                imageUri = null;
             }
         });
 

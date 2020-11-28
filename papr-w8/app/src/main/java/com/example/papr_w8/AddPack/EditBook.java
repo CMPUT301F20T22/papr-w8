@@ -61,6 +61,7 @@ public class EditBook extends AppCompatActivity {
         Button cancel = findViewById(R.id.cancel_editBook_button);
         Button confirm = findViewById(R.id.confirm_editBook_button);
         editBookCover = findViewById(R.id.editImageButton);
+//        ImageView deleteBookCover = findViewById(R.id.delete_image_eb);
 
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         final FirebaseFirestore fbDB = FirebaseFirestore.getInstance();
@@ -82,6 +83,15 @@ public class EditBook extends AppCompatActivity {
                 startActivityForResult(intent, 1);
             }
         });
+
+//        deleteBookCover.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                fileName = "default_book.png";
+//                editBookCover.setImageBitmap(null);
+//                imageUri = null;
+//            }
+//        });
 
         confirm.setOnClickListener(new View.OnClickListener() {  // onClickListener for when the user clicks on the confirm button to add a book
             @Override
