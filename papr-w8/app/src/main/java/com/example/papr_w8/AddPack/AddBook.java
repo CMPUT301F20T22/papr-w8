@@ -138,6 +138,7 @@ public class AddBook extends AppCompatActivity {
                                     Toast.makeText(AddBook.this, "Book Add Failed", Toast.LENGTH_SHORT).show();
                                 }
                             });
+                    uploadCover();
                     Intent intent = new Intent(AddBook.this, Host.class);
                     startActivity(intent);
                     finish();
@@ -166,7 +167,7 @@ public class AddBook extends AppCompatActivity {
                 String imageUriString = data.getStringExtra("coverUri");
                 imageUri = Uri.parse(imageUriString);
                 Picasso.get().load(imageUri).into(addBookCover);
-                uploadCover();
+//                uploadCover();
             }
         }else if (requestCode == SCAN_ISBN_REQUEST_CODE){
             if (resultCode == RESULT_OK){
