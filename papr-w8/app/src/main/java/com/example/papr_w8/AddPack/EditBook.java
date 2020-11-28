@@ -19,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.papr_w8.Book;
 import com.example.papr_w8.R;
+import com.example.papr_w8.ScanActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -44,6 +45,9 @@ public class EditBook extends AppCompatActivity {
     private ImageButton editBookCover;
     private StorageReference storageReference;
     private String fileName;
+    private EditText newBookISBN;
+
+    private final int SCAN_ISBN_REQUEST_CODE = 2;
 
     /**
      * onCreate starts the code for adding a book functionality
@@ -57,10 +61,11 @@ public class EditBook extends AppCompatActivity {
         final Book book = (Book) getIntent().getSerializableExtra("Book");
 
         final EditText newBookTitle = findViewById(R.id.edit_title_editText);
-        final EditText newBookISBN = findViewById(R.id.edit_isbn_editText);
+        newBookISBN = findViewById(R.id.edit_isbn_editText);
         final EditText newBookAuthor = findViewById(R.id.edit_author_editText);
         Button cancel = findViewById(R.id.cancel_editBook_button);
         Button confirm = findViewById(R.id.confirm_editBook_button);
+        Button scan = findViewById(R.id.scan_edit_isbn);
         editBookCover = findViewById(R.id.editImageButton);
         ImageView deleteBookCover = findViewById(R.id.delete_image_eb);
         final int add_id = getResources().getIdentifier("@android:drawable/ic_menu_add", null, null);
@@ -86,6 +91,14 @@ public class EditBook extends AppCompatActivity {
                         .fit()
                         .centerCrop()
                         .into(editBookCover);
+            }
+        });
+
+        scan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(EditBook.this, ScanActivity.class);
+                startActivityForResult(intent, SCAN_ISBN_REQUEST_CODE);
             }
         });
 
@@ -184,6 +197,9 @@ public class EditBook extends AppCompatActivity {
                 Picasso.get().load(imageUri).into(editBookCover);
 //                uploadCover();
             }
+        } else if (requestCode == SCAN_ISBN_REQUEST_CODE) {
+            String isbn = data.getStringExtra("ISBN");
+            newBookISBN.setText(isbn);
         }
     }
 
@@ -222,7 +238,9 @@ public class EditBook extends AppCompatActivity {
                     });
         } else {
             fileName = "default_book.png";
-            Toast.makeText(this, "No book cover selected", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "No book cover selected", Toast.LENGTH_SHORT).show();
+            Log.d("CoverDEBUG", "No book cover selected");
+
         }
     }
 }

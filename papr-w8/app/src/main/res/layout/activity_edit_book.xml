@@ -59,11 +59,25 @@
         android:textColor="@color/deep_purple"
         android:textSize="24sp" />
 
-    <EditText
-        android:id="@+id/edit_isbn_editText"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="New ISBN" />
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/edit_isbn_editText"
+            android:layout_width="267dp"
+            android:layout_height="wrap_content"
+            android:hint="New ISBN" />
+
+        <Button
+            android:id="@+id/scan_edit_isbn"
+            android:layout_width="103dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_rounded_deep_purple"
+            android:textColor="@android:color/white"
+            android:text="Scan" />
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/attach_photo"
