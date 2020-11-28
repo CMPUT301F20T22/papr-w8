@@ -105,7 +105,7 @@ public class EditBook extends AppCompatActivity {
                     return;
                 } else {
 
-                    Map<String, Object> e_book = new HashMap<>();
+                    final Map<String, Object> e_book = new HashMap<>();
                     e_book.put("Title", title);
                     e_book.put("Author", author);
                     e_book.put("ISBN", ISBN);
@@ -118,6 +118,8 @@ public class EditBook extends AppCompatActivity {
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
+                                    fbDB.collection("Books").document(book.getId()) //adds book to "Books" collections too
+                                            .update(e_book);
                                     Toast.makeText(EditBook.this, "Book Edited", Toast.LENGTH_SHORT).show();
                                 }
                             })

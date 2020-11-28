@@ -131,9 +131,9 @@ public class AddBook extends AppCompatActivity {
                             .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                 @Override
                                 public void onSuccess(DocumentReference documentReference) {
-                                    Toast.makeText(AddBook.this, "Book Added", Toast.LENGTH_SHORT).show();
                                     fbDB.collection("Books").document(documentReference.getId()) //adds book to "Books" collections too
                                             .set(book);
+                                    Toast.makeText(AddBook.this, "Book Added", Toast.LENGTH_SHORT).show();
                                 }
                             })
                             .addOnFailureListener(new OnFailureListener() {
