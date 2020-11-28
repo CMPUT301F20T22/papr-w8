@@ -24,6 +24,7 @@ import com.example.papr_w8.Book;
 import com.example.papr_w8.BookView.BookBasicView;
 import com.example.papr_w8.BookView.BookOwnedView;
 import com.example.papr_w8.BookView.RequestBookView;
+import com.example.papr_w8.ProfilePack.EditProfile;
 import com.example.papr_w8.ProfilePack.RetrivedProfile;
 import com.example.papr_w8.R;
 import com.example.papr_w8.User;
@@ -210,12 +211,9 @@ public class Search extends Fragment implements AdapterView.OnItemSelectedListen
                 // if clicked item is User
                 if(resultList.getItemAtPosition(pos) instanceof User){
                     User user = userAdapter.getItem(pos);
-                    new RetrivedProfile();
-                    RetrivedProfile retrivedProfileFragment = RetrivedProfile.newInstance(user);
-                    FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction()
-                            .show(retrivedProfileFragment);
-                    ft.replace(R.id.fragment_search, retrivedProfileFragment);
-                    ft.commit();
+                    Intent intent = new Intent(getContext(), RetrivedProfile.class);
+                    intent.putExtra("userSelected",user);
+                    startActivity(intent);
 
                 // if clicked item is an Available Book
                 } else if (resultList.getItemAtPosition(pos) instanceof Book
