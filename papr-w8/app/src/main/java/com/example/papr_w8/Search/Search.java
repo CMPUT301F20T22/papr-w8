@@ -33,6 +33,8 @@ import com.example.papr_w8.R;
 import com.example.papr_w8.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -229,8 +231,6 @@ public class Search extends Fragment implements AdapterView.OnItemSelectedListen
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("bookSelected", (Serializable) book);
                     requestBookView.setArguments(bundle);
-
-                    Intent intent = new Intent(getActivity(), BookOwnedView.class);
 
                     //transfer data
                     FragmentTransaction ft = getChildFragmentManager().beginTransaction();
