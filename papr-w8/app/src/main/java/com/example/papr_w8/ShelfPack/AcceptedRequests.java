@@ -72,6 +72,7 @@ public class AcceptedRequests extends Fragment {
                                         document.getString("Title"), document.getString("Author"),
                                         document.getString("ISBN"), document.getString("Status"),
                                         document.getString("Book Cover"), document.getString("Owner"));
+                                temp.setId(document.getId());
 
                                 // add the book to the data list
                                 acceptedBookDataList.add(temp);

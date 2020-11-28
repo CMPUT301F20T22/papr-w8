@@ -60,6 +60,12 @@ public class NotificationDisplayList extends ArrayAdapter<Notification> {
             case "declined":
                 message.setText(sender + " has denied your request to borrow " + book_title + ".");
                 break;
+            case "confirm_borrow":
+                message.setText(sender + " has scanned to confirm your borrowing of " + book_title + ".");
+                break;
+            case "confirm_return":
+                message.setText(sender + " has scanned to confirm the return of " + book_title + ".");
+                break;
 
         }
         return view;

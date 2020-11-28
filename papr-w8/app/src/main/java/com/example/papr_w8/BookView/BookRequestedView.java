@@ -1,20 +1,24 @@
 package com.example.papr_w8.BookView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewStub;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.papr_w8.Adapters.BookDisplayWithOwnerList;
 import com.example.papr_w8.Adapters.UserRequestsDisplayList;
 import com.example.papr_w8.Book;
+import com.example.papr_w8.ProfilePack.RetrivedProfile;
 import com.example.papr_w8.R;
 import com.example.papr_w8.User;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -25,6 +29,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -37,6 +42,8 @@ public class BookRequestedView extends BookBase {
     private ArrayAdapter<User> requestsAdapter;
     private ListView requestsList;
     private FirebaseAuth firebaseAuth;
+
+
 
     @Override
     public void onCreate( Bundle savedInstanceState ){
@@ -57,6 +64,8 @@ public class BookRequestedView extends BookBase {
         stub.setLayoutResource(R.layout.fragment_book_requested);
         stub.inflate();
 
+
+
         requestsList = baseView.findViewById(R.id.user_requests_list);
         requestsDataList = new ArrayList<>();
 
@@ -72,15 +81,15 @@ public class BookRequestedView extends BookBase {
                         if (task.isSuccessful()){
                             for (QueryDocumentSnapshot document : task.getResult()){
 
-                                User temp = new User(
-                                        document.getString("name"), document.getString("email"));
+                                User temp = new User();
 
-                                Log.d("MyDebug", temp.getName());
+                                temp.setEmail(document.getString("email"));
+
                                 // add the book to the data list
                                 requestsDataList.add(temp);
 
                                 //setup an array adapter for the books
-                                requestsAdapter = new UserRequestsDisplayList(getContext(), requestsDataList);
+                                requestsAdapter = new UserRequestsDisplayList(getContext(), requestsDataList, book);
                                 requestsList.setAdapter(requestsAdapter);
                             }
                         }
