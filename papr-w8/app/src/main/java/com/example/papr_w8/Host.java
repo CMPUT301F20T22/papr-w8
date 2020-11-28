@@ -31,8 +31,10 @@ public class Host extends AppCompatActivity{
         NavGraph graph = controller.getGraph();
         if(startActivity!=null){
             if(startActivity.equals("Profile")) {
-                System.out.println("startActivity is running");
                 graph.setStartDestination(R.id.profile);
+                controller.setGraph(graph);
+            }else if(startActivity.equals("Shelves")){
+                graph.setStartDestination(R.id.shelves);
                 controller.setGraph(graph);
             }
         }

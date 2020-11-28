@@ -43,6 +43,7 @@ public class BooksRequested extends Fragment {
     private ArrayAdapter<Book> requestedBookAdapter;
     private ListView requestedBookList;
     private FirebaseAuth firebaseAuth;
+    public static final String EXTRA_TEXT = "com.example.papr_w8.EXTRA_TEXT";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -105,6 +106,8 @@ public class BooksRequested extends Fragment {
                 Book bookSelected = requestedBookAdapter.getItem(i);
                 bundle.putSerializable("bookSelected", (Serializable) bookSelected);
                 bookRequestedView.setArguments(bundle);
+
+
 
                 Intent intent = new Intent(getActivity(), BookRequestedView.class);
 

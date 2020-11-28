@@ -1,6 +1,8 @@
 package com.example.papr_w8;
 
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.io.Serializable;
 
 /**
@@ -13,7 +15,7 @@ public class Book implements Serializable {
     private String status;
     private String cover;
     private String owner;
-    private String location;
+    private LatLng location;
     private String id;
 
     /**
@@ -112,10 +114,6 @@ public class Book implements Serializable {
 
     public String getId(){ return this.id; }
 
-    public void setLocation( String location ){ this.location = location; }
-
-    public String getLocation(){ return this.location; }
-
     public void setOwner( String owner ){ this.owner = owner; }
 
     public String getOwner(){ return this.owner; }
@@ -208,5 +206,23 @@ public class Book implements Serializable {
      */
     public void setCover(String cover) {
         this.cover = cover;
+    }
+
+    /**
+     * This returns the location of a Book
+     * @return
+     *      Return the location of a Book
+     */
+    public LatLng getLocation() {
+        return location;
+    }
+
+    /**
+     * This sets the new location of a Book
+     * @param location
+     *      The new location of a Book
+     */
+    public void setLocation(LatLng location) {
+        this.location = location;
     }
 }
