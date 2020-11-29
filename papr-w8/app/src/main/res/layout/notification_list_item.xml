@@ -11,12 +11,15 @@
         android:id="@+id/imageView"
         android:layout_width="80dp"
         android:layout_height="82dp"
-        android:layout_weight="2" />
+        android:layout_weight="2"
+        android:src="@drawable/ic_baseline_person_24"
+        />
 
     <TextView
         android:id="@+id/notification_text"
         android:layout_width="match_parent"
         android:layout_height="82dp"
         android:layout_weight ="98"
-        android:gravity="center_vertical" />
+        android:gravity="center_vertical"
+        android:textSize="20sp"/>
 </LinearLayout>
