@@ -27,11 +27,10 @@ public class Notification {
     public String getSenderId() {
         return senderId;
     }
-    
+
     public void setSenderId(String senderId) {
         this.senderId = senderId;
     }
-
 
     public String getType() {
         return type;
