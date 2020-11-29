@@ -33,5 +33,5 @@ jobs:
 
       # Executes unit tests
       - name: Unit Test
-        run: ./gradlew test
+        run: bash ./gradlew test
 
