@@ -12,31 +12,39 @@
             android:layout_height="100dp"
             android:orientation="vertical">
 
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/add_book_float"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:layout_gravity="end"/>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/add_book_float"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:clickable="true"
+            android:focusable="true"
+            android:backgroundTint="@color/mutedRed"
+            android:src="@android:drawable/ic_input_add" />
+
         </LinearLayout>
 
 
         <ListView
             android:id="@+id/books_owned_list"
-            android:layout_width="354dp"
-            android:layout_height="544dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="4dp">
-
-
+            android:layout_marginTop="55dp"
+            android:layout_marginBottom="60dp">
         </ListView>
+
         <TextView
             android:id="@+id/books_owned_title"
             android:layout_width="match_parent"
-            android:layout_height="600dp"
-            android:text="Books Owned:" />
+            android:layout_height="wrap_content"
+            android:contentDescription="+"
+            android:fontFamily="@font/happy_monkey"
+            android:gravity="left"
+            android:padding="10dp"
+            android:text="Books Owned"
+            android:textSize="36dp" />
 
 </RelativeLayout>
 

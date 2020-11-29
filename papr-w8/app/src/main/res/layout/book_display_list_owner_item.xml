@@ -24,57 +24,24 @@
             android:weightSum="100">
 
             <TextView
-                android:id="@+id/book_isbn_label"
+                android:id="@+id/book_title_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="2dp"
-                android:text="ISBN:"
+                android:text="Title:"
                 android:textStyle="bold"
                 android:textSize="20sp">
-
             </TextView>
 
             <TextView
-                android:id="@+id/book_isbn_text_o"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:padding="2dp"
-                android:text="5555-5555-5555"
-                android:textSize="20sp">
-
-            </TextView>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:orientation="horizontal"
-            android:weightSum="100">
-
-            <TextView
-                android:id="@+id/book_status_label"
+                android:id="@+id/book_title_text_o"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="2dp"
-                android:text="Status:"
-                android:textStyle="bold"
+                android:text="DefaultTitle"
                 android:textSize="20sp">
 
             </TextView>
-
-            <TextView
-                android:id="@+id/book_status_text_o"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:padding="2dp"
-                android:text="DefaultAuthor"
-                android:textSize="20sp">
-
-            </TextView>
-
         </LinearLayout>
 
         <LinearLayout
@@ -115,20 +82,23 @@
             android:weightSum="100">
 
             <TextView
-                android:id="@+id/book_title_label"
+                android:id="@+id/book_isbn_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="2dp"
-                android:text="Title:"
+                android:text="ISBN:"
                 android:textStyle="bold"
-                android:textSize="20sp"></TextView>
+                android:textSize="20sp">
+
+            </TextView>
 
             <TextView
-                android:id="@+id/book_title_text_o"
+                android:id="@+id/book_isbn_text_o"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
                 android:padding="2dp"
-                android:text="DefaultTitle"
+                android:text="5555-5555-5555"
                 android:textSize="20sp">
 
             </TextView>
@@ -162,6 +132,37 @@
                 android:textSize="20sp">
 
             </TextView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:orientation="horizontal"
+            android:weightSum="100">
+
+            <TextView
+                android:id="@+id/book_status_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="2dp"
+                android:text="Status:"
+                android:textStyle="bold"
+                android:textSize="20sp">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/book_status_text_o"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:padding="2dp"
+                android:text="DefaultAuthor"
+                android:textSize="20sp">
+
+            </TextView>
+
         </LinearLayout>
     </LinearLayout>
 
