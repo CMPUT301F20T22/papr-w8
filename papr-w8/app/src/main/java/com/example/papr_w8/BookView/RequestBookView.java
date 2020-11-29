@@ -2,23 +2,55 @@ package com.example.papr_w8.BookView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewStub;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+
+import com.example.papr_w8.AddPack.AddBook;
+import androidx.fragment.app.FragmentTransaction;
+
 
 import com.example.papr_w8.Book;
 import com.example.papr_w8.Host;
+import com.example.papr_w8.MainActivity;
+import com.example.papr_w8.Notification;
 import com.example.papr_w8.R;
+
+import com.example.papr_w8.ShelfPack.BooksOwned;
+import com.example.papr_w8.ShelfPack.Shelves;
+import com.example.papr_w8.SignUpActivity;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+
 import com.example.papr_w8.Search.Search;
 import com.example.papr_w8.ShelfPack.BooksOwned;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,6 +66,7 @@ public class RequestBookView extends BookBase {
     private FirebaseFirestore fbDB = FirebaseFirestore.getInstance();
     private String userEmail = user.getEmail();
     private String userId = user.getUid();
+    private String name;
 
     @Override
     public void onCreate( Bundle savedInstanceState ){
@@ -61,16 +94,18 @@ public class RequestBookView extends BookBase {
         final String owner = book.getOwner();
         final String id = book.getId();
 
-        requestBookButton = (Button) baseView.findViewById(R.id.request_book_button);
-        cancelRequestButton =(Button) baseView.findViewById(R.id.cancel_request_button);
+        fbDB.collection("Users")
+                .document(userEmail)
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        name = documentSnapshot.getString("name");
+                    }
+                });
 
-        // owner cannot request an available book that they own
-        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        final String email = user.getEmail();
-        if (email.equals(owner)){
-            requestBookButton.setEnabled(false);
-            Toast.makeText(getContext(), "Cannot request a book you own!", Toast.LENGTH_SHORT).show();
-        }
+
+        requestBookButton = (Button) baseView.findViewById(R.id.request_book_button);
 
         requestBookButton.setOnClickListener(new View.OnClickListener() {  // onClickListener for when the user clicks on the confirm button to add a book
             @Override
@@ -97,7 +132,7 @@ public class RequestBookView extends BookBase {
                         .document(owner)
                         .collection("Books Owned")
                         .document(id)
-                        .collection("Requested")
+                        .collection("Requests")
                         .document(userEmail)
                         .set(user);
                 fbDB.collection("Users")
@@ -109,15 +144,18 @@ public class RequestBookView extends BookBase {
                         .document(owner)
                         .collection("Books Owned")
                         .document(id)
-                        .set(book);
+                        .update("Status", "Requested");
+
+                notifyOwner(id, owner, name, title);
 
                 Intent intent = new Intent(getActivity(), Host.class);
                 startActivity(intent);
-                }
+            }
 
 
         });
-        //Select Cancel Button to return to search
+      
+              //Select Cancel Button to return to search
         cancelRequestButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -125,5 +163,23 @@ public class RequestBookView extends BookBase {
             }
         });
     };
+    }
+
+
+    public void notifyOwner(String bookId, String owner_email, String user_name, String book_title){
+        Map<String, Object> notification = new HashMap<>();
+        notification.put("Sender", userEmail);
+        notification.put("Name", user_name);
+        notification.put("Type", "request");
+        notification.put("Book Title", book_title);
+        notification.put("Book Id", bookId);
+
+        fbDB.collection("Users")
+                .document(owner_email)
+                .collection("Notifications")
+                .document()
+                .set(notification);
+    }
+
 
 }
