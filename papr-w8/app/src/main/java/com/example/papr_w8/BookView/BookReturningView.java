@@ -123,13 +123,12 @@ public class BookReturningView extends BookBase{
                                 if (task.isSuccessful()) {
                                     DocumentSnapshot document = task.getResult();
                                     if (document.exists() & document.getString("ISBN").matches(scanned_isbn)) {
-                                        notifyOwner(owner_email, user_email, user_name, book_id);
+                                        notifyOwner(book.getId(), user_email, user_name, book.getId());
                                     } else {
                                         Toast.makeText(getContext(), "This book does not belong to the listed owner.",
                                                 Toast.LENGTH_SHORT).show();
                                     }
                                 }
-                            }
                             }
                         });
             }
