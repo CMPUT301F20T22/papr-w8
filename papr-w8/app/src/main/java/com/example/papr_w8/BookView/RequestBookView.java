@@ -63,8 +63,6 @@ public class RequestBookView extends BookBase {
         // Inflate the layout provided at the location in BookBase view
         stub.inflate();
 
-
-
         // Get the book selected attributes
         final String owner = book.getOwner();
         final String bookId = book.getId();

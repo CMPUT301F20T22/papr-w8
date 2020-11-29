@@ -96,6 +96,9 @@ public class RequestConfirmView extends AppCompatActivity implements OnMapReadyC
         Intent intent = getIntent();
 
         borrower_email = intent.getStringExtra("borrower");
+        Log.d("Testing", "Testing in");
+        Log.d("Testing", borrower_email);
+        Log.d("Testing", "Testing out");
 
     }
 
@@ -161,6 +164,8 @@ public class RequestConfirmView extends AppCompatActivity implements OnMapReadyC
         notification.put("Type", type);
         notification.put("Book Title", book_title);
         notification.put("Book Id", bookId);
+
+        Log.d("MyyyTag", borrower_email);
 
         firebaseFirestore.collection("Users")
                 .document(borrower_email)

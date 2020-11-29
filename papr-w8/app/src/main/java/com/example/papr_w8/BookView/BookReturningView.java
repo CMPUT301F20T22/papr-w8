@@ -40,18 +40,12 @@ import static android.app.Activity.RESULT_OK;
  * the user to Return the Book by scanning or to Cancel this transaction.
  */
 public class BookReturningView extends BookBase{
+
     private static final String TAG = "MyTag";
-    private FirebaseAuth firebaseAuth;
     private final int SCAN_ISBN_FOR_RETURN = 1;
-    private String book_id;
-
-    private Button buttonReturn;
-    private Button buttonCancel;
-
 
     public BookReturningView() {
     }
-
 
     /**
      * Sets the view of the fragment
@@ -60,18 +54,20 @@ public class BookReturningView extends BookBase{
      */
     @Override
     public void provideYourFragmentView(View rootView, ViewGroup container) {
-
         setRetainInstance(true);
+
+        // Get the id of the ViewStub from the BookBase view
         ViewStub stub = rootView.findViewById(R.id.child_fragment_here);
+
+        // Set the layout resource to the book base XML file
         stub.setLayoutResource(R.layout.fragment_book_returning);
+
+        // Inflate the layout provided at the location specified in BookBase view
         stub.inflate();
 
-
-        buttonReturn = (Button) rootView.findViewById(R.id.returnButton);
-        buttonCancel = (Button) rootView.findViewById(R.id.cancelButton);
-
-        book_id = book.getId();
-
+        // Get the button id's from the layout
+        Button buttonReturn = (Button) rootView.findViewById(R.id.returnButton);
+        Button buttonCancel = (Button) rootView.findViewById(R.id.cancelButton);
 
         // This onClickListener performs the action of updating the status of a Book to Returned
         // by taking the user to a barcode scanner where they will scan the book ISBN
@@ -90,7 +86,6 @@ public class BookReturningView extends BookBase{
                 getActivity().getSupportFragmentManager().popBackStack();
             }
         });
-
     }
 
     /**
@@ -106,6 +101,7 @@ public class BookReturningView extends BookBase{
         if (requestCode == SCAN_ISBN_FOR_RETURN) {
             if (resultCode == RESULT_OK) {
 
+
                 final String owner_email = book.getOwner();
 
                 final String scanned_isbn = data.getStringExtra("ISBN");
@@ -118,11 +114,12 @@ public class BookReturningView extends BookBase{
                 final Task<DocumentSnapshot> bookDoc = FirebaseFirestore.getInstance().collection("Users")
                         .document(owner_email)
                         .collection("Books Owned")
-                        .document(book_id)
+                        .document(book.getId())
                         .get()
                         .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                             @Override
                             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+
                                 if (task.isSuccessful()) {
                                     DocumentSnapshot document = task.getResult();
                                     if (document.exists() & document.getString("ISBN").matches(scanned_isbn)) {
@@ -133,8 +130,8 @@ public class BookReturningView extends BookBase{
                                     }
                                 }
                             }
+                            }
                         });
-
             }
         }
     }
@@ -147,39 +144,40 @@ public class BookReturningView extends BookBase{
      * @param book_id
      */
     public void notifyOwner(final String owner_email, final String user_email, final String user_name, final String book_id) {
-        Task<DocumentSnapshot> user = FirebaseFirestore.getInstance().collection("Users")
-                .document(owner_email)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        if (task.isSuccessful()) {
-                            final FirebaseFirestore db = FirebaseFirestore.getInstance();
-                            Map<String, Object> notification = new HashMap<>();
-                            notification.put("Sender", user_email);
-                            notification.put("Name", user_name);
-                            notification.put("Type", "return_scan");
-                            notification.put("Book Title", book.getTitle());
-                            notification.put("Book ID", book_id);
+        Task<DocumentSnapshot> user = fbDB.collection("Users")
+            .document(owner_email)
+            .get()
+            .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful()) {
+                        // Set hashmap for a notification
+                        Map<String, Object> notification = new HashMap<>();
+                        notification.put("Sender", user_email);
+                        notification.put("Name", user_name);
+                        notification.put("Type", "return_scan");
+                        notification.put("Book Title", book.getTitle());
+                        notification.put("Book ID", book_id);
 
-                            db.collection("Users")
-                                    .document(owner_email)
-                                    .collection("Notifications")
-                                    .add(notification)
-                                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                        @Override
-                                        public void onSuccess(DocumentReference documentReference) {
-                                            Toast.makeText(getContext(), "Owner has been notified.", Toast.LENGTH_SHORT).show();
-                                        }
-                                    })
-                                    .addOnFailureListener(new OnFailureListener() {
-                                        @Override
-                                        public void onFailure(@NonNull Exception e) {
-                                            Toast.makeText(getContext(), "Unable to notify owner.", Toast.LENGTH_SHORT).show();
-                                        }
-                                    });
-                        }
+                        // Add notification to the owners notification
+                        fbDB.collection("Users")
+                                .document(owner_email)
+                                .collection("Notifications")
+                                .add(notification)
+                                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                    @Override
+                                    public void onSuccess(DocumentReference documentReference) {
+                                        Toast.makeText(getContext(), "Owner has been notified.", Toast.LENGTH_SHORT).show();
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toast.makeText(getContext(), "Unable to notify owner.", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
                     }
-                });
+                }
+            });
     }
 }
