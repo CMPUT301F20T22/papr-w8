@@ -14,56 +14,80 @@
     <!--    Date retrieved: Sept 27, 2020-->
     <!--    Licence: Creative Commons/Unknown-->
     <!--    URL: https://www.youtube.com/watch?v=eDLQ6wgm31w&ab_channel=%CE%91%CE%BD%CF%84%CF%8E%CE%BD%CE%B9%CE%BF%CF%82%CE%92%CF%85%CE%B6%CE%B5%CE%BD%CF%84%CE%AF%CE%BD%CE%B7%CF%82-->
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="100"
-        android:layout_gravity="bottom">
-
-        <TextView
-            android:id="@+id/user_name_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="5dp"
-            android:text="Name:"
-            android:textSize="20sp">
-        </TextView>
-        <TextView
-            android:id="@+id/user_name_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="5dp"
-            android:text="DefaultName"
-            android:textSize="20sp">
-
-        </TextView>
-    </LinearLayout>
 
     <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="horizontal"
-        android:weightSum="100"
-        android:layout_gravity="bottom">
-        <TextView
-            android:id="@+id/user_email_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="5dp"
-            android:text="Email:"
-            android:textSize="20sp">
+        android:weightSum="100">
 
-        </TextView>
-        <TextView
-            android:id="@+id/user_email_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:text="DefaultEmail"
-            android:textSize="20sp">
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="80dp"
+            android:layout_height="82dp"
+            android:layout_weight="2"
+            android:src="@drawable/ic_baseline_person_24"
+            />
 
-        </TextView>
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="98"
+            android:layout_gravity="bottom">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/user_name_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="Name:"
+                    android:textSize="20sp">
+                </TextView>
+
+                <TextView
+                    android:id="@+id/user_name_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="DefaultName"
+                    android:textSize="20sp">
+
+                </TextView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="100"
+                android:layout_gravity="bottom">
+
+                <TextView
+                    android:id="@+id/user_email_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="Email:"
+                    android:textSize="20sp" />
+                <TextView
+                    android:id="@+id/user_email_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="DefaultEmail"
+                    android:textSize="20sp">
+
+                </TextView>
+            </LinearLayout>
+        </LinearLayout>
+
     </LinearLayout>
 
 </LinearLayout>
+
