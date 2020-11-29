@@ -28,6 +28,7 @@ public class Notification {
         return senderId;
     }
 
+
     public void setSenderId(String senderId) {
         this.senderId = senderId;
     }
