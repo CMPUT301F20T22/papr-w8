@@ -8,6 +8,12 @@
     <string name="enter_username">Enter username</string>
     <string name="enter_email">Enter email</string>
     <string name="hello_blank_fragment">Hello Blank Fragment</string>
+    <string name="description">Description</string>
+    <string name="title">Title</string>
+    <string name="author">Author</string>
+    <string name="isbn">ISBN</string>
+    <string name="status">Status</string>
+    <string name="scan_to_borrow">Scan to Borrow</string>
 
     <string-array name="search_options">
         <item>Ava. Books</item>

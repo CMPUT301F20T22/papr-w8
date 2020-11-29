@@ -49,7 +49,7 @@ public class UserRequestsDisplayList extends ArrayAdapter<User> {
             view = LayoutInflater.from(context).inflate(R.layout.user_requests_display_list_item,parent,false);
         }
 
-        User user = users.get(position);
+        final User user = users.get(position);
 
         TextView userName = (TextView) view.findViewById(R.id.user_name_text);
         Button acceptRequest = (Button) view.findViewById(R.id.accept_request);
@@ -62,6 +62,7 @@ public class UserRequestsDisplayList extends ArrayAdapter<User> {
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(), RequestConfirmView.class);
                 intent.putExtra("book", book);
+                intent.putExtra("borrower", user.getEmail());
                 context.startActivity(intent);
             }
         });

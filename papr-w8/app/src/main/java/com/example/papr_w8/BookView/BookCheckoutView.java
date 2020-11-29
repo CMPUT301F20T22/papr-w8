@@ -17,6 +17,12 @@ import android.widget.Toast;
 
 import com.example.papr_w8.R;
 import com.example.papr_w8.ScanActivity;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -36,16 +42,16 @@ import static android.app.Activity.RESULT_OK;
 /**
  * Fragment that allows user to view an accepted book and to borrow a book by scanning
  */
-public class BookCheckoutView extends BookBase {
+public class BookCheckoutView extends BookBase implements OnMapReadyCallback {
     private static final String TAG = "MyTag" ;
     private FirebaseAuth firebaseAuth;
     private final int SCAN_ISBN_FOR_BORROW = 1;
     private String book_id;
     private String user_name;
+    GoogleMap map;
 
 
     private Button buttonConfirmBorrow;
-    private Button buttonCancel;
 
 
 
@@ -68,9 +74,12 @@ public class BookCheckoutView extends BookBase {
         stub.inflate();
 
         buttonConfirmBorrow = (Button) rootView.findViewById(R.id.confirmButton);
-        buttonCancel = (Button) rootView.findViewById(R.id.cancel_checkout);
 
         book_id = book.getId();
+
+        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync( this);
 
         // This onClickListener goes to ScanActivity
         buttonConfirmBorrow.setOnClickListener(new View.OnClickListener() {
@@ -78,18 +87,19 @@ public class BookCheckoutView extends BookBase {
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), ScanActivity.class);
                 startActivityForResult(intent, SCAN_ISBN_FOR_BORROW);
-            }
-        });
 
-        // This onClickListener performs the action of taking the user back to Accepted Books
-        buttonCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getActivity().getFragmentManager().popBackStack();
             }
         });
 
 
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        map = googleMap;
+        LatLng bookLoc = book.getLocation();
+        map.addMarker(new MarkerOptions().position(bookLoc).title("book location"));
+        map.moveCamera(CameraUpdateFactory.newLatLng(bookLoc));
     }
 
     /**

@@ -20,6 +20,7 @@ import com.example.papr_w8.AddPack.AddBook;
 import com.example.papr_w8.Book;
 import com.example.papr_w8.Host;
 import com.example.papr_w8.MainActivity;
+import com.example.papr_w8.Notification;
 import com.example.papr_w8.R;
 import com.example.papr_w8.ShelfPack.BooksOwned;
 import com.example.papr_w8.ShelfPack.Shelves;
@@ -56,6 +57,7 @@ public class RequestBookView extends BookBase {
     private FirebaseFirestore fbDB = FirebaseFirestore.getInstance();
     private String userEmail = user.getEmail();
     private String userId = user.getUid();
+    private String name;
 
     @Override
     public void onCreate( Bundle savedInstanceState ){
@@ -82,6 +84,17 @@ public class RequestBookView extends BookBase {
         final String ISBN = book.getISBN();
         final String owner = book.getOwner();
         final String id = book.getId();
+
+        fbDB.collection("Users")
+                .document(userEmail)
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        name = documentSnapshot.getString("name");
+                    }
+                });
+
 
         requestBookButton = (Button) baseView.findViewById(R.id.request_book_button);
 
@@ -110,7 +123,7 @@ public class RequestBookView extends BookBase {
                         .document(owner)
                         .collection("Books Owned")
                         .document(id)
-                        .collection("Requested")
+                        .collection("Requests")
                         .document(userEmail)
                         .set(user);
                 fbDB.collection("Users")
@@ -122,7 +135,9 @@ public class RequestBookView extends BookBase {
                         .document(owner)
                         .collection("Books Owned")
                         .document(id)
-                        .set(book);
+                        .update("Status", "Requested");
+
+                notifyOwner(id, owner, name, title);
 
                 Intent intent = new Intent(getActivity(), Host.class);
                 startActivity(intent);
@@ -130,6 +145,22 @@ public class RequestBookView extends BookBase {
 
 
         });
-    };
+    }
+
+
+    public void notifyOwner(String bookId, String owner_email, String user_name, String book_title){
+        Map<String, Object> notification = new HashMap<>();
+        notification.put("Sender", userEmail);
+        notification.put("Name", user_name);
+        notification.put("Type", "request");
+        notification.put("Book Title", book_title);
+        notification.put("Book Id", bookId);
+
+        fbDB.collection("Users")
+                .document(owner_email)
+                .collection("Notifications")
+                .document()
+                .set(notification);
+    }
 
 }
