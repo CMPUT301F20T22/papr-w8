@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,11 +19,13 @@ import com.example.papr_w8.Adapters.BookDisplayWithOwnerList;
 import com.example.papr_w8.Book;
 import com.example.papr_w8.BookView.BookCheckoutView;
 import com.example.papr_w8.R;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.GeoPoint;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -46,7 +49,7 @@ public class AcceptedRequests extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
 
         //set up firebase to pull data
         firebaseAuth = FirebaseAuth.getInstance();
@@ -72,7 +75,14 @@ public class AcceptedRequests extends Fragment {
                                         document.getString("Title"), document.getString("Author"),
                                         document.getString("ISBN"), document.getString("Status"),
                                         document.getString("Book Cover"), document.getString("Owner"));
+                                temp.setOwner(document.getString("Owner"));
                                 temp.setId(document.getId());
+                                Log.d("MyTag", document.getString("Owner"));
+                                GeoPoint geoPoint = document.getGeoPoint("Location");
+                                double latitude = geoPoint.getLatitude();
+                                double longitude = geoPoint.getLongitude();
+                                LatLng location = new LatLng(latitude, longitude);
+                                temp.setLocation(location);
 
                                 // add the book to the data list
                                 acceptedBookDataList.add(temp);
