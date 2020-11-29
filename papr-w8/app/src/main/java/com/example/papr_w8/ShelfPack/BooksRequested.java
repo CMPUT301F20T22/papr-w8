@@ -16,8 +16,6 @@ import android.widget.ListView;
 
 import com.example.papr_w8.Adapters.BookDisplayWithOwnerList;
 import com.example.papr_w8.Book;
-import com.example.papr_w8.BookView.BookBasicMapView;
-import com.example.papr_w8.BookView.BookBasicView;
 import com.example.papr_w8.BookView.BookRequestedView;
 import com.example.papr_w8.R;
 import com.google.android.gms.tasks.OnCompleteListener;
