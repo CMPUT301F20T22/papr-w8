@@ -108,6 +108,8 @@ public class BookReturningView extends BookBase{
 
                 final String owner_email = book.getOwner();
 
+                final String scanned_isbn = data.getStringExtra("ISBN");
+
                 firebaseAuth = FirebaseAuth.getInstance();
                 final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 final String user_email = user.getEmail();
@@ -123,7 +125,7 @@ public class BookReturningView extends BookBase{
                             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                 if (task.isSuccessful()) {
                                     DocumentSnapshot document = task.getResult();
-                                    if (document.exists()) {
+                                    if (document.exists() & document.getString("ISBN").matches(scanned_isbn)) {
                                         notifyOwner(owner_email, user_email, user_name, book_id);
                                     } else {
                                         Toast.makeText(getContext(), "This book does not belong to the listed owner.",
