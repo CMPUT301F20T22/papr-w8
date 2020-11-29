@@ -16,17 +16,10 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 /**
- * This is a Fragment that displays the view of a Book Description that is Owned providing
- * options for the Owner to Edit, View Requests, or Delete Book.
+ * This is a Fragment that displays the view of a book description for a book owned by a user
+ * providing options for the owner to edit the book description or delete the book.
  */
 public class BookOwnedView extends BookBase {
-
-    private String fileName;
-    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-    FirebaseUser user = firebaseAuth.getInstance().getCurrentUser();
-    private FirebaseFirestore fbDB = FirebaseFirestore.getInstance();
-    private String email = user.getEmail();
-
 
     @Override
     public void onCreate( Bundle savedInstanceState ){
@@ -36,38 +29,44 @@ public class BookOwnedView extends BookBase {
 
     @Override
     public void provideYourFragmentView(final View baseView, ViewGroup container){
-        Button buttonEditDescription;
-        Button buttonDeleteBook;
-
         setRetainInstance(true);
+
+        // Get the id of the ViewStub from the BookBase view
         ViewStub stub = baseView.findViewById(R.id.child_fragment_here);
+
+        // Set the layout resource to the book base XML file for Book Owned
         stub.setLayoutResource(R.layout.fragment_book_owned);
+
+        // Inflate the layout provided at the location specified in BookBase
         stub.inflate();
 
-        buttonEditDescription = (Button) baseView.findViewById(R.id.editdescriptionButton);
-        buttonDeleteBook = (Button) baseView.findViewById(R.id.deleteButton);
+        // Get the button id's from the layout
+        Button buttonEditDescription = (Button) baseView.findViewById(R.id.editdescriptionButton);
+        Button buttonDeleteBook = (Button) baseView.findViewById(R.id.deleteButton);
 
+        // Initiate onClickListener for the Edit Button
         buttonEditDescription.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO implement the action of clicking the EditDescription button
                 Intent intent = new Intent(getContext(), EditBook.class);
                 intent.putExtra("Book", book);
                 startActivity(intent);
             }
         });
-
+        // Initiate onClickListener for the Delete Book Button
         buttonDeleteBook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-
+                // Initialize confirmDelete class
                 ConfirmDelete confirmDelete = new ConfirmDelete();
 
+                // Pass the book that will be deleted in the bundle
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("Book Del", book );
+                bundle.putSerializable("Book Del", book);
                 confirmDelete.setArguments(bundle);
 
+                // Start fragment transaction
                 FragmentTransaction ft = getChildFragmentManager().beginTransaction();
                 ft.replace(R.id.fragment_book_base,confirmDelete,confirmDelete.getTag());
                 ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);

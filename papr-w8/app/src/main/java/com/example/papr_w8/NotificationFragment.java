@@ -140,6 +140,8 @@ public class NotificationFragment extends Fragment {
                         .collection("Notifications")
                         .document(selected_notification.getNotification_id())
                         .delete();
+                notifications.remove(i);
+                notification_adapter.notifyDataSetChanged();
 
             }
         });
