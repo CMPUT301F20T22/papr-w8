@@ -11,8 +11,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.papr_w8.MainActivity;
 import com.example.papr_w8.ProfilePack.EditProfile;
 import com.example.papr_w8.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -48,6 +50,7 @@ public class Profile extends Fragment {
         final TextView email = (TextView)view.findViewById(R.id.email);
         final TextView address = (TextView)view.findViewById(R.id.address);
         Button edit = (Button)view.findViewById(R.id.edit_profile_button);
+        Button logout = (Button)view.findViewById(R.id.logout_button);
 
         userDoc.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -75,7 +78,16 @@ public class Profile extends Fragment {
                 startActivity(intent);
             }
         });
-        // Inflate the layout for this fragment
+
+        logout.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                getActivity().finish();
+
+                Intent intent = new Intent(getContext(), MainActivity.class);
+                startActivity(intent);
+            }
+        });
         return view;
     }
 }
