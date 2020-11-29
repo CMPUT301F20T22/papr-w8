@@ -33,16 +33,14 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
- * This is a Fragment that displays the view of a Book Description that has been Requested and needs
- * to be Approved or Declined by a Book Owner.
+ * This is a Fragment that displays the view of a book description with a list of users who have
+ * requested the book. Giving the ability for the owner to Accept or Decline their request.
  */
 public class BookRequestedView extends BookBase {
 
     private ArrayList<User> requestsDataList;
     private ArrayAdapter<User> requestsAdapter;
     private ListView requestsList;
-    private FirebaseAuth firebaseAuth;
-
 
 
     @Override
@@ -51,38 +49,51 @@ public class BookRequestedView extends BookBase {
         setRetainInstance(true);
     }
 
+    /**
+     * This override method will provide a fragment that will be displayed under the book
+     * description. Displaying a list of users that requested the current book.
+     * @param baseView
+     * @param container
+     */
+
     @Override
     public void provideYourFragmentView(View baseView, ViewGroup container){
+        setRetainInstance(true);
 
-        //set up firebase to pull data
-        firebaseAuth = FirebaseAuth.getInstance();
-        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        // Get the email of the current user
+        //String email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
         String email = user.getEmail();
 
-        setRetainInstance(true);
+        // Get the id of the ViewStub from the BookBase view
         ViewStub stub = baseView.findViewById(R.id.child_fragment_here);
+
+        // Set the layout resource to the book requested XML
         stub.setLayoutResource(R.layout.fragment_book_requested);
+
+        // Inflate the layout provided at the location specified in BookBase view
         stub.inflate();
 
-
-
+        // Get the id of the ListView to display our requests on
         requestsList = baseView.findViewById(R.id.user_requests_list);
         requestsDataList = new ArrayList<>();
 
+        // Get the id of the book
         String id = book.getId();
 
+        // Query Firestore for the instances of users who requested the book selected
         final Task<QuerySnapshot> bookDoc = FirebaseFirestore.getInstance().collection("Users")
                 .document(email).collection("Books Owned").document(id)
                 .collection("Requested").get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        //add book items from database
+                        // Display user emails from Firestore
                         if (task.isSuccessful()){
                             for (QueryDocumentSnapshot document : task.getResult()){
 
+                                // Create a temporary user
                                 User temp = new User();
-
+                                // Set the temporary user email for display in the list
                                 temp.setEmail(document.getString("email"));
 
                                 // add the book to the data list

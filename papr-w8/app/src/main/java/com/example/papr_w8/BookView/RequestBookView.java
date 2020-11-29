@@ -30,13 +30,9 @@ import java.util.Map;
  */
 public class RequestBookView extends BookBase {
 
-    private String fileName;
-    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-    FirebaseUser user = firebaseAuth.getInstance().getCurrentUser();
-    private FirebaseFirestore fbDB = FirebaseFirestore.getInstance();
-    private String userEmail = user.getEmail();
-    private String userId = user.getUid();
     private String name;
+    // Get the current user's email
+    private String userEmail = user.getEmail();
 
     @Override
     public void onCreate( Bundle savedInstanceState ){
@@ -44,25 +40,31 @@ public class RequestBookView extends BookBase {
         setRetainInstance(true);
     }
 
+    /**
+     * This override method will instantiate a BookBase view with the ability to request the book
+     * currently being viewed.
+     * @param baseView
+     * @param container
+     */
+
     @Override
     public void provideYourFragmentView(final View baseView, ViewGroup container){
-
-
-        Button requestBookButton;
-        Button cancelRequestButton;
-
         setRetainInstance(true);
+
+        // Get the id of the ViewStub from the BookBase view
         ViewStub stub = baseView.findViewById(R.id.child_fragment_here);
+
+        // Set the layout resource to the book request view
         stub.setLayoutResource(R.layout.fragment_book_request_view);
+
+        // Inflate the layout provided at the location in BookBase view
         stub.inflate();
-        final Bundle bundle = getArguments();
-        final Book book = (Book) bundle.getSerializable("bookSelected");
-        assert book != null;
-        final String title = book.getTitle();
-        final String author = book.getAuthor();
-        final String ISBN = book.getISBN();
+
+
+
+        // Get the book selected attributes
         final String owner = book.getOwner();
-        final String id = book.getId();
+        final String bookId = book.getId();
 
         fbDB.collection("Users")
                 .document(userEmail)
@@ -74,58 +76,66 @@ public class RequestBookView extends BookBase {
                     }
                 });
 
+        // Set the button Id from the XML file
+        Button requestBookButton = (Button) baseView.findViewById(R.id.request_book_button);
 
-        requestBookButton = (Button) baseView.findViewById(R.id.request_book_button);
-        cancelRequestButton =(Button) baseView.findViewById(R.id.cancel_request_button);
-
-        // owner cannot request an available book that they own
-        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        final String email = user.getEmail();
-        if (email.equals(owner)){
+        // Check if the current user is also the owner of the book
+        if (userEmail.equals(owner)){
             requestBookButton.setEnabled(false);
             Toast.makeText(getContext(), "Cannot request a book you own!", Toast.LENGTH_SHORT).show();
         }
 
-        requestBookButton.setOnClickListener(new View.OnClickListener() {  // onClickListener for when the user clicks on the confirm button to add a book
+        // Instantiate an onClickListener for the request book button
+        requestBookButton.setOnClickListener(new View.OnClickListener() {
+            // onClickListener for when the user clicks on the confirm button to add a book
             @Override
             public void onClick(View view) {
 
-                Map<String, Object> book = new HashMap<>();
-                book.put("Title", title);
-                book.put("Author", author);
-                book.put("ISBN", ISBN);
-                book.put("Status", "Requested");
-                book.put("Book Cover", fileName);
-                book.put("Owner", owner);
+                // Create a hashmap for the book to be requested
+                Map<String, Object> bookRequested = new HashMap<>();
+                bookRequested.put("Title", book.getTitle());
+                bookRequested.put("Author", book.getAuthor());
+                bookRequested.put("ISBN", book.getISBN());
+                bookRequested.put("Status", "Requested");
+                bookRequested.put("Book Cover", book.getCover());
+                bookRequested.put("Owner", book.getOwner());
 
-                Map<String, Object> user = new HashMap<>();
-                user.put("email", userEmail);
+                // Create a hashmap for the user requesting the book
+                Map<String, Object> userRequesting = new HashMap<>();
+                userRequesting.put("email", userEmail);
 
-                // Add Book to users awaiting approval collection
+                // Add the book to the user's awaiting approval collection
                 fbDB.collection("Users")
                         .document(userEmail)
                         .collection("Awaiting Approval")
-                        .document(id)
-                        .set(book);
+                        .document(bookId)
+                        .set(bookRequested);
+                // Add the user's name to the collection of users requesting this book
                 fbDB.collection("Users")
                         .document(owner)
                         .collection("Books Owned")
-                        .document(id)
+                        .document(bookId)
                         .collection("Requested")
                         .document(userEmail)
-                        .set(user);
+                        .set(userRequesting);
+                // Add the book to the owner's collection of books requested
                 fbDB.collection("Users")
                         .document(owner)
                         .collection("Books_Requested")
-                        .document(id)
-                        .set(book);
+                        .document(bookId)
+                        .set(bookRequested);
+                // Update the book in the owner's owned books collection
                 fbDB.collection("Users")
                         .document(owner)
                         .collection("Books Owned")
-                        .document(id)
-                        .set(book);
+                        .document(bookId)
+                        .update("Status", "Requested");
 
-                notifyOwner(id, owner, name, title);
+                Toast.makeText(getContext(), "Book requested!", Toast.LENGTH_SHORT).show();
+
+                notifyOwner(bookId, owner, name, book.getTitle());
+
+                // Return the user to the Shelves page
 
                 Intent intent = new Intent(getActivity(), Host.class);
                 startActivity(intent);
@@ -133,14 +143,15 @@ public class RequestBookView extends BookBase {
 
 
         });
-        //Select Cancel Button to return to search
-        cancelRequestButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getParentFragmentManager().beginTransaction().remove(RequestBookView.this).commit();
-            }
-        });
     };
+
+    /**
+     * This method notifies the owner of the book that it has been requested
+     * @param bookId
+     * @param owner_email
+     * @param user_name
+     * @param book_title
+     */
 
     public void notifyOwner(String bookId, String owner_email, String user_name, String book_title){
         Map<String, Object> notification = new HashMap<>();
@@ -156,5 +167,4 @@ public class RequestBookView extends BookBase {
                 .document()
                 .set(notification);
     }
-
 }
