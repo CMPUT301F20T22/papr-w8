@@ -8,9 +8,13 @@ import android.view.ViewStub;
 import android.widget.Button;
 import android.widget.Toast;
 
+import androidx.fragment.app.FragmentTransaction;
+
 import com.example.papr_w8.Book;
 import com.example.papr_w8.Host;
 import com.example.papr_w8.R;
+import com.example.papr_w8.Search.Search;
+import com.example.papr_w8.ShelfPack.BooksOwned;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -58,6 +62,7 @@ public class RequestBookView extends BookBase {
         final String id = book.getId();
 
         requestBookButton = (Button) baseView.findViewById(R.id.request_book_button);
+        cancelRequestButton =(Button) baseView.findViewById(R.id.cancel_request_button);
 
         // owner cannot request an available book that they own
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -111,6 +116,13 @@ public class RequestBookView extends BookBase {
                 }
 
 
+        });
+        //Select Cancel Button to return to search
+        cancelRequestButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getParentFragmentManager().beginTransaction().remove(RequestBookView.this).commit();
+            }
         });
     };
 
