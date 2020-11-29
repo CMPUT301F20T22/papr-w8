@@ -1,6 +1,7 @@
 package com.example.papr_w8.BookView;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -8,15 +9,24 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewStub;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.papr_w8.Book;
 import com.example.papr_w8.R;
 import com.example.papr_w8.ScanActivity;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -26,6 +36,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.squareup.picasso.Picasso;
 
 
 import java.util.HashMap;
@@ -36,39 +48,24 @@ import static android.app.Activity.RESULT_OK;
 /**
  * Fragment that allows user to view an accepted book and to borrow a book by scanning
  */
-public class BookCheckoutView extends BookBase {
+public class BookCheckoutView extends Fragment implements OnMapReadyCallback {
     private static final String TAG = "MyTag" ;
     private FirebaseAuth firebaseAuth;
     private final int SCAN_ISBN_FOR_BORROW = 1;
     private String book_id;
     private String user_name;
+    private Book book;
+
+    GoogleMap map;
 
 
-    private Button buttonConfirmBorrow;
-    private Button buttonCancel;
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             final Bundle savedInstanceState) {
 
-
-
-    public BookCheckoutView() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Sets the view of the fragment
-     * @param rootView
-     * @param container
-     */
-    @Override
-    public void provideYourFragmentView(View rootView, ViewGroup container) {
-
-
-        setRetainInstance(true);
-        ViewStub stub = rootView.findViewById(R.id.child_fragment_here);
-        stub.setLayoutResource(R.layout.fragment_book_checkout);
-        stub.inflate();
-
-        buttonConfirmBorrow = (Button) rootView.findViewById(R.id.confirmButton);
-//        buttonCancel = (Button) rootView.findViewById(R.id.cancel_checkout);
+        final View view = inflater.inflate(R.layout.fragment_book_checkout, container, false);
+        Button buttonConfirmBorrow = view.findViewById(R.id.confirmButton);
+        Bundle bundle = this.getArguments();
+        book = (Book) bundle.getSerializable("bookSelected");
 
         book_id = book.getId();
 
@@ -81,15 +78,36 @@ public class BookCheckoutView extends BookBase {
             }
         });
 
-        // This onClickListener performs the action of taking the user back to Accepted Books
-        buttonCancel.setOnClickListener(new View.OnClickListener() {
+
+        TextView textViewTitle = view.findViewById(R.id.titleEditText);
+        TextView textViewAuthor = view.findViewById(R.id.authorEditText);
+        TextView textViewISBN = view.findViewById(R.id.isbnEditText);
+        TextView textViewStatus = view.findViewById(R.id.statusEditText);
+        final ImageView bookBaseCover = view.findViewById(R.id.frontImageView);
+
+
+        textViewTitle.setText(book.getTitle());
+        textViewAuthor.setText(book.getAuthor());
+        textViewISBN.setText(book.getISBN());
+        textViewStatus.setText(book.getStatus());
+
+        //set book cover to imageview
+        FirebaseStorage.getInstance().getReference("images/" + book.getCover()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
-            public void onClick(View view) {
-                getActivity().getFragmentManager().popBackStack();
+            public void onSuccess(Uri uri) {
+                Picasso.get()
+                        .load(uri)
+                        .fit()
+                        .centerCrop()
+                        .into(bookBaseCover);
             }
         });
 
+        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
 
+    return view;
     }
 
     /**
@@ -190,4 +208,11 @@ public class BookCheckoutView extends BookBase {
                 });
     }
 
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        map = googleMap;
+        LatLng bookLoc = book.getLocation();
+        map.addMarker(new MarkerOptions().position(bookLoc).title("book location"));
+        map.moveCamera(CameraUpdateFactory.newLatLng(bookLoc));
+    }
 }
