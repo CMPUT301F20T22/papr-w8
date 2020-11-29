@@ -18,19 +18,23 @@ public class Book implements Serializable {
     private LatLng location;
     private String id;
 
+
     /**
-     * Constructor to initialize a Book with a cover provided
+     * Constructor to initialize a Book with 7 attributes
      * @param title
-     *      This is a title string  to be set
+     *      This is a title string to be set
      * @param author
      *      This is an author string to be set
      * @param ISBN
      *      This is a 13-character book ISBN string to be set
      * @param status
-     *      This is the current status of a book to be set
+     *      This is the current status of the book
      * @param cover
-     *      This is a filename string to be set for retrieving an image from Firestore
-     *
+     *      This is the filename for the cover of the book
+     * @param owner
+     *      This is the owner of the book string to be set
+     * @param id
+     *      This is the book id in Firestore
      */
     public Book(String title, String author, String ISBN, String status, String cover, String owner, String id) {
 
@@ -44,18 +48,19 @@ public class Book implements Serializable {
     }
 
     /**
-     * Constructor to initialize a Book with a cover provided
+     * Constructor to initialize a Book with 6 attributes
      * @param title
-     *      This is a title string  to be set
+     *      This is a title string to be set
      * @param author
      *      This is an author string to be set
      * @param ISBN
      *      This is a 13-character book ISBN string to be set
      * @param status
-     *      This is the current status of a book to be set
+     *      This is the current status of the book
      * @param cover
-     *      This is a filename string to be set for retrieving an image from Firestore
-     *
+     *      This is the filename for the cover of the book
+     * @param owner
+     *      This is the owner of the book string to be set
      */
     public Book(String title, String author, String ISBN, String status, String cover, String owner) {
 
@@ -110,12 +115,32 @@ public class Book implements Serializable {
         this.cover = "default_book.png";
     }
 
+    /**
+     * This sets the Id of the book
+     * @param Id
+     *      The new Id of the book
+     */
     public void setId( String Id ){ this.id = Id; }
 
+    /**
+     * This returns the Id of the book
+     * @return
+     *      Return string containing book id
+     */
     public String getId(){ return this.id; }
 
+    /**
+     * This sets the owner of the book
+     * @param owner
+     *      The string containing the name of the owner
+     */
     public void setOwner( String owner ){ this.owner = owner; }
 
+    /**
+     * This returns the owner of the book
+     * @return
+     *      Return the string containing the owner
+     */
     public String getOwner(){ return this.owner; }
 
     /**
