@@ -18,6 +18,8 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.squareup.picasso.Picasso;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 /**
@@ -57,12 +59,14 @@ public class BookDisplayList extends ArrayAdapter<Book> {
         TextView bookAuthor = (TextView) view.findViewById(R.id.book_author_text);
         TextView bookISBN = (TextView) view.findViewById(R.id.book_isbn_text);
         TextView bookStatus = (TextView) view.findViewById(R.id.book_status_text);
+        TextView bookOwner = (TextView) view.findViewById(R.id.book_owner_text);
         final ImageView bookCover = (ImageView) view.findViewById(R.id.book_cover_image);
 
         bookTitle.setText(book.getTitle());
         bookAuthor.setText(book.getAuthor());
         bookISBN.setText(book.getISBN());
         bookStatus.setText(book.getStatus());
+        bookOwner.setText(book.getOwner());
 
         //Retrieves book covers here, uses picasso to load images
         FirebaseStorage.getInstance().getReference("images/" + book.getCover()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {

@@ -20,12 +20,14 @@
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="MissingConstraints">
 
-        <ImageView
-            android:id="@+id/ProfilePic"
-            android:layout_width="103dp"
-            android:layout_height="105dp"
-            android:layout_marginTop="50dp"
-            tools:srcCompat="@tools:sample/avatars" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:fontFamily="@font/happy_monkey"
+            android:gravity="center"
+            android:text="My Profile"
+            android:textSize="48dp">
+        </TextView>
 
         <LinearLayout
             android:layout_width="match_parent"

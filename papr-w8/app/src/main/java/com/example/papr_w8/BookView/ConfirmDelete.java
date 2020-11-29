@@ -7,9 +7,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
+import com.example.papr_w8.Book;
 import com.example.papr_w8.Host;
 import com.example.papr_w8.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -28,7 +30,7 @@ public class ConfirmDelete extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              final Bundle savedInstanceState) {
-        final String bookID = getArguments().getString("Book ID");
+        final Book book = (Book) getArguments().getSerializable("Book Del");
 
         final View view = inflater.inflate(R.layout.fragment_confirm_delete, container, false);
         deleteConfirm = (Button) view.findViewById(R.id.confirm_deletion);
@@ -39,9 +41,23 @@ public class ConfirmDelete extends Fragment {
         deleteConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                fbDB.collection("Users").document(email).collection("Books Owned").document(bookID).delete();
 
-                fbDB.collection("Books").document(bookID).delete();
+                if (book.getStatus().matches("Available"))
+                {
+
+                    fbDB.collection("Users").document(email).collection("Books Owned").document(book.getId()).delete();
+                    //fbDB.collection("Users").document(email).collection("Books_Requested").document(book.getId()).delete();
+                    fbDB.collection("Books").document(book.getId()).delete();
+                }
+                else
+                {
+                    Toast.makeText(getContext(), "Book Unavailable", Toast.LENGTH_SHORT).show();
+                }
+
+
+
+
+
 
 
                 Intent intent = new Intent(getActivity(), Host.class);
