@@ -12,16 +12,21 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.papr_w8.AddPack.AddBook;
+import androidx.fragment.app.FragmentTransaction;
+
+
 import com.example.papr_w8.Book;
 import com.example.papr_w8.Host;
 import com.example.papr_w8.MainActivity;
 import com.example.papr_w8.Notification;
 import com.example.papr_w8.R;
+
 import com.example.papr_w8.ShelfPack.BooksOwned;
 import com.example.papr_w8.ShelfPack.Shelves;
 import com.example.papr_w8.SignUpActivity;
@@ -29,6 +34,10 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+
+import com.example.papr_w8.Search.Search;
+import com.example.papr_w8.ShelfPack.BooksOwned;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -145,6 +154,15 @@ public class RequestBookView extends BookBase {
 
 
         });
+      
+              //Select Cancel Button to return to search
+        cancelRequestButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getParentFragmentManager().beginTransaction().remove(RequestBookView.this).commit();
+            }
+        });
+    };
     }
 
 
@@ -162,5 +180,6 @@ public class RequestBookView extends BookBase {
                 .document()
                 .set(notification);
     }
+
 
 }
