@@ -68,7 +68,7 @@ public class BookCheckoutView extends BookBase {
         stub.inflate();
 
         buttonConfirmBorrow = (Button) rootView.findViewById(R.id.confirmButton);
-        buttonCancel = (Button) rootView.findViewById(R.id.cancel_checkout);
+//        buttonCancel = (Button) rootView.findViewById(R.id.cancel_checkout);
 
         book_id = book.getId();
 
