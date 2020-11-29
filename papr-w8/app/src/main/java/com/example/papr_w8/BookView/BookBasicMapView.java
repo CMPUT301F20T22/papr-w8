@@ -1,7 +1,5 @@
 package com.example.papr_w8.BookView;
 
-import android.Manifest;
-import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -33,20 +31,16 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class BookBasicMapView extends BookBase implements OnMapReadyCallback {
 
     GoogleMap map;
+    Book book;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-
-//        View view = inflater.inflate(R.layout.fragment_book_basic_map, container, false);
-//        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager()
-//                .findFragmentById(R.id.map);
-//        mapFragment.getMapAsync(this);
+    public void onCreate( Bundle savedInstanceState ){
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
 
         // Get the bundle containing the Book object passed to the View
         Bundle bundle = this.getArguments();
-        Book book = (Book) bundle.getSerializable("bookSelected");
+        book = (Book) bundle.getSerializable("bookSelected");
 
     }
 
