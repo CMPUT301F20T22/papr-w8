@@ -8,9 +8,13 @@ import android.view.ViewStub;
 import android.widget.Button;
 import android.widget.Toast;
 
+import androidx.fragment.app.FragmentTransaction;
+
 import com.example.papr_w8.Book;
 import com.example.papr_w8.Host;
 import com.example.papr_w8.R;
+import com.example.papr_w8.Search.Search;
+import com.example.papr_w8.ShelfPack.BooksOwned;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -75,7 +79,6 @@ public class RequestBookView extends BookBase {
         // Set the button Id from the XML file
         Button requestBookButton = (Button) baseView.findViewById(R.id.request_book_button);
 
-
         // Check if the current user is also the owner of the book
         if (userEmail.equals(owner)){
             requestBookButton.setEnabled(false);
@@ -133,13 +136,13 @@ public class RequestBookView extends BookBase {
                 notifyOwner(bookId, owner, name, book.getTitle());
 
                 // Return the user to the Shelves page
+
                 Intent intent = new Intent(getActivity(), Host.class);
                 startActivity(intent);
                 }
 
 
         });
-
     };
 
     /**
@@ -149,6 +152,7 @@ public class RequestBookView extends BookBase {
      * @param user_name
      * @param book_title
      */
+
     public void notifyOwner(String bookId, String owner_email, String user_name, String book_title){
         Map<String, Object> notification = new HashMap<>();
         notification.put("Sender", userEmail);

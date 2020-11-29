@@ -8,7 +8,8 @@
     android:paddingLeft="20sp"
     android:paddingTop="20sp"
     android:paddingRight="20sp"
-    tools:context=".AddPack.EditBook">
+    tools:context=".AddPack.EditBook"
+    android:id="@+id/edit_desc">
 
     <TextView
         android:id="@+id/editBookTitle"
@@ -134,7 +135,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@drawable/button_rounded_blue"
-            android:text="Edit Book"
+            android:text="Confirm"
             android:textColor="#FFFFFF" />
     </LinearLayout>
 </LinearLayout>

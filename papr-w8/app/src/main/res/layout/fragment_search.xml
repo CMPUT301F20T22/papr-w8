@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ProfilePack.Profile"
-    android:tag="fragment_search_tag">
+    android:tag="fragment_search_tag"
+    >
 
     <LinearLayout
         android:layout_width="fill_parent"
