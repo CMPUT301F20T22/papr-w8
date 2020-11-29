@@ -56,7 +56,7 @@ public class SignUpActivityTest {
         solo.enterText((EditText) solo.getView(R.id.editTextUserName), "test4");
         solo.enterText((EditText) solo.getView(R.id.editTextEmailAddress), "test4@mail.com");
         solo.enterText((EditText) solo.getView(R.id.editTextPassword), "password4");
-        solo.enterText((EditText) solo.getView(R.id.editTextTextPostalAddress), "somewhere");
+        solo.enterText((EditText) solo.getView(R.id.editTextPostalAddress), "somewhere");
         solo.clickOnButton("SIGN UP");
 
         // checks if new activity is Host activity
@@ -72,7 +72,7 @@ public class SignUpActivityTest {
         solo.enterText((EditText) solo.getView(R.id.editTextUserName), "test3");
         solo.enterText((EditText) solo.getView(R.id.editTextEmailAddress), "test3@mail.com");
         solo.enterText((EditText) solo.getView(R.id.editTextPassword), "password4");
-        solo.enterText((EditText) solo.getView(R.id.editTextTextPostalAddress), "somewhere");
+        solo.enterText((EditText) solo.getView(R.id.editTextPostalAddress), "somewhere");
         solo.clickOnButton("SIGN UP");
 
         // checks if new activity is Host activity

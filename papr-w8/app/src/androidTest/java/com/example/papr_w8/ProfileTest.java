@@ -32,7 +32,7 @@ public class ProfileTest{
         solo.clickOnButton("Login");
         solo.waitForFragmentById(R.id.fragment);
         View profile = solo.getView("profile");    //solo.getView("ic_baseline_person_24");
-//        solo.clickOnImage(3);
+        solo.clickOnImage(3);
         solo.clickOnView(profile);
     }
 
