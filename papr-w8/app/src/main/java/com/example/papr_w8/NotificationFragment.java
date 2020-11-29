@@ -166,6 +166,8 @@ public class NotificationFragment extends Fragment {
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         final String user_email = user.getEmail();
 
+        final String scanned_isbn = data.getStringExtra("ISBN");
+
         //If scanning to confirm a borrow, notify the borrower, update the borrower's book collections,
         // update status of selected book to borrowed
         if (requestCode == SCAN_TO_CONFIRM_BORROW) {
@@ -180,49 +182,54 @@ public class NotificationFragment extends Fragment {
                         .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                             @Override
                             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                if (task.isSuccessful()){
-                                    //notify the borrower
-                                    notifyBorrower(user_email, selected_notification.getSenderId(), user_name, "confirm_borrow");
-                                    //update their books
-                                    updateBorrowerBooks(selected_notification.getSenderId(),
-                                            selected_notification.getBook_id());
-                                    //change book status to "Borrowed"
-                                    updateOwnerBooks(user_email, selected_notification.getBook_id(), "Borrowed");
+                                if (task.isSuccessful()) {
+                                    String isbn = task.getResult().getString("ISBN");
+                                    if (isbn.matches(scanned_isbn)) {
+                                        //notify the borrower
+                                        notifyBorrower(user_email, selected_notification.getSenderId(), user_name, "confirm_borrow");
+                                        //update their books
+                                        updateBorrowerBooks(selected_notification.getSenderId(),
+                                                selected_notification.getBook_id());
+                                        //change book status to "Borrowed"
+                                        updateOwnerBooks(user_email, selected_notification.getBook_id(), "Borrowed");
 
+                                    }
                                 }
                             }
                         });
-            }
-        }
-        else if (requestCode == SCAN_TO_CONFIRM_RETURN){
-            if (resultCode == RESULT_OK){
-                final String sender = selected_notification.getSenderId();
-                Task<DocumentSnapshot> accepted = FirebaseFirestore.getInstance().collection("Users")
-                        .document(sender)
-                        .collection("Books_Borrowed")
-                        .document(selected_notification.getBook_id())
-                        .get()
-                        .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                if (task.isSuccessful()){
-                                    //set the notification to viewed
-                                    selected_notification.setViewed();
-                                    //notify the borrower
-                                    notifyBorrower(user_email, selected_notification.getSenderId(), user_name, "confirm_return");
-                                    //delete book from Borrowed collection
-                                    deleteBookFromCollection(sender, selected_notification.getBook_id());
-                                    //change book status to "Available"
-                                    updateOwnerBooks(user_email, selected_notification.getBook_id(), "Available");
+            } else if (requestCode == SCAN_TO_CONFIRM_RETURN) {
+                if (resultCode == RESULT_OK) {
+                    final String sender = selected_notification.getSenderId();
+                    Task<DocumentSnapshot> accepted = FirebaseFirestore.getInstance().collection("Users")
+                            .document(sender)
+                            .collection("Books_Borrowed")
+                            .document(selected_notification.getBook_id())
+                            .get()
+                            .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        String isbn = task.getResult().getString("ISBN");
+                                        if (isbn.matches(scanned_isbn)) {
+                                            //set the notification to viewed
+                                            selected_notification.setViewed();
+                                            //notify the borrower
+                                            notifyBorrower(user_email, selected_notification.getSenderId(), user_name, "confirm_return");
+                                            //delete book from Borrowed collection
+                                            deleteBookFromCollection(sender, selected_notification.getBook_id());
+                                            //change book status to "Available"
+                                            updateOwnerBooks(user_email, selected_notification.getBook_id(), "Available");
 
+                                        }
+                                    }
                                 }
-                            }
-                        });
+                            });
 
 
+                }
             }
-        }
 
+        }
     }
 
     /**

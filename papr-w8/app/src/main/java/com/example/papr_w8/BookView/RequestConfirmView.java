@@ -140,6 +140,7 @@ public class RequestConfirmView extends AppCompatActivity implements OnMapReadyC
                                         .collection("Books_Requested")
                                         .document(book.getId())
                                         .delete();
+                                deleteRequests(user.getEmail(), book.getId());
 
                                 Intent intent = new Intent(RequestConfirmView.this, Host.class);
                                 intent.putExtra(EXTRA_TEXT, "Shelves");
@@ -151,66 +152,6 @@ public class RequestConfirmView extends AppCompatActivity implements OnMapReadyC
                         }
                     }
                 });
-
-
-//                map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-//                    @Override
-//                    public boolean onMarkerClick(final Marker marker) {
-//                        final Integer data = (Integer) marker.getTag();
-//                        marker.setTitle("book_loc");
-//
-//                        Toast.makeText(RequestConfirmView.this, "Please tap on marker to set your book location",
-//                                Toast.LENGTH_SHORT).show();
-//
-//                        setLoc.setVisibility(View.VISIBLE);
-//
-//                        setLoc.setOnClickListener(new View.OnClickListener() {
-//                            @Override
-//                            public void onClick(View v) {
-//                                Toast.makeText(RequestConfirmView.this, "set location clicked",
-//                                        Toast.LENGTH_SHORT).show();
-//
-//                                if (data != null) {
-//                                    pos = marker.getPosition();
-////                            book.setLocation(pos);
-//                                    Toast.makeText(RequestConfirmView.this, "Please tap on marker to set your book location",
-//                                            Toast.LENGTH_SHORT).show();
-//
-//                                    if ((book!=null)&(user!=null)) {
-////                                HashMap<String, Object> book_info = new HashMap<>();
-////                                book_info.put("Location", pos);
-//                                        firebaseFirestore.getInstance().collection("Users")
-//                                                .document(user.getEmail())
-//                                                .collection("Books_Requested")
-//                                                .document(book.getId())
-//                                                .update("Location", pos)
-//                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-//                                                    @Override
-//                                                    public void onSuccess(Void aVoid) {
-//                                                        Log.d("change book location", "book location updated.");
-//                                                        Toast.makeText(RequestConfirmView.this, "Update successful!",
-//                                                                Toast.LENGTH_SHORT).show();
-//                                                    }
-//                                                })
-//                                                .addOnFailureListener(new OnFailureListener() {
-//                                                    @Override
-//                                                    public void onFailure(@NonNull Exception e) {
-//                                                        Log.d("change book location", "Data storing failed");
-//                                                    }
-//                                                });
-//                                        Intent intent = new Intent(RequestConfirmView.this, Host.class);
-//                                        intent.putExtra(EXTRA_TEXT, "Shelves");
-//                                        startActivity(intent);
-//                                    }else{
-//                                        Toast.makeText(RequestConfirmView.this, "book object is null",
-//                                                Toast.LENGTH_SHORT).show();
-//                                    }
-//                                }
-//                            }
-//                        });
-//
-//                        return false;
-//                    }
 
             }
         });
@@ -334,6 +275,38 @@ public class RequestConfirmView extends AppCompatActivity implements OnMapReadyC
                     }
                 });
 
+    }
+
+    public void deleteRequests(final String user_email, final String book_id){
+        Log.d("USER EMAIL:", user_email);
+        Log.d("BOOK ID:", book_id);
+        firebaseFirestore.collection("Users")
+                .document(user_email)
+                .collection("Books Owned")
+                .document(book_id)
+                .collection("Requested")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            if (task.getResult() != null) {
+                                Log.d("Result: ", String.valueOf(task.getResult()));
+                                QuerySnapshot documents = task.getResult();
+                                for (DocumentSnapshot document : documents) {
+                                    Log.d("Document ID:", document.getId());
+                                    firebaseFirestore.collection("Users")
+                                            .document(user_email)
+                                            .collection("Books Owned")
+                                            .document(book_id)
+                                            .collection("Requested")
+                                            .document(document.getId())
+                                            .delete();
+                                }
+                            }
+                        }
+                    }
+                });
     }
 
 }

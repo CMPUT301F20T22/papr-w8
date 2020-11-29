@@ -8,6 +8,7 @@ import android.view.ViewStub;
 import android.widget.Button;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.papr_w8.Book;
@@ -15,7 +16,9 @@ import com.example.papr_w8.Host;
 import com.example.papr_w8.R;
 import com.example.papr_w8.Search.Search;
 import com.example.papr_w8.ShelfPack.BooksOwned;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -89,50 +92,69 @@ public class RequestBookView extends BookBase {
             @Override
             public void onClick(View view) {
 
-                // Create a hashmap for the book to be requested
-                Map<String, Object> bookRequested = new HashMap<>();
-                bookRequested.put("Title", book.getTitle());
-                bookRequested.put("Author", book.getAuthor());
-                bookRequested.put("ISBN", book.getISBN());
-                bookRequested.put("Status", "Requested");
-                bookRequested.put("Book Cover", book.getCover());
-                bookRequested.put("Owner", book.getOwner());
-
-                // Create a hashmap for the user requesting the book
-                Map<String, Object> userRequesting = new HashMap<>();
-                userRequesting.put("email", userEmail);
-
-                // Add the book to the user's awaiting approval collection
                 fbDB.collection("Users")
-                        .document(userEmail)
+                        .document(user.getEmail())
                         .collection("Awaiting Approval")
                         .document(bookId)
-                        .set(bookRequested);
-                // Add the user's name to the collection of users requesting this book
-                fbDB.collection("Users")
-                        .document(owner)
-                        .collection("Books Owned")
-                        .document(bookId)
-                        .collection("Requested")
-                        .document(userEmail)
-                        .set(userRequesting);
-                // Add the book to the owner's collection of books requested
-                fbDB.collection("Users")
-                        .document(owner)
-                        .collection("Books_Requested")
-                        .document(bookId)
-                        .set(bookRequested);
-                // Update the book in the owner's owned books collection
-                fbDB.collection("Users")
-                        .document(owner)
-                        .collection("Books Owned")
-                        .document(bookId)
-                        .update("Status", "Requested");
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if (task.isSuccessful()){
+                                    DocumentSnapshot document = task.getResult();
+                                    if (document.exists()){
+                                        Toast.makeText(getContext(), "You have already requested this book.",
+                                                Toast.LENGTH_SHORT).show();
+                                    }
+                                    else{
+                                        // Create a hashmap for the book to be requested
+                                        Map<String, Object> bookRequested = new HashMap<>();
+                                        bookRequested.put("Title", book.getTitle());
+                                        bookRequested.put("Author", book.getAuthor());
+                                        bookRequested.put("ISBN", book.getISBN());
+                                        bookRequested.put("Status", "Requested");
+                                        bookRequested.put("Book Cover", book.getCover());
+                                        bookRequested.put("Owner", book.getOwner());
 
-                Toast.makeText(getContext(), "Book requested!", Toast.LENGTH_SHORT).show();
+                                        // Create a hashmap for the user requesting the book
+                                        Map<String, Object> userRequesting = new HashMap<>();
+                                        userRequesting.put("email", userEmail);
 
-                notifyOwner(bookId, owner, name, book.getTitle());
+                                        // Add the book to the user's awaiting approval collection
+                                        fbDB.collection("Users")
+                                                .document(userEmail)
+                                                .collection("Awaiting Approval")
+                                                .document(bookId)
+                                                .set(bookRequested);
+                                        // Add the user's name to the collection of users requesting this book
+                                        fbDB.collection("Users")
+                                                .document(owner)
+                                                .collection("Books Owned")
+                                                .document(bookId)
+                                                .collection("Requested")
+                                                .document(userEmail)
+                                                .set(userRequesting);
+                                        // Add the book to the owner's collection of books requested
+                                        fbDB.collection("Users")
+                                                .document(owner)
+                                                .collection("Books_Requested")
+                                                .document(bookId)
+                                                .set(bookRequested);
+                                        // Update the book in the owner's owned books collection
+                                        fbDB.collection("Users")
+                                                .document(owner)
+                                                .collection("Books Owned")
+                                                .document(bookId)
+                                                .update("Status", "Requested");
 
+                                        Toast.makeText(getContext(), "Book requested!", Toast.LENGTH_SHORT).show();
+
+                                        notifyOwner(bookId, owner, name, book.getTitle());
+
+                                    }
+                                }
+                            }
+                        });
                 // Return the user to the Shelves page
 
                 Intent intent = new Intent(getActivity(), Host.class);
