@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,13 +8,14 @@
     android:paddingLeft="20sp"
     android:paddingTop="20sp"
     android:paddingRight="20sp"
-    tools:context=".AddPack.AddBook">
+    tools:context=".AddPack.EditBook"
+    android:id="@+id/edit_desc">
 
     <TextView
-        android:id="@+id/addBookTitle"
+        android:id="@+id/editBookTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add Book"
+        android:text="Edit Book"
         android:textStyle="bold"
         android:textColor="@color/deep_purple"
         android:layout_gravity="center_horizontal"
@@ -31,7 +31,7 @@
         android:textSize="24sp" />
 
     <EditText
-        android:id="@+id/new_title_editText"
+        android:id="@+id/edit_title_editText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="New Title" />
@@ -46,11 +46,10 @@
         android:textSize="24sp" />
 
     <EditText
-        android:id="@+id/new_author_editText"
+        android:id="@+id/edit_author_editText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="New Author" />
-
 
     <TextView
         android:id="@+id/isbn"
@@ -66,13 +65,13 @@
         android:layout_height="wrap_content">
 
         <EditText
-            android:id="@+id/new_isbn_editText"
+            android:id="@+id/edit_isbn_editText"
             android:layout_width="267dp"
             android:layout_height="wrap_content"
             android:hint="New ISBN" />
 
         <Button
-            android:id="@+id/scan_isbn"
+            android:id="@+id/scan_edit_isbn"
             android:layout_width="103dp"
             android:layout_height="wrap_content"
             android:background="@drawable/button_rounded_deep_purple"
@@ -95,14 +94,14 @@
         android:layout_height="120dp">
 
         <ImageButton
-            android:id="@+id/imageButton"
+            android:id="@+id/editImageButton"
             android:layout_width="98dp"
             android:layout_height="120dp"
             android:src="@android:drawable/ic_menu_add"
             android:padding="20dp"/>
 
         <ImageView
-            android:id="@+id/delete_image_ab"
+            android:id="@+id/delete_image_eb"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_alignParentStart="true"
@@ -122,23 +121,21 @@
         android:padding="10dp">
 
         <Button
-            android:id="@+id/cancel_addbook_button"
+            android:id="@+id/cancel_editBook_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/button_rounded_deep_purple"
+            android:background="@drawable/button_rounded_purple"
             android:text="Cancel"
             android:textColor="#FFFFFF" />
 
         <Button
-            android:id="@+id/confirm_addbook_button"
+            android:id="@+id/confirm_editBook_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/button_rounded_deep_purple"
-            android:text="Add Book"
+            android:background="@drawable/button_rounded_blue"
+            android:text="Confirm"
             android:textColor="#FFFFFF" />
     </LinearLayout>
-
-
 </LinearLayout>

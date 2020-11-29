@@ -17,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.papr_w8.Book;
 import com.example.papr_w8.Host;
 import com.example.papr_w8.R;
 import com.example.papr_w8.ScanActivity;
@@ -26,7 +27,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -37,20 +37,17 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * AddBook class handles adding a book from the addbook activity
+ * Edit book handles editing book description functionality
  */
-public class AddBook extends AppCompatActivity {
+public class EditBook extends AppCompatActivity {
 
     public static final String TAG = "TAG";
     private Uri imageUri;
-    private ImageButton addBookCover;
+    private ImageButton editBookCover;
     private StorageReference storageReference;
     private String fileName;
-    private EditText newBookTitle;
     private EditText newBookISBN;
-    private EditText newBookAuthor;
 
-    private final int ADD_COVER_REQUEST_CODE = 1;
     private final int SCAN_ISBN_REQUEST_CODE = 2;
 
     /**
@@ -60,40 +57,57 @@ public class AddBook extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_book);
+        setContentView(R.layout.activity_edit_book);
 
-        newBookTitle = findViewById(R.id.new_title_editText);
-        newBookISBN = findViewById(R.id.new_isbn_editText);
-        newBookAuthor = findViewById(R.id.new_author_editText);
-        Button cancel = findViewById(R.id.cancel_addbook_button);
-        Button confirm = findViewById(R.id.confirm_addbook_button);
-        Button scan = findViewById(R.id.scan_isbn);
-        addBookCover = findViewById(R.id.imageButton);
-        ImageView deleteBookCover = findViewById(R.id.delete_image_ab);
+        final Book book = (Book) getIntent().getSerializableExtra("Book");
+
+        final EditText newBookTitle = findViewById(R.id.edit_title_editText);
+        newBookISBN = findViewById(R.id.edit_isbn_editText);
+        final EditText newBookAuthor = findViewById(R.id.edit_author_editText);
+        Button cancel = findViewById(R.id.cancel_editBook_button);
+        Button confirm = findViewById(R.id.confirm_editBook_button);
+        Button scan = findViewById(R.id.scan_edit_isbn);
+        editBookCover = findViewById(R.id.editImageButton);
+        ImageView deleteBookCover = findViewById(R.id.delete_image_eb);
         final int add_id = getResources().getIdentifier("@android:drawable/ic_menu_add", null, null);
 
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-
         final FirebaseFirestore fbDB = FirebaseFirestore.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference("images");
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("images");
-
         FirebaseUser user = firebaseAuth.getInstance().getCurrentUser();
         final String email = user.getEmail();
+
+        Log.d("Debug", book.getId());
+
+        // set current book description
+        newBookTitle.setText(book.getTitle());
+        newBookISBN.setText(book.getISBN());
+        newBookAuthor.setText(book.getAuthor());
+        FirebaseStorage.getInstance().getReference("images/" + book.getCover()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Picasso.get()
+                        .load(uri)
+                        .fit()
+                        .centerCrop()
+                        .into(editBookCover);
+            }
+        });
 
         scan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(AddBook.this, ScanActivity.class);
+                Intent intent = new Intent(EditBook.this, ScanActivity.class);
                 startActivityForResult(intent, SCAN_ISBN_REQUEST_CODE);
             }
         });
 
-        addBookCover.setOnClickListener(new View.OnClickListener() {  // onClickListener for when the user clicks on the add book cover image buttor
+        editBookCover.setOnClickListener(new View.OnClickListener() {  // onClickListener for when the user clicks on the add book cover image buttor
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(AddBook.this, AddBookCoverActivity.class);
-                startActivityForResult(intent, ADD_COVER_REQUEST_CODE);
+                Intent intent = new Intent(EditBook.this, AddBookCoverActivity.class);
+                startActivityForResult(intent, 1);
             }
         });
 
@@ -101,7 +115,7 @@ public class AddBook extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 fileName = "default_book.png";
-                addBookCover.setImageResource(add_id);
+                editBookCover.setImageResource(add_id);
                 imageUri = null;
             }
         });
@@ -116,47 +130,52 @@ public class AddBook extends AppCompatActivity {
                 if (title.isEmpty()) { //checks for valid title entry
                     newBookTitle.setError("Please enter title");
                     newBookTitle.requestFocus();
+                    return;
                 } else if (author.isEmpty()) { //checks for valid author entry
                     newBookAuthor.setError("Please enter author's name");
                     newBookAuthor.requestFocus();
+                    return;
+
                 } else if (ISBN.isEmpty()) { //checks for valid ISBN entry
                     newBookISBN.setError("Please enter valid ISBN");
                     newBookISBN.requestFocus();
+                    return;
                 } else {
                     if (imageUri == null) {  // if no image cover uploaded then set to default
                         fileName = "default_book.png";
                     }
-                    final Map<String, Object> book = new HashMap<>();
-                    book.put("Title", title);
-                    book.put("Author", author);
-                    book.put("ISBN", ISBN);
-                    book.put("Status", "Available");
-                    book.put("Book Cover", fileName);
-                    book.put("Owner", email);
-                    // Implementation for adding book details to the firestore collection
-                    fbDB.collection("Users").document(email).collection("Books Owned")
-                            .add(book)
-                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    final Map<String, Object> e_book = new HashMap<>();
+                    e_book.put("Title", title);
+                    e_book.put("Author", author);
+                    e_book.put("ISBN", ISBN);
+                    e_book.put("Status", book.getStatus());
+                    e_book.put("Book Cover", fileName);
+
+                    // Implementation for editing book details to the firestore collection
+                    fbDB.collection("Users").document(email).collection("Books Owned").document(book.getId())
+                            .update(e_book)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
-                                public void onSuccess(DocumentReference documentReference) {
-                                    fbDB.collection("Books").document(documentReference.getId()) //adds book to "Books" collections too
-                                            .set(book);
-                                    Toast.makeText(AddBook.this, "Book Added", Toast.LENGTH_SHORT).show();
+                                public void onSuccess(Void aVoid) {
+                                    fbDB.collection("Books").document(book.getId()) //adds book to "Books" collections too
+                                            .update(e_book);
+                                    Toast.makeText(EditBook.this, "Book Edited", Toast.LENGTH_SHORT).show();
                                 }
                             })
                             .addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
-                                    Toast.makeText(AddBook.this, "Book Add Failed", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(EditBook.this, "Book Edit Failed", Toast.LENGTH_SHORT).show();
                                 }
                             });
-                    //uploadCover();
-                    Intent intent = new Intent(AddBook.this, Host.class);
+                    uploadCover();
+                    Intent intent = new Intent(EditBook.this, Host.class);
                     startActivity(intent);
                     finish();
                 }
             }
         });
+
         cancel.setOnClickListener(new View.OnClickListener() {  // onClickListener for cancel button if the user wants to cancel adding a book
             @Override
             public void onClick(View view) {
@@ -174,20 +193,17 @@ public class AddBook extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == ADD_COVER_REQUEST_CODE) {
+        if (requestCode == 1) {
             if (resultCode == RESULT_OK) {
                 String imageUriString = data.getStringExtra("coverUri");
                 imageUri = Uri.parse(imageUriString);
-                Picasso.get().load(imageUri).into(addBookCover);
-                //uploadCover();
+                Picasso.get().load(imageUri).into(editBookCover);
+//                uploadCover();
             }
-        }else if (requestCode == SCAN_ISBN_REQUEST_CODE){
-            if (resultCode == RESULT_OK){
-                String isbn = data.getStringExtra("ISBN");
-                newBookISBN.setText(isbn);
-            }
+        } else if (requestCode == SCAN_ISBN_REQUEST_CODE) {
+            String isbn = data.getStringExtra("ISBN");
+            newBookISBN.setText(isbn);
         }
-
     }
 
     /**
@@ -214,7 +230,6 @@ public class AddBook extends AppCompatActivity {
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 //                            Toast.makeText(AddBook.this, "Cover Uploaded", Toast.LENGTH_SHORT).show();
                             Log.d("CoverDEBUG", "Cover Uploaded");
-
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
@@ -226,7 +241,9 @@ public class AddBook extends AppCompatActivity {
                     });
         } else {
             fileName = "default_book.png";
-            Toast.makeText(this, "No book cover selected", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "No book cover selected", Toast.LENGTH_SHORT).show();
+            Log.d("CoverDEBUG", "No book cover selected");
+
         }
     }
 }

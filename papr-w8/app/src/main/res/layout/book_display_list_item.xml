@@ -24,79 +24,22 @@
             android:weightSum="100">
 
             <TextView
-                android:id="@+id/book_status_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:text="Status:"
-                android:textStyle="bold"
-                android:textSize="20sp">
-
-            </TextView>
-
-            <TextView
-                android:id="@+id/book_status_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:text="DefaultAuthor"
-                android:textSize="20sp">
-
-            </TextView>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:orientation="horizontal"
-            android:weightSum="100">
-
-            <TextView
-                android:id="@+id/book_isbn_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:text="ISBN:"
-                android:textStyle="bold"
-                android:textSize="20sp">
-
-            </TextView>
-
-            <TextView
-                android:id="@+id/book_isbn_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:text="5555-5555-5555"
-                android:textSize="20sp">
-
-            </TextView>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:orientation="horizontal"
-            android:weightSum="100">
-
-            <TextView
                 android:id="@+id/book_title_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="5dp"
+                android:padding="2dp"
                 android:text="Title:"
                 android:textStyle="bold"
-                android:textSize="20sp"></TextView>
+                android:textSize="16sp">
+            </TextView>
 
             <TextView
                 android:id="@+id/book_title_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="5dp"
+                android:padding="2dp"
                 android:text="DefaultTitle"
-                android:textSize="20sp">
+                android:textSize="16sp">
 
             </TextView>
         </LinearLayout>
@@ -112,10 +55,10 @@
                 android:id="@+id/book_author_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="5dp"
+                android:padding="2dp"
                 android:text="Author:"
                 android:textStyle="bold"
-                android:textSize="20sp">
+                android:textSize="16sp">
 
             </TextView>
 
@@ -123,9 +66,96 @@
                 android:id="@+id/book_author_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
+                android:layout_marginLeft="2dp"
                 android:text="DefaultAuthor"
-                android:textSize="20sp">
+                android:textSize="16sp">
+
+            </TextView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:orientation="horizontal"
+            android:weightSum="100">
+
+            <TextView
+                android:id="@+id/book_isbn_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="2dp"
+                android:text="ISBN:"
+                android:textStyle="bold"
+                android:textSize="16sp">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/book_isbn_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="2dp"
+                android:text="5555-5555-5555"
+                android:textSize="16sp">
+
+            </TextView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:orientation="horizontal"
+            android:weightSum="100">
+
+            <TextView
+                android:id="@+id/book_owner_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="2dp"
+                android:text="Owner:"
+                android:textStyle="bold"
+                android:textSize="16sp">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/book_owner_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="DefaultOwner"
+                android:textSize="16sp">
+
+            </TextView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:orientation="horizontal"
+            android:weightSum="100">
+
+            <TextView
+                android:id="@+id/book_status_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="2dp"
+                android:text="Status:"
+                android:textStyle="bold"
+                android:textSize="16sp">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/book_status_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="2dp"
+                android:text="DefaultAuthor"
+                android:textSize="16sp">
 
             </TextView>
         </LinearLayout>

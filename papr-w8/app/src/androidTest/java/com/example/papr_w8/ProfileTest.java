@@ -1,5 +1,6 @@
 package com.example.papr_w8;
 
+import android.view.View;
 import android.widget.EditText;
 
 import androidx.test.platform.app.InstrumentationRegistry;
@@ -30,7 +31,9 @@ public class ProfileTest{
         solo.enterText((EditText) solo.getView(R.id.password), "something");
         solo.clickOnButton("Login");
         solo.waitForFragmentById(R.id.fragment);
-        solo.clickOnImage(1);
+        View profile = solo.getView("profile");    //solo.getView("ic_baseline_person_24");
+//        solo.clickOnImage(3);
+        solo.clickOnView(profile);
     }
 
 
