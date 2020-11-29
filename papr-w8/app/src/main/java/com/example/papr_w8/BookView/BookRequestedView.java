@@ -42,7 +42,6 @@ public class BookRequestedView extends BookBase {
     private ArrayAdapter<User> requestsAdapter;
     private ListView requestsList;
 
-
     @Override
     public void onCreate( Bundle savedInstanceState ){
         super.onCreate(savedInstanceState);
@@ -61,7 +60,6 @@ public class BookRequestedView extends BookBase {
         setRetainInstance(true);
 
         // Get the email of the current user
-        //String email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
         String email = user.getEmail();
 
         // Get the id of the ViewStub from the BookBase view

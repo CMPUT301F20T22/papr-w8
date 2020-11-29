@@ -54,14 +54,15 @@ public class RequestConfirmView extends AppCompatActivity implements OnMapReadyC
     private Button setLoc;
     private Book book;
     private LatLng pos;
-    private FirebaseUser user;
-    private FirebaseFirestore firebaseFirestore;
+
+    private FirebaseFirestore fbDB;
     private View.OnClickListener handleClick;
     private String borrower_email;
     private String name;
 
-    public RequestConfirmView() {
+    private FirebaseUser user;
 
+    public RequestConfirmView() {
     }
 
     @Override
@@ -70,20 +71,15 @@ public class RequestConfirmView extends AppCompatActivity implements OnMapReadyC
         setContentView(R.layout.activity_request_confirm_view);
 
         book = (Book) getIntent().getSerializableExtra("book");
-
-        Log.d("#####hello", book.getOwner());
-
-        firebaseFirestore = FirebaseFirestore.getInstance();
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        fbDB = FirebaseFirestore.getInstance();
 
         setLoc = (Button) findViewById(R.id.set_loc_button);
 
-        SupportMapFragment supportMapFragment = (SupportMapFragment)
-                getSupportFragmentManager().findFragmentById(R.id.confirmMap);
+        SupportMapFragment supportMapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.confirmMap);
         supportMapFragment.getMapAsync(this);
 
-        user = FirebaseAuth.getInstance().getCurrentUser();
-
-        firebaseFirestore.collection("Users")
+        fbDB.collection("Users")
                 .document(user.getEmail())
                 .get()
                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
@@ -132,7 +128,7 @@ public class RequestConfirmView extends AppCompatActivity implements OnMapReadyC
 //                                HashMap<String, Object> book_info = new HashMap<>();
 //                                book_info.put("Location", pos);
                                 handleRequests(user.getEmail(), book.getId(), borrower_email, name, book.getTitle(), pos);
-                                firebaseFirestore.collection("Users")
+                                fbDB.collection("Users")
                                         .document(user.getEmail())
                                         .collection("Books_Requested")
                                         .document(book.getId())
@@ -148,67 +144,6 @@ public class RequestConfirmView extends AppCompatActivity implements OnMapReadyC
                         }
                     }
                 });
-
-
-//                map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-//                    @Override
-//                    public boolean onMarkerClick(final Marker marker) {
-//                        final Integer data = (Integer) marker.getTag();
-//                        marker.setTitle("book_loc");
-//
-//                        Toast.makeText(RequestConfirmView.this, "Please tap on marker to set your book location",
-//                                Toast.LENGTH_SHORT).show();
-//
-//                        setLoc.setVisibility(View.VISIBLE);
-//
-//                        setLoc.setOnClickListener(new View.OnClickListener() {
-//                            @Override
-//                            public void onClick(View v) {
-//                                Toast.makeText(RequestConfirmView.this, "set location clicked",
-//                                        Toast.LENGTH_SHORT).show();
-//
-//                                if (data != null) {
-//                                    pos = marker.getPosition();
-////                            book.setLocation(pos);
-//                                    Toast.makeText(RequestConfirmView.this, "Please tap on marker to set your book location",
-//                                            Toast.LENGTH_SHORT).show();
-//
-//                                    if ((book!=null)&(user!=null)) {
-////                                HashMap<String, Object> book_info = new HashMap<>();
-////                                book_info.put("Location", pos);
-//                                        firebaseFirestore.getInstance().collection("Users")
-//                                                .document(user.getEmail())
-//                                                .collection("Books_Requested")
-//                                                .document(book.getId())
-//                                                .update("Location", pos)
-//                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-//                                                    @Override
-//                                                    public void onSuccess(Void aVoid) {
-//                                                        Log.d("change book location", "book location updated.");
-//                                                        Toast.makeText(RequestConfirmView.this, "Update successful!",
-//                                                                Toast.LENGTH_SHORT).show();
-//                                                    }
-//                                                })
-//                                                .addOnFailureListener(new OnFailureListener() {
-//                                                    @Override
-//                                                    public void onFailure(@NonNull Exception e) {
-//                                                        Log.d("change book location", "Data storing failed");
-//                                                    }
-//                                                });
-//                                        Intent intent = new Intent(RequestConfirmView.this, Host.class);
-//                                        intent.putExtra(EXTRA_TEXT, "Shelves");
-//                                        startActivity(intent);
-//                                    }else{
-//                                        Toast.makeText(RequestConfirmView.this, "book object is null",
-//                                                Toast.LENGTH_SHORT).show();
-//                                    }
-//                                }
-//                            }
-//                        });
-//
-//                        return false;
-//                    }
-
             }
         });
     }
@@ -221,7 +156,7 @@ public class RequestConfirmView extends AppCompatActivity implements OnMapReadyC
         notification.put("Book Title", book_title);
         notification.put("Book Id", bookId);
 
-        firebaseFirestore.collection("Users")
+        fbDB.collection("Users")
                 .document(borrower_email)
                 .collection("Notifications")
                 .document()
@@ -311,7 +246,7 @@ public class RequestConfirmView extends AppCompatActivity implements OnMapReadyC
                                 }
                                 else{
                                     notifyRequester(bookId, requestID, user_name, title, "declined" );
-                                    firebaseFirestore.collection("Users")
+                                    fbDB.collection("Users")
                                             .document(requestID)
                                             .collection("Awaiting Approval")
                                             .document(bookId)
