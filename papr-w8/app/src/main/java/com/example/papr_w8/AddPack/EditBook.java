@@ -92,6 +92,7 @@ public class EditBook extends AppCompatActivity {
                         .fit()
                         .centerCrop()
                         .into(editBookCover);
+                fileName = book.getCover();
             }
         });
 
