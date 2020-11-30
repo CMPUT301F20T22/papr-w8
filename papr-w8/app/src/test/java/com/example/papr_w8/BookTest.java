@@ -14,6 +14,7 @@ public class BookTest {
     private String defaultCover = "images/1606693874728.jpg";
     private String defaultOwner = "mazi@mail.com";
     private String defaultID = "defaultID";
+    private LatLng defaultLocation = new LatLng(111.111, 123.123);
 
     private Book mockBook(){
         Book mockBook = new Book(defaultTitle, defaultAuthor, defaultISBN, defaultStatus, defaultCover, defaultOwner, defaultID);
@@ -124,11 +125,9 @@ public class BookTest {
     }
 
     @Test
-    void testSetLocation(){
+    void testGetLocation(){
         Book mockBook = mockBook();
-        LatLng location = new LatLng(111.111, 123.123);
-        mockBook.setLocation(location);
-        assertEquals(location, mockBook.getLocation());
+        mockBook.setLocation(defaultLocation);
+        assertEquals(defaultLocation, mockBook.getLocation());
     }
-
 }
