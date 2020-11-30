@@ -47,10 +47,10 @@ public class NotificationFragment extends Fragment {
     private static final String TAG = "myTag";
     private ArrayList<Notification> notifications;
     private ListView notification_listview;
-    private FirebaseAuth firebaseAuth;
     private NotificationDisplayList notification_adapter;
     private Notification selected_notification;
     private String user_name;
+    private String user_email;
 
     private final int SCAN_TO_CONFIRM_BORROW = 1;
     private final int SCAN_TO_CONFIRM_RETURN = 2;
@@ -80,13 +80,13 @@ public class NotificationFragment extends Fragment {
         View view = inflater.inflate(R.layout.notification_fragment, container, false);
         notification_listview = view.findViewById(R.id.notification_listview);
 
-        firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         final FirebaseUser user = firebaseAuth.getCurrentUser();
-        final String email = user.getEmail();
+        user_email = user.getEmail();
 
         FirebaseFirestore.getInstance()
                 .collection("Users")
-                .document(email)
+                .document(user_email)
                 .get()
                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
@@ -97,7 +97,7 @@ public class NotificationFragment extends Fragment {
 
         // Gets the user's notifications from Firestore and adds them to notifications list
         final Task<QuerySnapshot> user_notifications = FirebaseFirestore.getInstance().collection("Users")
-                .document(email).collection("Notifications").get()
+                .document(user_email).collection("Notifications").get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -134,14 +134,14 @@ public class NotificationFragment extends Fragment {
                         startActivityForResult(confirm_return, SCAN_TO_CONFIRM_RETURN);
                         break;
                 }
-                FirebaseFirestore.getInstance()
-                        .collection("Users")
-                        .document(email)
-                        .collection("Notifications")
-                        .document(selected_notification.getNotification_id())
-                        .delete();
-                notifications.remove(i);
-                notification_adapter.notifyDataSetChanged();
+//                FirebaseFirestore.getInstance()
+//                        .collection("Users")
+//                        .document(email)
+//                        .collection("Notifications")
+//                        .document(selected_notification.getNotification_id())
+//                        .delete();
+//                notifications.remove(i);
+//                notification_adapter.notifyDataSetChanged();
 
             }
         });
@@ -162,10 +162,6 @@ public class NotificationFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        //Get current user information
-        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        final String user_email = user.getEmail();
-
         final String scanned_isbn = data.getStringExtra("ISBN");
 
         //If scanning to confirm a borrow, notify the borrower, update the borrower's book collections,
@@ -183,22 +179,25 @@ public class NotificationFragment extends Fragment {
                             @Override
                             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                 if (task.isSuccessful()) {
+                                    if (task.getResult() != null){
                                     String isbn = task.getResult().getString("ISBN");
-                                    if (isbn.matches(scanned_isbn)) {
-                                        //notify the borrower
-                                        notifyBorrower(user_email, selected_notification.getSenderId(), user_name, "confirm_borrow");
-                                        //update their books
-                                        updateBorrowerBooks(selected_notification.getSenderId(),
-                                                selected_notification.getBook_id());
-                                        //change book status to "Borrowed"
-                                        updateOwnerBooks(user_email, selected_notification.getBook_id(), "Borrowed");
+                                        if (isbn.matches(scanned_isbn)) {
+                                            //notify the borrower
+                                            notifyBorrower(user_email, selected_notification.getSenderId(), user_name, "confirm_borrow");
+                                            //update their books
+                                            updateBorrowerBooks(selected_notification.getSenderId(),
+                                                    selected_notification.getBook_id());
+                                            //change book status to "Borrowed"
+                                            updateOwnerBooks(user_email, selected_notification.getBook_id(), "Borrowed");
 
+                                        }
                                     }
                                 }
                             }
                         });
-            } else if (requestCode == SCAN_TO_CONFIRM_RETURN) {
-                if (resultCode == RESULT_OK) {
+            }
+        } else if (requestCode == SCAN_TO_CONFIRM_RETURN) {
+            if (resultCode == RESULT_OK) {
                     final String sender = selected_notification.getSenderId();
                     Task<DocumentSnapshot> accepted = FirebaseFirestore.getInstance().collection("Users")
                             .document(sender)
@@ -209,17 +208,19 @@ public class NotificationFragment extends Fragment {
                                 @Override
                                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                     if (task.isSuccessful()) {
+                                        if (task.getResult() != null){
                                         String isbn = task.getResult().getString("ISBN");
-                                        if (isbn.matches(scanned_isbn)) {
-                                            //set the notification to viewed
-                                            selected_notification.setViewed();
-                                            //notify the borrower
-                                            notifyBorrower(user_email, selected_notification.getSenderId(), user_name, "confirm_return");
-                                            //delete book from Borrowed collection
-                                            deleteBookFromCollection(sender, selected_notification.getBook_id());
-                                            //change book status to "Available"
-                                            updateOwnerBooks(user_email, selected_notification.getBook_id(), "Available");
+                                            if (isbn.matches(scanned_isbn)) {
+                                                //set the notification to viewed
+                                                selected_notification.setViewed();
+                                                //notify the borrower
+                                                notifyBorrower(user_email, selected_notification.getSenderId(), user_name, "confirm_return");
+                                                //delete book from Borrowed collection
+                                                deleteBookFromCollection(sender, selected_notification.getBook_id());
+                                                //change book status to "Available"
+                                                updateOwnerBooks(user_email, selected_notification.getBook_id(), "Available");
 
+                                            }
                                         }
                                     }
                                 }
@@ -230,7 +231,6 @@ public class NotificationFragment extends Fragment {
             }
 
         }
-    }
 
     /**
      * Updates the book status
