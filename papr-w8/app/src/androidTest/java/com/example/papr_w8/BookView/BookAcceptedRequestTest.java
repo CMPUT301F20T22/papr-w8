@@ -10,7 +10,6 @@ import android.widget.TextView;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 
-import com.example.papr_w8.Host;
 import com.example.papr_w8.MainActivity;
 import com.example.papr_w8.R;
 import com.example.papr_w8.ScanActivity;
@@ -92,7 +91,7 @@ public class BookAcceptedRequestTest {
     @Test
     public void checkScan() throws Exception {
         ScrollView vertical = (ScrollView) solo.getView(R.id.book_checkedout);
-        vertical.scrollTo(0, 100);
+        vertical.scrollTo(0, 1000);
         solo.clickOnButton("Scan to Borrow");
 
         Activity activity = rule.getActivity();
