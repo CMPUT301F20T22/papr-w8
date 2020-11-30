@@ -33,6 +33,6 @@ jobs:
 
       # Executes unit tests
       - name: Unit Test
-        working-directory: papr-w8/
+        working-directory: /papr-w8/
         run: bash ./gradlew build test
 
