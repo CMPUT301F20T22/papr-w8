@@ -22,16 +22,12 @@ import com.example.papr_w8.Adapters.BookDisplayWithOwnerList;
 import com.example.papr_w8.Adapters.UserDisplayList;
 import com.example.papr_w8.Book;
 import com.example.papr_w8.BookView.BookBasicView;
-import com.example.papr_w8.BookView.BookOwnedView;
 import com.example.papr_w8.BookView.RequestBookView;
-import com.example.papr_w8.ProfilePack.EditProfile;
 import com.example.papr_w8.ProfilePack.RetrivedProfile;
 import com.example.papr_w8.R;
 import com.example.papr_w8.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -81,6 +77,7 @@ public class Search extends Fragment implements AdapterView.OnItemSelectedListen
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_search, container, false);
 
+        // spinner dropdown allows users to choose what they're searching for
         Spinner spinner = (Spinner) view.findViewById(R.id.searchoptions_spinner);
         searchText = view.findViewById(R.id.search_edit_text);
 
