@@ -1,4 +1,7 @@
 com.example.papr_w8
 com.example.papr_w8.Adapters
+com.example.papr_w8.AddPack
 com.example.papr_w8.BookView
+com.example.papr_w8.ProfilePack
 com.example.papr_w8.Search
+com.example.papr_w8.ShelfPack
