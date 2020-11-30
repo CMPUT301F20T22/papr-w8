@@ -15,7 +15,8 @@ public class Book implements Serializable {
     private String status;
     private String cover;
     private String owner;
-    private LatLng location;
+    private double longitude;
+    private double latitude;
     private String id;
 
 
@@ -238,16 +239,24 @@ public class Book implements Serializable {
      * @return
      *      Return the location of a Book
      */
-    public LatLng getLocation() {
-        return location;
+    public double getLatitude() {
+        return latitude;
     }
 
     /**
      * This sets the new location of a Book
-     * @param location
+     * @param latitude
      *      The new location of a Book
      */
-    public void setLocation(LatLng location) {
-        this.location = location;
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
     }
 }

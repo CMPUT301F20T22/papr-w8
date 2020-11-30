@@ -79,12 +79,6 @@ public class BooksBorrowed extends Fragment {
                                         document.getString("ISBN"), document.getString("Status"),
                                         document.getString("Book Cover"), document.getString("Owner"));
                                 temp.setId(document.getId());
-
-                                GeoPoint geopoint = document.getGeoPoint("Location");
-                                final double latitude = geopoint.getLatitude();
-                                final double longitude = geopoint.getLongitude();
-                                LatLng location = new LatLng(latitude, longitude);
-                                temp.setLocation(location);
                                 // add the book to the data list
                                 borrowedBookDataList.add(temp);
 
