@@ -84,11 +84,13 @@ public class MainActivity extends AppCompatActivity {
                                     Log.d(TAG, "signInWithEmail:success");
                                     Intent intent = new Intent(MainActivity.this, Host.class);
                                     startActivity(intent);
+                                    finish();
 
                                 } else {
                                     Log.w(TAG,"signInWithEmail:failure", task.getException());
                                     Toast.makeText(MainActivity.this, "Authentication failed.",
                                             Toast.LENGTH_SHORT).show();
+                                    progressBar.setVisibility(View.GONE);
                                 }
                             }
 
@@ -101,8 +103,10 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent sign_up = new Intent(MainActivity.this, SignUpActivity.class);
                 startActivity(sign_up);
+                finish();
             }
         });
+
 
     }
 }

@@ -19,11 +19,13 @@ import com.example.papr_w8.Book;
 import com.example.papr_w8.BookView.BookBasicView;
 import com.example.papr_w8.BookView.BookReturningView;
 import com.example.papr_w8.R;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.GeoPoint;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -77,7 +79,6 @@ public class BooksBorrowed extends Fragment {
                                         document.getString("ISBN"), document.getString("Status"),
                                         document.getString("Book Cover"), document.getString("Owner"));
                                 temp.setId(document.getId());
-
                                 // add the book to the data list
                                 borrowedBookDataList.add(temp);
 

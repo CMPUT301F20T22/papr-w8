@@ -172,6 +172,7 @@ public class SignUpActivity extends AppCompatActivity {
                                                 }
                                             });
                                     startActivity(new Intent(SignUpActivity.this, Host.class));
+                                    finish();
                                 }
                             }
 
@@ -182,6 +183,7 @@ public class SignUpActivity extends AppCompatActivity {
 
 
         });
+
 
 
     }

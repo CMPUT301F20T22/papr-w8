@@ -6,8 +6,8 @@
     <item
 
         android:id="@+id/shelves"
-        android:title="Shelves"
-        android:icon="@drawable/ic_book"/>
+        android:title="Home"
+        android:icon="@drawable/ic_home_purple"/>
     <item
         android:id="@+id/notifications"
         android:title="Notifications"
