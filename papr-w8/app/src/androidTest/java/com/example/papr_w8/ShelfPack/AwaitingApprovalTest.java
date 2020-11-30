@@ -2,7 +2,6 @@ package com.example.papr_w8.ShelfPack;
 
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ListView;
 
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
@@ -19,7 +18,7 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
-public class BooksOwnedTest  {
+public class AwaitingApprovalTest  {
     private Solo solo;
 
     @Rule
@@ -32,7 +31,7 @@ public class BooksOwnedTest  {
      */
     @Before
     public void setUp() throws Exception {
-        //Login with a test acocunt
+        //Login with a test account
         solo = new Solo(InstrumentationRegistry.getInstrumentation(), rule.getActivity());
         solo.enterText((EditText) solo.getView((R.id.email)), "scott_test_acc@test.com");
         solo.enterText((EditText) solo.getView(R.id.password), "guest1");
@@ -46,20 +45,22 @@ public class BooksOwnedTest  {
         solo.waitForFragmentById(R.id.shelves);
         solo.assertCurrentActivity("Wrong Activity", Host.class);
         //go to books owned fragment
-        solo.clickOnButton("Books Owned");
+        solo.clickOnButton("Awaiting Approval");
         //check for Text
-        solo.getText("Books Owned", false);
+        solo.getText("Awaiting Approval", false);
     }
 
     @Test
     public void checkListView(){
-        //assert booksOwned view
-        View booksBorrowedView = solo.getView("books_owned");
-        //Check for list of owned books
-        View bookOwnedListView = solo.getView("books_owned_list");
-        //click on list of owned books
-        solo.clickOnView(bookOwnedListView);
+        //assert awaiting approval view
+        View awaitingApprovalView = solo.getView("awaiting_approval");
+        //Check for list of awaiting approvals
+        View awaitingApprovalListView = solo.getView("books_awaiting_list");
+        //click on list of borrowed books
+        solo.clickOnView(awaitingApprovalListView);
         solo.assertCurrentActivity("Wrong Activity", Host.class);
+
+
     }
 
     /**
@@ -71,4 +72,3 @@ public class BooksOwnedTest  {
         solo.finishOpenedActivities();
     }
 }
-
