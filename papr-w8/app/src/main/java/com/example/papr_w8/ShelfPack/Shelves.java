@@ -1,10 +1,5 @@
 package com.example.papr_w8.ShelfPack;
 
-/**
- * may merge this fragment with shelves next sprint
- * page that displays user options
- * clicking on a button takes user to other fragment/activities
-*/
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -13,6 +8,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import com.example.papr_w8.R;
+
+/**
+ * Displays a 5 different user options as buttons
+ * Books Owned, Books Requested, Books Accepted, Books Borrowed, Awaiting Approval
+ */
 
 public class Shelves extends Fragment {
     public Shelves() {

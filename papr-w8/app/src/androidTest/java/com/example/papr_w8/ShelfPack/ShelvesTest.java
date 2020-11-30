@@ -1,6 +1,6 @@
 package com.example.papr_w8.ShelfPack;
 
-import android.util.Log;
+
 import android.view.View;
 import android.widget.EditText;
 
@@ -23,6 +23,11 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 
+import static org.junit.Assert.assertTrue;
+
+/**
+ * Test the functionality of the shelves page
+ */
 
 public class ShelvesTest  {
     private Solo solo;
@@ -36,7 +41,7 @@ public class ShelvesTest  {
      */
     @Before
     public void setUp() throws Exception{
-        //Login with a test acocunt
+        //Login with a test account
         solo = new Solo(InstrumentationRegistry.getInstrumentation(),rule.getActivity());
         solo.enterText((EditText) solo.getView((R.id.email)), "scott_testacc@test.com");
         solo.enterText((EditText) solo.getView(R.id.password), "guest1");
@@ -47,6 +52,10 @@ public class ShelvesTest  {
         solo.clickOnImage(0);
         solo.clickOnView(shelves);
     }
+
+    /**
+     * confirm the existence of all required buttons
+     */
     @Test
     public void checkButtons(){
         //check for buttons
@@ -57,15 +66,26 @@ public class ShelvesTest  {
         solo.getButton("Accepted Requests",false);
         solo.getButton("Awaiting Approval",false);
         solo.getButton("Books Borrowed",false);
+        assertTrue(solo.waitForText("Books Owned",1,2000));
+        assertTrue(solo.waitForText("Books Requested",1,2000));
+        assertTrue(solo.waitForText("Accepted Requests",1,2000));
+        assertTrue(solo.waitForText("Awaiting Approval",1,2000));
+        assertTrue(solo.waitForText("Books Borrowed",1,2000));
         //check that we are still in the host class
         solo.assertCurrentActivity("Wrong Activity", Host.class);
     }
+
+    /**
+     * Confirm the existence of reuired text
+     */
     @Test
     public void checkText(){
         //check for Text
         solo.waitForFragmentById(R.id.shelves);
         solo.getText("Owner",false);
         solo.getText("Borrower",false);
+        assertTrue(solo.waitForText("Owner",1,2000));
+        assertTrue(solo.waitForText("Borrower",1,2000));
         solo.assertCurrentActivity("Wrong Activity", Host.class);
     }
 

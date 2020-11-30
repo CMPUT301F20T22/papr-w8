@@ -2,22 +2,22 @@ package com.example.papr_w8.ShelfPack;
 
 import android.view.View;
 import android.widget.EditText;
-
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
-
 import com.example.papr_w8.Host;
 import com.example.papr_w8.MainActivity;
 import com.example.papr_w8.R;
 import com.robotium.solo.Solo;
-
-import junit.framework.TestCase;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
+import static org.junit.Assert.assertTrue;
+
+/**
+ * Test the functionality of the books requested page
+ */
 public class BooksRequestedTest  {
     private Solo solo;
 
@@ -50,11 +50,16 @@ public class BooksRequestedTest  {
         solo.getText("Books Requested", false);
     }
 
+    /**
+     * Confirm the existence of the required listview, click on the listview
+     */
     @Test
     public void checkListView(){
-        //assert booksBorrowed view
+        //assert booksRequested view
+
         View booksBorrowedView = solo.getView("fragment_requested");
-        //Check for list of borrowed books
+        assertTrue(solo.waitForText("Requested",1,2000));
+        //Check for list of requested books
         View bookBorrowedListView = solo.getView("books_requested_list");
         //click on list of borrowed books
         solo.clickOnView(bookBorrowedListView);

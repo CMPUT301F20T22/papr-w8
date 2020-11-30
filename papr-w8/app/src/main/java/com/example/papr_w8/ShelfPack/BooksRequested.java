@@ -3,7 +3,6 @@ package com.example.papr_w8.ShelfPack;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-
 import com.example.papr_w8.Adapters.BookDisplayWithOwnerList;
 import com.example.papr_w8.Book;
 import com.example.papr_w8.BookView.BookRequestedView;
@@ -25,14 +23,12 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
- * Placeholder, implementation to be added next sprint
- * Will show books user has requested to borrow
-*/
+ * Displays a view of books that have been requested by a user
+ */
 public class BooksRequested extends Fragment {
     public BooksRequested(){
     }
