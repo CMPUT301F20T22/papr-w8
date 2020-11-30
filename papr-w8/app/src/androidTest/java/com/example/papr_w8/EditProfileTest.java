@@ -39,16 +39,49 @@ public class EditProfileTest {
 
 
     /**
-     * check if everything is presented correctly on profile page
+     * check if system allows users to edit text
+     * and if the edited information is updated
+     * after test is run, the information will be changed back
      */
     @Test
-    public void checkInfo(){
+    public void checkEnterText(){
         solo.assertCurrentActivity("Wrong Activity", EditProfile.class);
         solo.waitForText("Mazi");
         solo.waitForText("mazi@mail.com");
         solo.waitForText("Mazi st, Mazi ave.");
-        solo.clearEditText();
+        solo.clearEditText((EditText) solo.getView(R.id.editUsername));
+        solo.enterText((EditText) solo.getView((R.id.editUsername)), "PapaMazi");
+        solo.clearEditText((EditText) solo.getView(R.id.editAddress));
+        solo.enterText((EditText) solo.getView((R.id.editAddress)), "Mazi address");
+        solo.clickOnButton("Confirm");
+
+        solo.waitForFragmentById(R.id.profile);
+        solo.waitForText("PapaMazi");
+        solo.waitForText("mazi@mail.com");
+        solo.waitForText("Mazi address");
+
+        solo.clickOnButton("Edit Profile");
+        solo.assertCurrentActivity("Wrong Activity", EditProfile.class);
+        solo.waitForText("Mazi");
+        solo.waitForText("mazi@mail.com");
+        solo.waitForText("Mazi st, Mazi ave.");
+        solo.clearEditText((EditText) solo.getView(R.id.editUsername));
+        solo.enterText((EditText) solo.getView((R.id.editUsername)), "Mazi");
+        solo.clearEditText((EditText) solo.getView(R.id.editAddress));
+        solo.enterText((EditText) solo.getView((R.id.editAddress)), "Mazi st, Mazi ave.");
+        solo.clickOnButton("Confirm");
     }
+
+    /**
+     * check if cancel button works properly
+     */
+    @Test
+    public void checkCancel(){
+        solo.assertCurrentActivity("Wrong Activity", EditProfile.class);
+        solo.clickOnButton("Cancel");
+    }
+
+
 
     /**
      * Close activity after each test
