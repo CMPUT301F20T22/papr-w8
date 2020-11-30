@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,138 +8,144 @@
     android:background="#ffffff"
     android:contextClickable="true">
 
-    <TextView
-        android:id="@+id/descriptionText"
-        android:layout_width="170dp"
-        android:layout_height="43dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="200dp"
-        android:textSize="26dp"
-        android:text="Description"
-        android:contextClickable="true"/>
-
-    <ImageView
-        android:layout_gravity="center_horizontal"
-        android:id="@+id/book_base_cover"
-        android:layout_width="125dp"
-        android:layout_height="175dp"
-        android:layout_marginTop="20dp"
-        tools:src="@tools:sample/avatars" />
-
-    <View
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="235dp"
-        android:background="@android:color/darker_gray"/>
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/titleText"
-        android:layout_width="80dp"
-        android:layout_height="40dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="240dp"
-        android:textStyle="bold"
-        android:textSize="20dp"
-        android:text="Title"
-        android:contextClickable="true"/>
+        <TextView
+            android:id="@+id/descriptionText"
+            android:layout_width="170dp"
+            android:layout_height="43dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="200dp"
+            android:textSize="26dp"
+            android:text="Description"
+            android:contextClickable="true"/>
 
-    <TextView
-        android:id="@+id/titleEditText"
-        android:layout_width="270dp"
-        android:layout_height="40dp"
-        android:layout_marginLeft="110dp"
-        android:layout_marginTop="240dp"
-        android:textSize="20dp"
-        android:text="Title"
-        android:contextClickable="true"/>
+        <ImageView
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/book_base_cover"
+            android:layout_width="125dp"
+            android:layout_height="175dp"
+            android:layout_marginTop="20dp"
+            tools:src="@tools:sample/avatars" />
 
-    <TextView
-        android:id="@+id/authorText"
-        android:layout_width="80dp"
-        android:layout_height="40dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="275dp"
-        android:textStyle="bold"
-        android:textSize="20dp"
-        android:text="Author"
-        android:contextClickable="true"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="235dp"
+            android:background="@android:color/darker_gray"/>
 
-    <TextView
-        android:id="@+id/authorEditText"
-        android:layout_width="270dp"
-        android:layout_height="40dp"
-        android:layout_marginLeft="110dp"
-        android:layout_marginTop="275dp"
-        android:textSize="20dp"
-        android:text="Author"
-        android:contextClickable="true"/>
+        <TextView
+            android:id="@+id/titleText"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="240dp"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            android:text="Title"
+            android:contextClickable="true"/>
 
-    <TextView
-        android:id="@+id/isbnText"
-        android:layout_width="80dp"
-        android:layout_height="40dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="310dp"
-        android:textStyle="bold"
-        android:textSize="20dp"
-        android:text="ISBN"
-        android:contextClickable="true"/>
+        <TextView
+            android:id="@+id/titleEditText"
+            android:layout_width="270dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="110dp"
+            android:layout_marginTop="240dp"
+            android:textSize="20dp"
+            android:text="Title"
+            android:contextClickable="true"/>
 
-    <TextView
-        android:id="@+id/isbnEditText"
-        android:layout_width="270dp"
-        android:layout_height="40dp"
-        android:layout_marginLeft="110dp"
-        android:layout_marginTop="310dp"
-        android:textSize="20dp"
-        android:text="ISBN"
-        android:contextClickable="true"/>
+        <TextView
+            android:id="@+id/authorText"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="275dp"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            android:text="Author"
+            android:contextClickable="true"/>
 
-    <TextView
-        android:id="@+id/statusText"
-        android:layout_width="80dp"
-        android:layout_height="40dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="345dp"
-        android:textStyle="bold"
-        android:textSize="20dp"
-        android:text="Status"
-        android:contextClickable="true"/>
+        <TextView
+            android:id="@+id/authorEditText"
+            android:layout_width="270dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="110dp"
+            android:layout_marginTop="275dp"
+            android:textSize="20dp"
+            android:text="Author"
+            android:contextClickable="true"/>
 
-    <TextView
-        android:id="@+id/statusEditText"
-        android:layout_width="270dp"
-        android:layout_height="40dp"
-        android:layout_marginLeft="110dp"
-        android:layout_marginTop="345dp"
-        android:textSize="20dp"
-        android:text="Status"
-        android:contextClickable="true"/>
+        <TextView
+            android:id="@+id/isbnText"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="310dp"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            android:text="ISBN"
+            android:contextClickable="true"/>
 
-    <TextView
-        android:id="@+id/ownerText"
-        android:layout_width="80dp"
-        android:layout_height="40dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="380dp"
-        android:textStyle="bold"
-        android:textSize="20dp"
-        android:text="Owner" />
+        <TextView
+            android:id="@+id/isbnEditText"
+            android:layout_width="270dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="110dp"
+            android:layout_marginTop="310dp"
+            android:textSize="20dp"
+            android:text="ISBN"
+            android:contextClickable="true"/>
 
-    <TextView
-        android:id="@+id/ownerEditText"
-        android:layout_width="270dp"
-        android:layout_height="40dp"
-        android:layout_marginLeft="110dp"
-        android:layout_marginTop="380dp"
-        android:textSize="20dp"
-        android:text="Owner"
-        android:layout_below="@id/child_fragment_holder"/>
+        <TextView
+            android:id="@+id/statusText"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="345dp"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            android:text="Status"
+            android:contextClickable="true"/>
 
-    <ViewStub
-        android:id="@+id/child_fragment_here"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="400dp"/>
+        <TextView
+            android:id="@+id/statusEditText"
+            android:layout_width="270dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="110dp"
+            android:layout_marginTop="345dp"
+            android:textSize="20dp"
+            android:text="Status"
+            android:contextClickable="true"/>
 
-</FrameLayout>
+        <TextView
+            android:id="@+id/ownerText"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="380dp"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            android:text="Owner" />
+
+        <TextView
+            android:id="@+id/ownerEditText"
+            android:layout_width="270dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="110dp"
+            android:layout_marginTop="380dp"
+            android:textSize="20dp"
+            android:text="Owner"
+            android:layout_below="@id/child_fragment_holder"/>
+
+        <ViewStub
+            android:id="@+id/child_fragment_here"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="405dp"/>
+
+    </FrameLayout>
+
+</ScrollView>

@@ -16,6 +16,7 @@
         android:textSize="26dp"
         android:paddingLeft="10dp"
         android:paddingTop="10dp"
+        android:fontFamily="@font/happy_monkey"
         android:text="Accepted" />
 
     <View

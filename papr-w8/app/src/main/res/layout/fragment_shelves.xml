@@ -23,6 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="0dp"
             android:text="Owner"
+            android:fontFamily="@font/happy_monkey"
             android:textSize="30sp" />
 
         <Button
@@ -53,6 +54,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="Borrower"
+            android:fontFamily="@font/happy_monkey"
             android:textSize="30sp" />
 
         <Button
