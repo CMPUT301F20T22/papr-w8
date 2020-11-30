@@ -18,12 +18,10 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.squareup.picasso.Picasso;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 
 /**
- * BoodDisplayList Adapted for displaying list of books
+ * BookDisplayList Adapted for displaying list of books
  */
 public class BookDisplayList extends ArrayAdapter<Book> {
     private Context context;

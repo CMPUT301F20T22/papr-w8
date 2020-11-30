@@ -55,6 +55,7 @@ public class AddBook extends AppCompatActivity {
 
     /**
      * onCreate starts the code for adding a book functionality
+     * Contains the functionality for each of the buttons on the add book page
      * @param savedInstanceState
      */
     @Override
@@ -62,6 +63,7 @@ public class AddBook extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_book);
 
+        // find resources on the xml file and set them to variables for use
         newBookTitle = findViewById(R.id.new_title_editText);
         newBookISBN = findViewById(R.id.new_isbn_editText);
         newBookAuthor = findViewById(R.id.new_author_editText);
@@ -72,15 +74,15 @@ public class AddBook extends AppCompatActivity {
         ImageView deleteBookCover = findViewById(R.id.delete_image_ab);
         final int add_id = getResources().getIdentifier("@android:drawable/ic_menu_add", null, null);
 
+        // firebase set up allows for communicating between app and firebase
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-
         final FirebaseFirestore fbDB = FirebaseFirestore.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference("images");
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("images");
-
         FirebaseUser user = firebaseAuth.getInstance().getCurrentUser();
         final String email = user.getEmail();
 
+        // functionality for scan button
         scan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -89,6 +91,7 @@ public class AddBook extends AppCompatActivity {
             }
         });
 
+        // functionality for addBookcover button
         addBookCover.setOnClickListener(new View.OnClickListener() {  // onClickListener for when the user clicks on the add book cover image buttor
             @Override
             public void onClick(View view) {
@@ -97,6 +100,7 @@ public class AddBook extends AppCompatActivity {
             }
         });
 
+        // functionality for deleteBookCover button
         deleteBookCover.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -106,6 +110,7 @@ public class AddBook extends AppCompatActivity {
             }
         });
 
+        // functionality for confirm button
         confirm.setOnClickListener(new View.OnClickListener() {  // onClickListener for when the user clicks on the confirm button to add a book
             @Override
             public void onClick(View view) {
@@ -123,9 +128,11 @@ public class AddBook extends AppCompatActivity {
                     newBookISBN.setError("Please enter valid ISBN");
                     newBookISBN.requestFocus();
                 } else {
-                    if (imageUri == null) {  // if no image cover uploaded then set to default
+                    // if no image cover uploaded then set to default
+                    if (imageUri == null) {
                         fileName = "default_book.png";
                     }
+                    // create book HashMap object that will be uploaded to firebase
                     final Map<String, Object> book = new HashMap<>();
                     book.put("Title", title);
                     book.put("Author", author);
@@ -133,6 +140,7 @@ public class AddBook extends AppCompatActivity {
                     book.put("Status", "Available");
                     book.put("Book Cover", fileName);
                     book.put("Owner", email);
+
                     // Implementation for adding book details to the firestore collection
                     fbDB.collection("Users").document(email).collection("Books Owned")
                             .add(book)
@@ -166,7 +174,7 @@ public class AddBook extends AppCompatActivity {
     }
 
     /**
-     *
+     * onActivityResult receives the book cover after user chooses and image from their device
      * @param requestCode
      * @param resultCode
      * @param data
@@ -202,7 +210,8 @@ public class AddBook extends AppCompatActivity {
     }
 
     /**
-     * this gets the filename and uploads the image to firebase
+     * Handles uploading the cover to firebase storage
+     * Sets a filename for the image and uplaods to firebase
      */
     private void uploadCover() {
         if (imageUri != null) {

@@ -37,7 +37,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Edit book handles editing book description functionality
+ * Edit book contains the editing book description functionality
  */
 public class EditBook extends AppCompatActivity {
 
@@ -51,7 +51,8 @@ public class EditBook extends AppCompatActivity {
     private final int SCAN_ISBN_REQUEST_CODE = 2;
 
     /**
-     * onCreate starts the code for adding a book functionality
+     * onCreate starts the code for editing a book functionality
+     * Contains the functionality for each of the buttons on the EditBook page
      * @param savedInstanceState
      */
     @Override
@@ -59,8 +60,10 @@ public class EditBook extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_book);
 
+        // get current book from bundle when EditBook is started
         final Book book = (Book) getIntent().getSerializableExtra("Book");
 
+        // find resources on the xml file and set them to variables for use
         final EditText newBookTitle = findViewById(R.id.edit_title_editText);
         newBookISBN = findViewById(R.id.edit_isbn_editText);
         final EditText newBookAuthor = findViewById(R.id.edit_author_editText);
@@ -71,6 +74,7 @@ public class EditBook extends AppCompatActivity {
         ImageView deleteBookCover = findViewById(R.id.delete_image_eb);
         final int add_id = getResources().getIdentifier("@android:drawable/ic_menu_add", null, null);
 
+        // firebase set up allows for communicating between app and firebase
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         final FirebaseFirestore fbDB = FirebaseFirestore.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference("images");
@@ -78,9 +82,9 @@ public class EditBook extends AppCompatActivity {
         FirebaseUser user = firebaseAuth.getInstance().getCurrentUser();
         final String email = user.getEmail();
 
-        Log.d("Debug", book.getId());
+//        Log.d("Debug", book.getId());
 
-        // set current book description
+        // set current book description to the editTexts and ImageViews
         newBookTitle.setText(book.getTitle());
         newBookISBN.setText(book.getISBN());
         newBookAuthor.setText(book.getAuthor());
@@ -96,6 +100,7 @@ public class EditBook extends AppCompatActivity {
             }
         });
 
+        // functionality for scan button
         scan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -104,6 +109,7 @@ public class EditBook extends AppCompatActivity {
             }
         });
 
+        // functionality for editBookCover button
         editBookCover.setOnClickListener(new View.OnClickListener() {  // onClickListener for when the user clicks on the add book cover image buttor
             @Override
             public void onClick(View view) {
@@ -112,6 +118,7 @@ public class EditBook extends AppCompatActivity {
             }
         });
 
+        // functionality for deleteBookCover button
         deleteBookCover.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -121,6 +128,7 @@ public class EditBook extends AppCompatActivity {
             }
         });
 
+        // functionality for confirm button
         confirm.setOnClickListener(new View.OnClickListener() {  // onClickListener for when the user clicks on the confirm button to add a book
             @Override
             public void onClick(View view) {
@@ -142,9 +150,12 @@ public class EditBook extends AppCompatActivity {
                     newBookISBN.requestFocus();
                     return;
                 } else {
-                    if (imageUri == null) {  // if no image cover uploaded then set to default
+                    // if no image cover uploaded then set to default
+                    if (imageUri == null) {
                         fileName = "default_book.png";
                     }
+
+                    // create book HashMap object that will be uploaded to firebase
                     final Map<String, Object> e_book = new HashMap<>();
                     e_book.put("Title", title);
                     e_book.put("Author", author);
@@ -186,7 +197,7 @@ public class EditBook extends AppCompatActivity {
     }
 
     /**
-     *
+     * onActivityResult receives the book cover after user chooses and image from their device
      * @param requestCode
      * @param resultCode
      * @param data
@@ -219,7 +230,8 @@ public class EditBook extends AppCompatActivity {
     }
 
     /**
-     * this gets the filename and uploads the image to firebase
+     * Handles uploading the cover to firebase storage
+     * Sets a filename for the image and uplaods to firebase
      */
     private void uploadCover() {
         if (imageUri != null) {
