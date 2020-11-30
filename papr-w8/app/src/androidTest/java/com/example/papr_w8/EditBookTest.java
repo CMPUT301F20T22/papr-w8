@@ -45,7 +45,7 @@ public class EditBookTest {
         solo.clickOnView(solo.getView(R.id.add_book_float));
         solo.enterText((EditText) solo.getView(R.id.new_title_editText), "Edit Title");
         solo.enterText((EditText) solo.getView(R.id.new_author_editText), "Edit Author");
-        solo.enterText((EditText) solo.getView(R.id.new_isbn_editText), "TEST12345678");
+        solo.enterText((EditText) solo.getView(R.id.new_isbn_editText), "1234567890000");
         solo.clickOnButton("Add Book");
         assertTrue(solo.waitForText("Book Added", 1, 10000));
         //return to shelves after adding a book
@@ -54,9 +54,11 @@ public class EditBookTest {
 
     /**
      * Checks if books are edited
+     * edits the book that was added in the setUp() then makes sure the edits are shown in BooksOwned
+     * @throws Exception
      */
     @Test
-    public void checkEdit() {
+    public void checkEdit() throws Exception{
         // checks if current activity is the shelves page
         solo.assertCurrentActivity("Wrong Activity", Host.class);
 
@@ -64,7 +66,7 @@ public class EditBookTest {
         solo.clickOnButton("Books Owned");
         assertTrue(solo.waitForText("Edit Title", 1, 5000));
         assertTrue(solo.waitForText("Edit Author", 1, 5000));
-        assertTrue(solo.waitForText("TEST12345678", 1, 5000));
+        assertTrue(solo.waitForText("1234567890000", 1, 5000));
 
         // click on the first book and edit
         solo.clickInList(0);
@@ -76,7 +78,7 @@ public class EditBookTest {
         //input edited book desc
         solo.enterText((EditText) solo.getView(R.id.edit_title_editText), "Edited Title Test");
         solo.enterText((EditText) solo.getView(R.id.edit_author_editText), "Edited Author Test");
-        solo.enterText((EditText) solo.getView(R.id.edit_isbn_editText), "EDITED12345678");
+        solo.enterText((EditText) solo.getView(R.id.edit_isbn_editText), "0000123456789");
         solo.clickOnButton("Confirm");
         assertTrue(solo.waitForText("Book Edited", 1, 10000));
         // after editing book should go back to shelves page
@@ -85,12 +87,12 @@ public class EditBookTest {
         solo.clickOnButton("Books Owned");
         assertTrue(solo.waitForText("Edited Title Test", 1, 2000));
         assertTrue(solo.waitForText("Edited Author Test", 1, 2000));
-        assertTrue(solo.waitForText("EDITED12345678", 1, 2000));
+        assertTrue(solo.waitForText("0000123456789", 1, 2000));
     }
 
 
     /**
-     * Closes activites after tests
+     * Closes activities after tests
      * @throws Exception
      */
     @After

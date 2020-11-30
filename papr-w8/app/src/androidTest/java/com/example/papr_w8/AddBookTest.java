@@ -40,9 +40,11 @@ public class AddBookTest {
      * Checks if edittexts being empty works before adding a book
      */
     @Test
-    public void checkEmpty() {
+    public void checkEmpty() throws Exception {
+        // make sure current actiivty is addbook page
         solo.assertCurrentActivity("Wrong Activity", AddBook.class);
 
+        // check if program prompts user for input if any of the edittexts are empty
         solo.clickOnButton("Add Book");
         assertTrue(solo.waitForText("Please enter title", 1, 2000));
 
@@ -58,32 +60,39 @@ public class AddBookTest {
 
     /**
      * Checks if books are added when 'Add Book' is clicked
+     * @throws Exception
      */
     @Test
-    public void checkAdded() {
+    public void checkAdded() throws Exception {
+        // make sure current actiivty is addbook page
         solo.assertCurrentActivity("Wrong Activity", AddBook.class);
 
+        // add test book
         solo.enterText((EditText) solo.getView(R.id.new_title_editText), "Test Add Title");
         solo.enterText((EditText) solo.getView(R.id.new_author_editText), "Test Add Author");
-        solo.enterText((EditText) solo.getView(R.id.new_isbn_editText), "TEST12345678");
-
+        solo.enterText((EditText) solo.getView(R.id.new_isbn_editText), "0000123456789");
+        // confirm adding book
         solo.clickOnButton("Add Book");
         assertTrue(solo.waitForText("Book Added", 1, 10000));
 
+        // make sure current page is the shelves page
         solo.assertCurrentActivity("Wrong Activity", Host.class);
 
+        // go to books owned page and check if book has been added
         solo.clickOnButton("Books Owned");
         assertTrue(solo.waitForText("Test Add Title", 1, 5000));
         assertTrue(solo.waitForText("Test Add Author", 1, 5000));
-        assertTrue(solo.waitForText("TEST12345678", 1, 5000));
+        assertTrue(solo.waitForText("0000123456789", 1, 5000));
 
     }
 
     /**
      * Check if File Chooser opens
+     * Makes sure the file chooser functionality works
+     * @throws Exception
      */
     @Test
-    public void checkFileChooser() {
+    public void checkFileChooser() throws Exception {
         solo.assertCurrentActivity("Wrong Activity", AddBook.class);
         ImageButton imageButton = (ImageButton) solo.getView("imageButton");
         solo.clickOnView(imageButton);
@@ -91,7 +100,7 @@ public class AddBookTest {
     }
 
     /**
-     * Closes activites after tests
+     * Closes activities after tests
      * @throws Exception
      */
     @After

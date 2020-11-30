@@ -17,12 +17,19 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;
 
+/**
+ *  tests the delete functionality for books
+ */
 public class ConfirmDeleteTest {
     private Solo solo;
 
     @Rule
     public ActivityTestRule<MainActivity> rule = new ActivityTestRule<MainActivity>(MainActivity.class, true, true);
 
+    /**
+     * Runs before all tests and creates a solo instance
+     * @throws Exception
+     */
     @Before
     public void setUp() throws Exception {
         //Login with a test acocunt
@@ -41,12 +48,16 @@ public class ConfirmDeleteTest {
         solo.clickOnView(solo.getView(R.id.add_book_float));
         solo.enterText((EditText) solo.getView(R.id.new_title_editText), "Delete Book Title");
         solo.enterText((EditText) solo.getView(R.id.new_author_editText), "Delete Book Author");
-        solo.enterText((EditText) solo.getView(R.id.new_isbn_editText), "TEST12345678");
+        solo.enterText((EditText) solo.getView(R.id.new_isbn_editText), "12345678912");
         solo.clickOnButton("Add Book");
         assertTrue(solo.waitForText("Book Added", 1, 10000));
         //return to shelves after adding a book
     }
 
+    /**
+     * checks if books are actually deleted
+     * @throws Exception
+     */
     @Test
     public void checkDelete() throws Exception {
         // checks if current activity is the shelves page
@@ -56,7 +67,7 @@ public class ConfirmDeleteTest {
         solo.clickOnButton("Books Owned");
         assertTrue(solo.waitForText("Delete Book Title", 1, 5000));
         assertTrue(solo.waitForText("Delete Book Author", 1, 5000));
-        assertTrue(solo.waitForText("TEST12345678", 1, 5000));
+        assertTrue(solo.waitForText("12345678912", 1, 5000));
 
         // click on the first book and delete
         solo.clickInList(0);
@@ -70,11 +81,11 @@ public class ConfirmDeleteTest {
         solo.clickOnButton("Books Owned");
         assertTrue(solo.searchText("Delete Book Title", 0, false));
         assertTrue(solo.searchText("Delete Book Author", 0, false));
-        assertTrue(solo.searchText("TEST12345678", 0, false));
+        assertTrue(solo.searchText("12345678912", 0, false));
     }
 
     /**
-     * Closes activites after tests
+     * Closes activities after tests
      * @throws Exception
      */
     @After
