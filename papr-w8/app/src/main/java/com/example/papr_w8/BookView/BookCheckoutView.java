@@ -83,27 +83,6 @@ public class BookCheckoutView extends Fragment implements OnMapReadyCallback {
         firebaseAuth = FirebaseAuth.getInstance();
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         user_email = user.getEmail();
-        Log.d("EMAIL", user_email);
-        Log.d("BOOK ID", book_id);
-
-//        FirebaseFirestore.getInstance().collection("Users")
-//                .document(user_email)
-//                .collection("Books_Accepted")
-//                .document(book_id)
-//                .get()
-//                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-//                        if (task.isSuccessful()){
-//                            GeoPoint geoPoint = task.getResult().getGeoPoint("Location");
-//                            Log.d("Location", String.valueOf(geoPoint));
-//                            double latitude = geoPoint.getLatitude();
-//                            double longitude = geoPoint.getLongitude();
-//
-//                        }
-//                    }
-//                });
-
 
         TextView textViewTitle = view.findViewById(R.id.titleEditText);
         TextView textViewAuthor = view.findViewById(R.id.authorEditText);

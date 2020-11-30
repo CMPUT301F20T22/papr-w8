@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.test.platform.app.InstrumentationRegistry;
@@ -63,7 +64,7 @@ public class BookAcceptedRequestTest {
     @Test
     public void checkFragment() throws Exception {
 
-        solo.waitForFragmentById(R.id.fragment_book_base);
+        solo.waitForFragmentById(R.id.book_checkedout);
 
     }
 
@@ -86,6 +87,16 @@ public class BookAcceptedRequestTest {
         assertEquals("9780345544148", isbnView.getText().toString());
         assertEquals(true, coverView.isShown());
 
+    }
+
+    @Test
+    public void checkScan() throws Exception {
+        ScrollView vertical = (ScrollView) solo.getView(R.id.book_checkedout);
+        vertical.scrollTo(0, 100);
+        solo.clickOnButton("Scan to Borrow");
+
+        Activity activity = rule.getActivity();
+        solo.assertCurrentActivity("Wrong Activity", ScanActivity.class);
     }
 
     /**
