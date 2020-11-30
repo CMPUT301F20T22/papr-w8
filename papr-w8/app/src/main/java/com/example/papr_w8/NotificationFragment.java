@@ -141,6 +141,11 @@ public class NotificationFragment extends Fragment {
         notification_listview.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                FirebaseFirestore.getInstance().collection("Users")
+                        .document(user_email)
+                        .collection("Notifications")
+                        .document()
+                        .delete();
                 notifications.remove(i);
                 notification_adapter.notifyDataSetChanged();
                 return true;
