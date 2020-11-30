@@ -14,6 +14,8 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
+import static org.junit.Assert.assertTrue;
+
 public class EditProfileTest {
     private Solo solo;
 
@@ -56,9 +58,9 @@ public class EditProfileTest {
         solo.clickOnButton("Confirm");
 
         solo.waitForFragmentById(R.id.profile);
-        solo.waitForText("PapaMazi");
-        solo.waitForText("mazi@mail.com");
-        solo.waitForText("Mazi address");
+        assertTrue(solo.waitForText("PapaMazi"));
+        assertTrue(solo.waitForText("mazi@mail.com"));
+        assertTrue(solo.waitForText("Mazi address"));
 
         solo.clickOnButton("Edit Profile");
         solo.assertCurrentActivity("Wrong Activity", EditProfile.class);
@@ -79,6 +81,10 @@ public class EditProfileTest {
     public void checkCancel(){
         solo.assertCurrentActivity("Wrong Activity", EditProfile.class);
         solo.clickOnButton("Cancel");
+        solo.waitForFragmentById(R.id.profile);
+        assertTrue(solo.waitForText("Mazi"));
+        assertTrue(solo.waitForText("mazi@mail.com"));
+        assertTrue(solo.waitForText("Mazi st, Mazi ave."));
     }
 
 

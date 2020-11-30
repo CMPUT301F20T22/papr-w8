@@ -2,6 +2,7 @@ package com.example.papr_w8;
 
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
@@ -13,6 +14,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class ProfileTest{
     private Solo solo;
@@ -41,10 +45,11 @@ public class ProfileTest{
      */
     @Test
     public void checkInfo(){
+
         solo.waitForFragmentById(R.id.profile);
-        solo.waitForText("Mazi");
-        solo.waitForText("mazi@mail.com");
-        solo.waitForText("Mazi st, Mazi ave.");
+        assertTrue(solo.waitForText("Mazi"));
+        assertTrue(solo.waitForText("mazi@mail.com"));
+        assertTrue(solo.waitForText("Mazi st, Mazi ave."));
         solo.clickOnButton("Edit Profile");
         solo.assertCurrentActivity("Wrong Activity", EditProfile.class);
     }
