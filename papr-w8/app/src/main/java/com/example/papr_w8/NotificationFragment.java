@@ -217,8 +217,6 @@ public class NotificationFragment extends Fragment {
                                         if (task.getResult() != null){
                                         String isbn = task.getResult().getString("ISBN");
                                             if (isbn.matches(scanned_isbn)) {
-                                                //set the notification to viewed
-                                                selected_notification.setViewed();
                                                 //notify the borrower
                                                 notifyBorrower(user_email, selected_notification.getSenderId(), user_name, "confirm_return");
                                                 //delete book from Borrowed collection
@@ -372,6 +370,12 @@ public class NotificationFragment extends Fragment {
                 });
 
     }
+
+    /**
+     * Deletes the book from the borrower's Borrowed collection
+     * @param borrower_email
+     * @param book_id
+     */
 
     public void deleteBookFromCollection(String borrower_email, String book_id){
         FirebaseFirestore.getInstance()

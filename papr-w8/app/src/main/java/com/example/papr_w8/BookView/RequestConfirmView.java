@@ -36,6 +36,11 @@ import java.util.Map;
 
 import static com.example.papr_w8.ProfilePack.EditProfile.EXTRA_TEXT;
 
+/**
+ * Activity that allows owner to set a location once a request on a book has been accepted
+ * Updates all book collections accordingly
+ */
+
 public class RequestConfirmView extends AppCompatActivity implements OnMapReadyCallback {
     private static final String TAG = "MyTag";
     //GoogleMap.OnMarkerClickListener,
@@ -93,6 +98,10 @@ public class RequestConfirmView extends AppCompatActivity implements OnMapReadyC
         //borrower_email = intent.getStringExtra("borrower");
     }
 
+    /**
+     * Allows user to select location and add a marker
+     * @param googleMap
+     */
     @Override
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
@@ -232,6 +241,15 @@ public class RequestConfirmView extends AppCompatActivity implements OnMapReadyC
                 });
     }
 
+    /**
+     * Declines all other requests and updates book Collections
+     * @param user_email
+     * @param bookId
+     * @param borrower_email
+     * @param user_name
+     * @param title
+     * @param location
+     */
     public void handleRequests(final String user_email, final String bookId, final String borrower_email,
                                final String user_name, final String title, final LatLng location){
         final Task<QuerySnapshot> requests = FirebaseFirestore.getInstance().collection("Users")
@@ -276,6 +294,11 @@ public class RequestConfirmView extends AppCompatActivity implements OnMapReadyC
                 });
     }
 
+    /**
+     * Deletes all requests from Firebase
+     * @param user_email
+     * @param book_id
+     */
     public void deleteRequests(final String user_email, final String book_id){
 
         fbDB.collection("Users")

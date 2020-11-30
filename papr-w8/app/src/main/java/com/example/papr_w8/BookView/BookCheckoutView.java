@@ -210,6 +210,11 @@ public class BookCheckoutView extends Fragment implements OnMapReadyCallback {
                 });
     }
 
+
+    /**
+     * Adds marker to map
+     * @param googleMap
+     */
     @Override
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
