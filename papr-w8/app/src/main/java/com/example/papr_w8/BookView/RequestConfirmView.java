@@ -277,6 +277,12 @@ public class RequestConfirmView extends AppCompatActivity implements OnMapReadyC
                                         .collection("Requested")
                                         .document(requestID)
                                         .delete();
+                                FirebaseFirestore.getInstance()
+                                        .collection("Users")
+                                        .document(user_email)
+                                        .collection("Books Owned")
+                                        .document(bookId)
+                                        .update("Status", "Accepted");
 
                             }
                         }

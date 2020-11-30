@@ -43,6 +43,7 @@ public class BookReturningView extends BookBase{
 
     private static final String TAG = "MyTag";
     private final int SCAN_ISBN_FOR_RETURN = 1;
+    private String user_name;
 
     public BookReturningView() {
     }
@@ -109,7 +110,19 @@ public class BookReturningView extends BookBase{
                 firebaseAuth = FirebaseAuth.getInstance();
                 final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 final String user_email = user.getEmail();
-                final String user_name = user.getDisplayName();
+
+                FirebaseFirestore.getInstance().collection("Users")
+                        .document(user_email)
+                        .get()
+                        .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if (task.isSuccessful()){
+                                    user_name = task.getResult().getString("name");
+                                }
+                            }
+                        });
+
 
                 final Task<DocumentSnapshot> bookDoc = FirebaseFirestore.getInstance().collection("Users")
                         .document(owner_email)
@@ -123,7 +136,7 @@ public class BookReturningView extends BookBase{
                                 if (task.isSuccessful()) {
                                     DocumentSnapshot document = task.getResult();
                                     if (document.exists() & document.getString("ISBN").matches(scanned_isbn)) {
-                                        notifyOwner(book.getId(), user_email, user_name, book.getId());
+                                        notifyOwner(book.getOwner(), user_email, user_name, book.getId());
                                     } else {
                                         Toast.makeText(getContext(), "This book does not belong to the listed owner.",
                                                 Toast.LENGTH_SHORT).show();

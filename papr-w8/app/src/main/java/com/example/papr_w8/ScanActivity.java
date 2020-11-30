@@ -118,6 +118,7 @@ public class ScanActivity extends AppCompatActivity {
                 if (barcodes.size() != 0 ){
                     isbn = barcodes.valueAt(0).displayValue;
 
+
                     // go back to the caller activity and return the ISBN with an intent.
                     Intent intent = new Intent();
                     intent.putExtra("ISBN", isbn);  // isbn is passed back to calling activity in bundle
