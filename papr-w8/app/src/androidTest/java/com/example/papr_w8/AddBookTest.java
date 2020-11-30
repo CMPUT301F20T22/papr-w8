@@ -68,7 +68,15 @@ public class AddBookTest {
         solo.enterText((EditText) solo.getView(R.id.new_isbn_editText), "TEST12345678");
 
         solo.clickOnButton("Add Book");
-        assertTrue(solo.waitForText("Book Added", 1, 7000));
+        assertTrue(solo.waitForText("Book Added", 1, 10000));
+
+        solo.assertCurrentActivity("Wrong Activity", Host.class);
+
+        solo.clickOnButton("Books Owned");
+        assertTrue(solo.waitForText("Test Add Title", 1, 5000));
+        assertTrue(solo.waitForText("Test Add Author", 1, 5000));
+        assertTrue(solo.waitForText("TEST12345678", 1, 5000));
+
     }
 
     /**
