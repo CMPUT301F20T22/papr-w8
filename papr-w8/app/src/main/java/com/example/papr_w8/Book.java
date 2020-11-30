@@ -34,6 +34,7 @@ public class Book implements Serializable {
      */
     public Book(String title, String author, String ISBN, String status, String cover, String owner, String id) {
 
+        
         this.title = title;
         this.author = author;
         this.ISBN = ISBN;
