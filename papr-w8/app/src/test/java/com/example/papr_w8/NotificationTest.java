@@ -3,6 +3,9 @@ package com.example.papr_w8;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Unit tests for Notification class, testing each method
+ */
 public class NotificationTest {
 
     private String senderId = "testSenderID";
@@ -14,6 +17,7 @@ public class NotificationTest {
 
     private Notification mockNotification(){
         Notification notification = new Notification("", "", "","", "");
+        // "test" setter methods
         notification.setSenderId(senderId);
         notification.setType(type);
         notification.setSenderName(senderName);

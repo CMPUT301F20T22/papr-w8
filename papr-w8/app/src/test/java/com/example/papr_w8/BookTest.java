@@ -5,6 +5,9 @@ import com.google.android.gms.maps.model.LatLng;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Unit tests for Book class, testing each getter method
+ */
 public class BookTest {
 
     private String defaultTitle = "Harry Potter";
