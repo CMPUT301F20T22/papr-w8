@@ -11,6 +11,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.papr_w8.R;
 import com.example.papr_w8.User;
 
+/**
+ * Displays profile description of a selected user after it has been retrived from "search"
+ * User can click "done" to go back to search page
+ */
 public class RetrivedProfile extends AppCompatActivity {
 
     private TextView name;
@@ -22,6 +26,7 @@ public class RetrivedProfile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_profile_retrived);
 
+        // retrive the selected user
         Intent intent = this.getIntent();
         Bundle bundle = intent.getExtras();
         User user = (User) bundle.getSerializable("userSelected");
@@ -34,6 +39,7 @@ public class RetrivedProfile extends AppCompatActivity {
         email.setText(user.getEmail());
         address.setText(user.getAddress());
 
+        // Done button to return to search page
         Button doneButton = (Button) findViewById(R.id.doneVU_button);
         doneButton.setOnClickListener(new View.OnClickListener() {
             @Override
