@@ -18,6 +18,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+/**
+ * Allows a user to confirm the deletion of one of their owned books
+ * Allows a user to cancel the deletion of one of their books and return to the shelves page
+ */
+
 public class ConfirmDelete extends Fragment {
     Button deleteConfirm;
     Button cancel;
@@ -37,7 +42,6 @@ public class ConfirmDelete extends Fragment {
         cancel = (Button) view.findViewById(R.id.cancel_deletion);
 
 
-        // ASSERT BOOK AVAILABLE |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
         deleteConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -53,12 +57,6 @@ public class ConfirmDelete extends Fragment {
                 {
                     Toast.makeText(getContext(), "Book Unavailable", Toast.LENGTH_SHORT).show();
                 }
-
-
-
-
-
-
 
                 Intent intent = new Intent(getActivity(), Host.class);
                 startActivity(intent);
