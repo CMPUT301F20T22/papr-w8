@@ -27,12 +27,11 @@ public class ProfileTest{
     @Before
     public void setUp() throws Exception{
         solo = new Solo(InstrumentationRegistry.getInstrumentation(),rule.getActivity());
-        solo.enterText((EditText) solo.getView((R.id.email)), "test@mail.com");
-        solo.enterText((EditText) solo.getView(R.id.password), "something");
+        solo.enterText((EditText) solo.getView((R.id.email)), "mazi@mail.com");
+        solo.enterText((EditText) solo.getView(R.id.password), "test123");
         solo.clickOnButton("Login");
         solo.waitForFragmentById(R.id.fragment);
-        View profile = solo.getView("profile");    //solo.getView("ic_baseline_person_24");
-        solo.clickOnImage(3);
+        View profile = solo.getView("profile");
         solo.clickOnView(profile);
     }
 
@@ -43,9 +42,9 @@ public class ProfileTest{
     @Test
     public void checkInfo(){
         solo.waitForFragmentById(R.id.profile);
-        solo.waitForText("test");
-        solo.waitForText("test@mail.com");
-        solo.waitForText("1234");
+        solo.waitForText("Mazi");
+        solo.waitForText("mazi@mail.com");
+        solo.waitForText("Mazi st, Mazi ave.");
         solo.clickOnButton("Edit Profile");
         solo.assertCurrentActivity("Wrong Activity", EditProfile.class);
     }
