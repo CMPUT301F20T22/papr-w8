@@ -50,7 +50,7 @@ public class EditProfile extends AppCompatActivity {
 
         final TextView username = (TextView) findViewById(R.id.editUsername);
 //        EditText phone = (EditText) findViewById(R.id.phoneEdit);
-        final TextView email = (TextView) findViewById(R.id.editEmail);
+//        final TextView email = (TextView) findViewById(R.id.editEmail);
         final EditText address = (EditText) findViewById(R.id.editAddress);
 
 
@@ -64,7 +64,7 @@ public class EditProfile extends AppCompatActivity {
                     if (doc.exists()) {
                         username.setText(doc.getString("name"));
                         address.setText(doc.getString("address"));
-                        email.setText(user.getEmail());
+//                        email.setText(user.getEmail());
                         Log.d("Sample", "DocumentSnapshot data: " + doc.getData());
                     } else {
                         Log.d("Sample", "No such document");
@@ -79,15 +79,15 @@ public class EditProfile extends AppCompatActivity {
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //final String usernameET = username.getText().toString();
+                final String usernameET = username.getText().toString();
                 //final String emailET = email.getText().toString();
                 final String addressET = address.getText().toString();
 
-                //if (TextUtils.isEmpty(usernameET)) {
-                //username.setError("Invalid username.");
-                //username.requestFocus();
-                //return;
-                //}
+                if (TextUtils.isEmpty(usernameET)) {
+                username.setError("Invalid username.");
+                username.requestFocus();
+                return;
+                }
                 //if (TextUtils.isEmpty(emailET)) {
                 //email.setError("Invalid email.");
                 //email.requestFocus();
@@ -106,7 +106,7 @@ public class EditProfile extends AppCompatActivity {
 
 
                 HashMap<String, Object> user_info = new HashMap<>();
-                //user_info.put("name", usernameET);
+                user_info.put("name", usernameET);
                 //user_info.put("email", emailET);
                 user_info.put("address", addressET);
                 firebaseFirestore.getInstance().collection("Users")
