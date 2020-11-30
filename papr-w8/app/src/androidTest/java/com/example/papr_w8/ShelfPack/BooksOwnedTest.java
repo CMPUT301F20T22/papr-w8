@@ -19,6 +19,12 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
+import static org.junit.Assert.assertTrue;
+
+/**
+ * Test the functionality of the Books owned page
+ */
+
 public class BooksOwnedTest  {
     private Solo solo;
 
@@ -51,12 +57,18 @@ public class BooksOwnedTest  {
         solo.getText("Books Owned", false);
     }
 
+    /**
+     * Confirm the existence of the required listview, click on Listview object
+     */
     @Test
     public void checkListView(){
         //assert booksOwned view
+
         View booksBorrowedView = solo.getView("books_owned");
+        assertTrue(solo.waitForText("Books Owned",1,2000));
         //Check for list of owned books
         View bookOwnedListView = solo.getView("books_owned_list");
+
         //click on list of owned books
         solo.clickOnView(bookOwnedListView);
         solo.assertCurrentActivity("Wrong Activity", Host.class);

@@ -18,6 +18,11 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
+import static org.junit.Assert.assertTrue;
+
+/**
+ * Tests the functionality of the Accepted requests page
+ */
 public class AcceptedRequestsTest  {
     private Solo solo;
 
@@ -50,10 +55,15 @@ public class AcceptedRequestsTest  {
         solo.getText("Accepted", false);
     }
 
+    /**
+     * Confirm the existence of the required listview
+     */
     @Test
     public void checkListView(){
         //assert AcceptedRequests view
+
         View booksAcceptedView = solo.getView("accepted_books");
+        assertTrue(solo.waitForText("Accepted",1,2000));
         //Check for list of borrowed books
         View bookAcceptedListView = solo.getView("books_accepted_list");
         //click on list of borrowed books

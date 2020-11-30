@@ -32,6 +32,9 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+/**
+ * Displays a listview of a users accepted requests
+ */
 
 public class AcceptedRequests extends Fragment {
     public AcceptedRequests(){

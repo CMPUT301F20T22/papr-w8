@@ -1,11 +1,5 @@
 package com.example.papr_w8.ShelfPack;
 
-/**
- * Displays all books owned by a user. Pulls book document from data base
- * Clicking on a book takes you to the description/ actions page
- */
-
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,11 +8,9 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-
 import com.example.papr_w8.Adapters.BookDisplayList;
 import com.example.papr_w8.AddPack.AddBook;
 import com.example.papr_w8.Book;
@@ -32,9 +24,13 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-
 import java.io.Serializable;
 import java.util.ArrayList;
+
+/**
+ * Displays a listview of all books owned by a user
+ * User can click on book to edit its description or delete it
+ */
 
 public class BooksOwned extends Fragment {
 

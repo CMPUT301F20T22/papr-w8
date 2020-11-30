@@ -18,6 +18,11 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
+import static org.junit.Assert.assertTrue;
+
+/**
+ * tests the functionality of the Awaiting approval page
+ */
 public class AwaitingApprovalTest  {
     private Solo solo;
 
@@ -50,10 +55,14 @@ public class AwaitingApprovalTest  {
         solo.getText("Awaiting Approval", false);
     }
 
+    /**
+     * Confirm the existence of the required listview
+     */
     @Test
     public void checkListView(){
         //assert awaiting approval view
         View awaitingApprovalView = solo.getView("awaiting_approval");
+        assertTrue(solo.waitForText("Awaiting Approval",1,2000));
         //Check for list of awaiting approvals
         View awaitingApprovalListView = solo.getView("books_awaiting_list");
         //click on list of borrowed books

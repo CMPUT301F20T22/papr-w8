@@ -18,6 +18,11 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
+import static org.junit.Assert.assertTrue;
+
+/**
+ * Test the functionality of the books borrowed page
+ */
 public class BooksBorrowedTest  {
     private Solo solo;
 
@@ -50,10 +55,15 @@ public class BooksBorrowedTest  {
         solo.getText("Books Borrowed", false);
     }
 
+    /**
+     * Confirm the presence of the required listview
+     */
     @Test
     public void checkListView(){
         //assert booksBorrowed view
+
         View booksBorrowedView = solo.getView("fragment_borrowed");
+        assertTrue(solo.waitForText("Borrowed",1,2000));
         //Check for list of borrowed books
         View bookBorrowedListView = solo.getView("books_borrowed_list");
         //click on list of borrowed books
