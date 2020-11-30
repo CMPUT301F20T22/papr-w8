@@ -23,6 +23,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
@@ -75,7 +79,8 @@ dependencies {
     debugImplementation("androidx.test:rules:1.2.0")
     debugImplementation("androidx.test:runner:1.2.0")
 
-
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.0.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.0.1'
 
 
 }
