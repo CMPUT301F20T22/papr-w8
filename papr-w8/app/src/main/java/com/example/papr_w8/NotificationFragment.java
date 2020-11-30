@@ -134,15 +134,16 @@ public class NotificationFragment extends Fragment {
                         startActivityForResult(confirm_return, SCAN_TO_CONFIRM_RETURN);
                         break;
                 }
-//                FirebaseFirestore.getInstance()
-//                        .collection("Users")
-//                        .document(email)
-//                        .collection("Notifications")
-//                        .document(selected_notification.getNotification_id())
-//                        .delete();
-//                notifications.remove(i);
-//                notification_adapter.notifyDataSetChanged();
 
+            }
+        });
+
+        notification_listview.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                notifications.remove(i);
+                notification_adapter.notifyDataSetChanged();
+                return true;
             }
         });
 
