@@ -15,7 +15,8 @@
         android:layout_marginTop="10dp"
         android:textSize="26dp"
         android:text="Actions"
-        android:contextClickable="true"/>
+        android:contextClickable="true"
+        android:fontFamily="@font/happy_monkey"/>
 
     <View
         android:layout_width="match_parent"
@@ -29,6 +30,8 @@
         android:layout_height="40dp"
         android:layout_marginTop="50dp"
         android:layout_gravity="top|center"
+        android:background="@drawable/button_rounded_deep_purple"
+        android:textColor="@color/cardview_light_background"
         android:text="Return Book" />
 
     <Button
@@ -37,6 +40,7 @@
         android:layout_height="40dp"
         android:layout_marginTop="90dp"
         android:layout_gravity="top|center"
+        android:background="@drawable/button_rounded_light_grey"
         android:text="Cancel" />
 
 

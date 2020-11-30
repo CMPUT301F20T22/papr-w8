@@ -11,4 +11,5 @@
     <color name="mutedRed">#951D04</color>
     <color name="green">#88C51C</color>
     <color name="muted_green">#9EC25F</color>
+    <color name="light_grey">#E0E0E0</color>
 </resources>

@@ -5,20 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Display;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.PopupWindow;
-import android.widget.Toast;
 import android.util.Log;
 
-import com.example.papr_w8.Adapters.NotificationDisplayList;
 import com.example.papr_w8.Book;
 import com.example.papr_w8.Host;
-import com.example.papr_w8.Notification;
-import com.example.papr_w8.ProfilePack.EditProfile;
-import com.example.papr_w8.Book;
 import com.example.papr_w8.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -39,7 +31,6 @@ import com.google.firebase.firestore.GeoPoint;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -124,13 +115,9 @@ public class RequestConfirmView extends AppCompatActivity implements OnMapReadyC
                 setLoc.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(RequestConfirmView.this, "Set location clicked",
-                                Toast.LENGTH_SHORT).show();
 
                         if (bookLoc != null) {
                             pos = bookLoc.getPosition();
-                            Toast.makeText(RequestConfirmView.this, pos.toString(),
-                                    Toast.LENGTH_SHORT).show();
 
                             if (book!=null) {
                                 handleRequests(user.getEmail(), book.getId(), borrower_email, name, book.getTitle(), pos);
@@ -145,8 +132,7 @@ public class RequestConfirmView extends AppCompatActivity implements OnMapReadyC
                                 intent.putExtra(EXTRA_TEXT, "Shelves");
                                 startActivity(intent);
                             }else{
-                                Toast.makeText(RequestConfirmView.this, "Book object is null",
-                                        Toast.LENGTH_SHORT).show();
+                                Log.d("TAG", "Book object is null");
                             }
                         }
                     }
