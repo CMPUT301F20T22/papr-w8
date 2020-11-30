@@ -36,6 +36,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.GeoPoint;
 import com.google.firebase.storage.FirebaseStorage;
 import com.squareup.picasso.Picasso;
 
@@ -55,6 +56,7 @@ public class BookCheckoutView extends Fragment implements OnMapReadyCallback {
     private String book_id;
     private String user_name;
     private Book book;
+    private String user_email;
 
     GoogleMap map;
 
@@ -77,6 +79,30 @@ public class BookCheckoutView extends Fragment implements OnMapReadyCallback {
                 startActivityForResult(intent, SCAN_ISBN_FOR_BORROW);
             }
         });
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        user_email = user.getEmail();
+        Log.d("EMAIL", user_email);
+        Log.d("BOOK ID", book_id);
+
+//        FirebaseFirestore.getInstance().collection("Users")
+//                .document(user_email)
+//                .collection("Books_Accepted")
+//                .document(book_id)
+//                .get()
+//                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//                        if (task.isSuccessful()){
+//                            GeoPoint geoPoint = task.getResult().getGeoPoint("Location");
+//                            Log.d("Location", String.valueOf(geoPoint));
+//                            double latitude = geoPoint.getLatitude();
+//                            double longitude = geoPoint.getLongitude();
+//
+//                        }
+//                    }
+//                });
 
 
         TextView textViewTitle = view.findViewById(R.id.titleEditText);
@@ -125,10 +151,6 @@ public class BookCheckoutView extends Fragment implements OnMapReadyCallback {
 
                 final String owner_email = book.getOwner();
                 final String scanned_isbn = data.getStringExtra("ISBN");
-
-                firebaseAuth = FirebaseAuth.getInstance();
-                final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                final String user_email = user.getEmail();
 
                 FirebaseFirestore.getInstance()
                         .collection("Users")
@@ -212,8 +234,8 @@ public class BookCheckoutView extends Fragment implements OnMapReadyCallback {
     @Override
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
-        LatLng bookLoc = book.getLocation();
-        map.addMarker(new MarkerOptions().position(bookLoc).title("book location"));
-        map.moveCamera(CameraUpdateFactory.newLatLng(bookLoc));
+        LatLng location = new LatLng(book.getLatitude(), book.getLongitude());
+        map.addMarker(new MarkerOptions().position(location).title("book location"));
+        map.moveCamera(CameraUpdateFactory.newLatLng(location));
     }
 }

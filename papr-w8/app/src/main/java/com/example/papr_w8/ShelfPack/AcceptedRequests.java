@@ -77,12 +77,12 @@ public class AcceptedRequests extends Fragment {
                                         document.getString("Book Cover"), document.getString("Owner"));
                                 temp.setOwner(document.getString("Owner"));
                                 temp.setId(document.getId());
-                                Log.d("MyTag", document.getString("Owner"));
                                 GeoPoint geoPoint = document.getGeoPoint("Location");
                                 double latitude = geoPoint.getLatitude();
                                 double longitude = geoPoint.getLongitude();
-                                LatLng location = new LatLng(latitude, longitude);
-                                temp.setLocation(location);
+                                temp.setLatitude(latitude);
+                                temp.setLongitude(longitude);
+                                Log.d("MyTag", document.getString("Owner"));
 
                                 // add the book to the data list
                                 acceptedBookDataList.add(temp);
