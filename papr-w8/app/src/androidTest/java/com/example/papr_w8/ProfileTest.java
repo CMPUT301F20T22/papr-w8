@@ -18,6 +18,9 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+/**
+ * Tests the profile activity functionality
+ */
 public class ProfileTest{
     private Solo solo;
 
