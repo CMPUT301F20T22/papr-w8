@@ -3,6 +3,7 @@ package com.example.papr_w8.BookView;
 import android.app.Activity;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.test.platform.app.InstrumentationRegistry;
@@ -21,7 +22,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class BookReturningViewTest {
+public class BookAwaitingApprovalTest {
 
     private Solo solo;
 
@@ -51,8 +52,7 @@ public class BookReturningViewTest {
         solo.waitForFragmentById(R.id.shelves);
 
         // Go to books owned fragment
-        solo.clickOnButton("Books Borrowed");
-
+        solo.clickOnButton("Awaiting Approval");
         solo.clickInList(0);
     }
 
@@ -63,7 +63,7 @@ public class BookReturningViewTest {
     @Test
     public void checkFragment() throws Exception {
 
-        solo.waitForFragmentById(R.id.book_returning);
+        solo.waitForFragmentById(R.id.fragment_book_base);
 
     }
 
@@ -79,39 +79,14 @@ public class BookReturningViewTest {
         final TextView isbnView = (TextView) solo.getView(R.id.isbnEditText);
         final TextView statusView = (TextView) solo.getView(R.id.statusEditText);
         final TextView ownerView = (TextView) solo.getView(R.id.ownerEditText);
+        final ImageView coverView = (ImageView) solo.getView(R.id.book_base_cover);
 
-        assertEquals("A Clockwork Orange", titleView.getText().toString());
-        assertEquals("Anthony Burgess", authorView.getText().toString());
-        assertEquals("Borrowed", statusView.getText().toString());
-        assertEquals("9780393341768", isbnView.getText().toString());
+        assertEquals("The Handmaid's Tale", titleView.getText().toString());
+        assertEquals("Margaret Atwood", authorView.getText().toString());
+        assertEquals("Requested", statusView.getText().toString());
+        assertEquals("9781480560109", isbnView.getText().toString());
         assertEquals("mazi@mail.com", ownerView.getText().toString());
-
-    }
-
-
-    /**
-     * Check that the cancel button returns the fragment to the host page
-     * @throws Exception
-     */
-    @Test
-    public void checkCancel() throws Exception {
-
-        solo.clickOnButton("Cancel");
-        solo.waitForFragmentById(R.id.fragment);
-
-    }
-
-    /**
-     * Check that the return button opens the scan activity
-     * @throws Exception
-     */
-    @Test
-    public void checkReturn() throws Exception {
-
-        solo.clickOnButton("Return Book");
-
-        Activity activity = rule.getActivity();
-        solo.assertCurrentActivity("Wrong Activity", ScanActivity.class);
+        assertEquals(true, coverView.isShown());
 
     }
 
