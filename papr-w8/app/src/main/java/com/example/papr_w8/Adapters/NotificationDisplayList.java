@@ -18,6 +18,10 @@ import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
+/**
+ * Adapter to display the Notifications list
+ */
+
 public class NotificationDisplayList extends ArrayAdapter<Notification> {
     private Context context;
     private ArrayList<Notification> notifications;
