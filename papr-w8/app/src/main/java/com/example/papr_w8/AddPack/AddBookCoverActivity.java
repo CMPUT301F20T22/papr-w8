@@ -14,7 +14,7 @@ import com.squareup.picasso.Picasso;
 
 /**
  * AddBookCoverActivity is for choosing and confirms a book cover
- * image is chosen from the user's phone storage
+ * image is chosen from the user's phone storage and returned though a bundle to AddBook activity
  */
 public class AddBookCoverActivity extends AppCompatActivity {
 
@@ -24,6 +24,11 @@ public class AddBookCoverActivity extends AppCompatActivity {
     private ImageView imageView;
     private Uri imageUri;
 
+    /**
+     * onCreate starts the code for adding a book cover functionality
+     * contains functionality for chooseFile and Confirm button
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,14 +38,15 @@ public class AddBookCoverActivity extends AppCompatActivity {
         Button confirmImage = findViewById(R.id.confirm_coverbutton);
         imageView = findViewById(R.id.cover_imageview);
 
-
+        // onClickListener for choosing a file
         chooseFile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 fileChooser();
             }
-        }); // onClickListener for choosing a file
+        });
 
+        // onClickListener for confirming the selected image
         confirmImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {  // onClickListener for confirming a file

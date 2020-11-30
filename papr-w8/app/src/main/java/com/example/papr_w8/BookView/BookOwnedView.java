@@ -11,9 +11,6 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.papr_w8.AddPack.EditBook;
 import com.example.papr_w8.R;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 /**
  * This is a Fragment that displays the view of a book description for a book owned by a user
@@ -27,6 +24,12 @@ public class BookOwnedView extends BookBase {
         setRetainInstance(true);
     }
 
+    /**
+     * This override method will provide a fragment that will be display the book
+     * description.
+     * @param baseView
+     * @param container
+     */
     @Override
     public void provideYourFragmentView(final View baseView, ViewGroup container){
         setRetainInstance(true);
