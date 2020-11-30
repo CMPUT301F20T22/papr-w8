@@ -16,6 +16,9 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;
 
+/**
+ * Tests the Edit Profile activity functionality
+ */
 public class EditProfileTest {
     private Solo solo;
 
