@@ -49,6 +49,7 @@ public class Profile extends Fragment {
         // get all the TextView
         final TextView email = (TextView)view.findViewById(R.id.email);
         final TextView address = (TextView)view.findViewById(R.id.address);
+//        final TextView phone = (TextView)view.findViewById(R.id.phone);
         Button edit = (Button)view.findViewById(R.id.edit_profile_button);
         Button logout = (Button)view.findViewById(R.id.logout_button);
 
@@ -61,6 +62,7 @@ public class Profile extends Fragment {
                         name.setText(doc.getString("name"));
                         address.setText(doc.getString("address"));
                         email.setText(user.getEmail());
+//                        phone.setText(doc.getString("address"));
                         Log.d("Sample", "DocumentSnapshot data: " + doc.getData());
                     } else {
                         Log.d("Sample", "No such document");
